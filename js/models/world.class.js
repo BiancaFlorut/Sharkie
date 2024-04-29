@@ -2,7 +2,12 @@ class World {
     ctx;
     sharkie = new Character();
     enemies = [new PufferFish(), new PufferFish(), new PufferFish()];
-    backgrounds = [new Water("../img/3. Background/Layers/5. Water/L1.png"), new Light()];
+    backgrounds = [
+        new Background("../img/3. Background/Layers/5. Water/L1.png", 0, 0 , 720, 480), 
+        new Background("img/3. Background/Layers/4.Fondo 2/L1.png", 0, 0, 720, 480), 
+        new Background("img/3. Background/Layers/3.Fondo 1/L1.png", 0, 0, 720, 480) ,
+        new Background("img/3. Background/Layers/2. Floor/L1.png    ", 0, 0, 720, 480) ,
+        new Light()];
 
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
@@ -13,7 +18,7 @@ class World {
         this.drawObjects(this.backgrounds);
         this.addToWorld(this.sharkie);
         this.drawObjects(this.enemies);
-        
+
         let self = this;
         requestAnimationFrame(() => self.draw());
     }
