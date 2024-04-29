@@ -30,6 +30,7 @@ class Character extends MovableObject {
     "../../img/1.Sharkie/3.Swim/5.png",
     "../../img/1.Sharkie/3.Swim/6.png",
   ];
+  SWIM_AUDIO = new Audio("../../audio/bubbles.mp3");
   world;
 
   constructor() {
@@ -40,15 +41,26 @@ class Character extends MovableObject {
 
   animate() {
     setInterval(() => {
-      if (this.world.keyboard.RIGHT) {
+      this.SWIM_AUDIO.pause();
+      if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.x += this.speed;
         this.otherDirection = false;
+        this.SWIM_AUDIO.play();
       }
-      if (this.world.keyboard.LEFT) {
+      if (this.world.keyboard.LEFT && this.x > 0) {
         this.x -= this.speed;
         this.otherDirection = true;
+        this.SWIM_AUDIO.play();
       }
-      this.world.camera_x = -this.x;
+      if (this.world.keyboard.UP && this.y > 0) {
+        this.y -= this.speed;
+        this.SWIM_AUDIO.play();
+      }
+      if (this.world.keyboard.DOWN && this.y < this.world.height - this.height) {
+        this.y += this.speed;
+        this.SWIM_AUDIO.play();
+      }
+      this.world.camera_x = -this.x + 60;
     }, 1000 / 60);
     setInterval(() => {
       if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {

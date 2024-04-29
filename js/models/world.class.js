@@ -1,10 +1,10 @@
 class World {
     ctx;
     sharkie = new Character();
-    enemies = LEVEL1.enemies;
-    backgrounds = LEVEL1.backgrounds;
+    level = LEVEL1;
     keyboard;
     camera_x = 0;
+    height = 480;
 
     constructor(canvas, keyboard) {
         this.keyboard = keyboard;
@@ -20,9 +20,9 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         this.ctx.translate(this.camera_x, 0);
-        this.drawObjects(this.backgrounds);
+        this.drawObjects(this.level.backgrounds);
         this.addToWorld(this.sharkie);
-        this.drawObjects(this.enemies);
+        this.drawObjects(this.level.enemies);
         this.ctx.translate(-this.camera_x, 0);
 
         let self = this;
