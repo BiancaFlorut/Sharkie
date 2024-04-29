@@ -2,15 +2,21 @@ class Light extends MovableObject {
   y = 0;
   width = 720;
   height = 400;
+  speed = 1;
   
 
-  constructor() {
-    super().loadImg("img/3. Background/Layers/1. Light/1.png");
-    this.x = Math.random() * 400;
+  constructor(src, x, y, width, height) {
+    super().loadImg(src);
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
     this.animate();
   }
 
   animate() {
-    this.moveLeft();
+    setInterval(() => {
+      this.moveLeft();
+    }, 1000 / 60);
   }
 }

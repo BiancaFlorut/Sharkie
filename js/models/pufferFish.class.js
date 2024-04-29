@@ -1,4 +1,4 @@
-class PufferFish extends Enemy {
+class PufferFish extends MovableObject {
     width = 80;
     height = 80;
     IMGS_IDLE = [
@@ -9,6 +9,8 @@ class PufferFish extends Enemy {
         '../../img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim5.png'
     ];
     speed = 0.35;
+    distance;
+    MAX_DISTANCE = 700;
 
     constructor() {
         super().loadImg('img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png');
@@ -16,14 +18,33 @@ class PufferFish extends Enemy {
         this.x = 200 + Math.random() * 400;
         this.y = Math.random() * 400;
         this.speed = 0.15 + Math.random() / 0.4;
+        this.MAX_DISTANCE = this.x - Math.random() * 200;
+        this.distance = this.MAX_DISTANCE;
         this.animate();
     }
 
     animate() {
-        this.moveLeft();
         setInterval(() => {
-            this.img = this.imgCache[this.IMGS_IDLE[this.currentImg]];
-            this.currentImg = ++this.currentImg % this.IMGS_IDLE.length;
+            if (this.otherDirection) {
+                this.moveRight();
+                this.distance += this.speed;
+            }
+            else {
+                this.moveLeft();
+                this.distance -= this.speed;
+            }
+            if (this.distance < 0) {
+                this.distance = this.x - Math.random() * 200;
+                this.otherDirection = true;
+            }
+            if (this.distance > this.MAX_DISTANCE) {
+                this.distance = this.MAX_DISTANCE;
+                this.otherDirection = false;
+            }
+        }, 1000 / 60)
+        
+        setInterval(() => {
+            this.playAnimation(this.IMGS_IDLE);
         }, 100);
 
     }

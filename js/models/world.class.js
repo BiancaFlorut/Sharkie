@@ -37,22 +37,12 @@ class World {
 
     addToWorld(movableObject) {
         if (movableObject.otherDirection) {
-            this.flipObject(movableObject);
+            movableObject.flipObject(this.ctx);
         }
-        this.ctx.drawImage(movableObject.img, movableObject.x, movableObject.y, movableObject.width, movableObject.height);
+        movableObject.draw(this.ctx);
+        movableObject.drawFrame(this.ctx);
         if (movableObject.otherDirection) {
-            this.flipObjectBack(movableObject);
+            movableObject.flipObjectBack(this.ctx);
         }
-    }
-
-    flipObject(movableObject){
-        this.ctx.save();
-            this.ctx.translate(movableObject.width, 0);
-            this.ctx.scale(-1, 1); 
-            movableObject.x = movableObject.x * -1;
-    }
-    flipObjectBack(movableObject){
-        this.ctx.restore();
-        movableObject.x = movableObject.x * -1;
     }
 }
