@@ -8,7 +8,7 @@ class StatusBar  extends Drawable {
         "../../img/4. Marcadores/orange/Life/100.png"
     ];
     percentage = 100;
-    x = 10;
+    x = 0;
     y = 0;
     width = 150;
     height = 50;

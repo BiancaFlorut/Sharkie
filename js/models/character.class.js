@@ -95,7 +95,6 @@ class Character extends MovableObject {
   }
 
   animate() {
-    console.log(this.world);
     setStoppableInterval(() => {
       this.SWIM_AUDIO.pause();
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {

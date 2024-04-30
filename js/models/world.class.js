@@ -6,6 +6,7 @@ class World {
   camera_x = 0;
   height = 480;
   lifeBar = new StatusBar();
+  bubblesBar = new StatusBar();
 
   constructor(canvas, keyboard) {
     this.keyboard = keyboard;
@@ -84,7 +85,6 @@ class World {
     for (let bubble of this.level.bubbles) {
       this.level.enemies.forEach((enemy) => {
         if (enemy.isColliding(bubble)) {
-            console.log(enemy,"hit");
           enemy.hit();
           bubble.hit();
         }

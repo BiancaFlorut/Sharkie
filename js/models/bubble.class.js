@@ -13,4 +13,15 @@ class Bubble extends Throwable {
         this.applyAntiGravity();
         this.AUDIO.play();
     }
+
+    hit() {
+        this.energy = 0;
+        this.height = 0;
+        this.width = 0;
+    }
+
+    die() {
+        this.AUDIO.pause();
+        this.de
+    }
 }
