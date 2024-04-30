@@ -43,6 +43,26 @@ class Character extends MovableObject {
     "../../img/1.Sharkie/4.Attack/Fin slap/6.png",
     "../../img/1.Sharkie/4.Attack/Fin slap/7.png",
     "../../img/1.Sharkie/4.Attack/Fin slap/8.png"
+  ];
+  IMGS_DIE_POISONED = [
+    "../../img/1.Sharkie/6.dead/1.Poisoned/1.png",
+    "../../img/1.Sharkie/6.dead/1.Poisoned/2.png",
+    "../../img/1.Sharkie/6.dead/1.Poisoned/3.png",
+    "../../img/1.Sharkie/6.dead/1.Poisoned/4.png",
+    "../../img/1.Sharkie/6.dead/1.Poisoned/5.png",
+    "../../img/1.Sharkie/6.dead/1.Poisoned/6.png",
+    "../../img/1.Sharkie/6.dead/1.Poisoned/7.png",
+    "../../img/1.Sharkie/6.dead/1.Poisoned/8.png",
+    "../../img/1.Sharkie/6.dead/1.Poisoned/9.png",
+    "../../img/1.Sharkie/6.dead/1.Poisoned/10.png",
+    "../../img/1.Sharkie/6.dead/1.Poisoned/11.png",
+    "../../img/1.Sharkie/6.dead/1.Poisoned/12.png"
+  ];
+  IMGS_HURT_POISONED = [
+    "../../img/1.Sharkie/5.Hurt/1.Poisoned/1.png",
+    "../../img/1.Sharkie/5.Hurt/1.Poisoned/2.png",
+    "../../img/1.Sharkie/5.Hurt/1.Poisoned/3.png",
+    "../../img/1.Sharkie/5.Hurt/1.Poisoned/4.png"
   ]
   SWIM_AUDIO = new Audio("../../audio/bubbles.mp3");
   SLAP_AUDIO = new Audio("../../audio/slap.mp3");
@@ -53,6 +73,8 @@ class Character extends MovableObject {
     this.loadImgs(this.IMGS_IDLE);
     this.loadImgs(this.IMGS_SWIM);
     this.loadImgs(this.IMGS_SLAP);
+    this.loadImgs(this.IMGS_HURT_POISONED);
+    this.loadImgs(this.IMGS_DIE_POISONED);
     this.applyGravity();
     this.animate();
   }
@@ -84,15 +106,19 @@ class Character extends MovableObject {
       this.world.camera_x = -this.x + 60;
     }, 1000 / 60);
     setInterval(() => {
-      if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+      if (this.world.keyboard.SPACE) {
+        this.playAnimation(this.IMGS_SLAP);
+      } if (this.isDead()) {
+        this.playAnimation(this.IMGS_DIE_POISONED);
+      }
+      else if (this.isHurt()) {
+        this.playAnimation(this.IMGS_HURT_POISONED);
+      }
+      else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
         this.playAnimation(this.IMGS_SWIM);
         if (this.world.keyboard.SPACE) 
           this.playAnimation(this.IMGS_SLAP);
-      } else
-      if (this.world.keyboard.SPACE) {
-        this.playAnimation(this.IMGS_SLAP);
-      }
-      else {
+      }else {
         this.playAnimation(this.IMGS_IDLE);
       }
     }, 100);
