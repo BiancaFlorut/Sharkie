@@ -36,5 +36,9 @@ const LEVEL1 = new Level([
     new Background("../img/3. Background/Layers/3.Fondo 1/L2.png", 3*720, 0, 720, 480),
     new Background("../img/3. Background/Layers/2. Floor/L2.png", 3*720, 0, 720, 480),
     new Light("img/3. Background/Layers/1. Light/2.png", 3*720, 0, 720, 480)
+],
+
+bubbles = [
+    new Throwable(),
 ]
 );

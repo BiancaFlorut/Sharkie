@@ -23,11 +23,13 @@ class World {
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     this.ctx.translate(this.camera_x, 0);
     this.drawObjects(this.level.backgrounds);
+
     this.ctx.translate(-this.camera_x, 0);
     this.addToWorld(this.lifeBar);
     this.ctx.translate(this.camera_x, 0);
     this.drawObjects(this.level.enemies);
     this.addToWorld(this.sharkie);
+    this.drawObjects(this.level.bubbles);
     this.ctx.translate(-this.camera_x, 0);
     let self = this;
     requestAnimationFrame(() => self.draw());
@@ -55,6 +57,7 @@ class World {
         for (let enemy of this.level.enemies){
             if (this.sharkie.isColliding(enemy)) {
                 this.sharkie.hit();
+                this.lifeBar.setPercentage(this.sharkie.energy);
             }
         }
     }, 200);

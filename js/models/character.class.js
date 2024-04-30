@@ -93,11 +93,11 @@ class Character extends MovableObject {
         this.otherDirection = true;
         this.SWIM_AUDIO.play();
       }
-      if (this.world.keyboard.UP && this.y > 0) {
+      if (this.world.keyboard.UP && this.y > -75) {
         this.y -= this.speed + 1;
         this.SWIM_AUDIO.play();
       }
-      if (this.world.keyboard.DOWN && this.y < 200) {
+      if (this.world.keyboard.DOWN && this.y < 350) {
         this.y += this.speed;
         this.SWIM_AUDIO.play();
       }
