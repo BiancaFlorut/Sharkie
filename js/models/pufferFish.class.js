@@ -1,6 +1,10 @@
-class PufferFish extends MovableObject {
+class PufferFish extends Enemy {
     width = 80;
     height = 80;
+    offsetYTop = 8;
+    offsetYBottom = 25;
+    offsetXLeft = 5;
+    offsetXRight = 5;
     IMGS_IDLE = [
         '../../img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png',
         '../../img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim2.png',

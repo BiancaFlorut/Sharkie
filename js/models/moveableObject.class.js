@@ -3,6 +3,11 @@ class MovableObject {
   y = 40;
   height = 100;
   width = 150;
+  offsetYTop = 0;
+  offsetYBottom = 0;
+  offsetXLeft = 0;
+  offsetXRight = 0;
+  off
   img;
   imgCache = {};
   currentImg = 0;
@@ -27,11 +32,13 @@ class MovableObject {
   }
 
   drawFrame(ctx) {
-    ctx.beginPath();
-    ctx.lineWidth = '5';
-    ctx.strokeStyle = 'blue';
-    ctx.rect(this.x, this.y, this.width, this.height);
-    ctx.stroke();
+    if (this instanceof Character || this instanceof Enemy) {
+      ctx.beginPath();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "green";
+      ctx.rect(this.x + this.offsetXLeft, this.y + this.offsetYTop, this.width - this.offsetXRight - this.offsetXLeft, this.height - this.offsetYTop - this.offsetYBottom);
+      ctx.stroke();
+    }
   }
 
   moveRight() {
@@ -59,14 +66,21 @@ class MovableObject {
     return this.y < 300;
   }
 
-  flipObject(ctx){
+  flipObject(ctx) {
     ctx.save();
-        ctx.translate(this.width, 0);
-        ctx.scale(-1, 1); 
-        this.x = this.x * -1;
-}
-flipObjectBack(ctx){
+    ctx.translate(this.width, 0);
+    ctx.scale(-1, 1);
+    this.x = this.x * -1;
+  }
+  flipObjectBack(ctx) {
     ctx.restore();
     this.x = this.x * -1;
-}
+  }
+
+  isColliding(otherObject) {
+    return  (this.x + this.width - this.offsetXRight) >= (otherObject.x + otherObject.offsetXLeft) && 
+            this.x <= (otherObject.x + otherObject.width - otherObject.offsetXRight) && 
+            (this.y + this.height - this.offsetYBottom) >= (otherObject.y + otherObject.offsetYTop) &&
+            (this.y + this.offsetYTop) <= (otherObject.y + otherObject.height - otherObject.offsetYBottom);
+  }
 }

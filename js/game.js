@@ -5,12 +5,9 @@ let keyboard = new Keyboard();
 function init () {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-    console.log(world.sharkie);
-    
 }
 
 document.addEventListener('keydown', (event) => {
-    console.log(event);
     switch(event.code){
         case 'ArrowLeft': keyboard.LEFT = true; break;
         case 'ArrowRight': keyboard.RIGHT = true; break;
