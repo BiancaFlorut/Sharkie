@@ -66,6 +66,7 @@ class Character extends MovableObject {
   ]
   SWIM_AUDIO = new Audio("../../audio/bubbles.mp3");
   SLAP_AUDIO = new Audio("../../audio/slap.mp3");
+  HURT_AUDIO = new Audio("../../audio/groan.mp3");
   world;
 
   constructor() {
@@ -113,6 +114,7 @@ class Character extends MovableObject {
       }
       else if (this.isHurt()) {
         this.playAnimation(this.IMGS_HURT_POISONED);
+        this.HURT_AUDIO.play();
       }
       else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
         this.playAnimation(this.IMGS_SWIM);
