@@ -6,7 +6,6 @@ class World {
   camera_x = 0;
   height = 480;
   lifeBar = new StatusBar();
-  
 
   constructor(canvas, keyboard) {
     this.keyboard = keyboard;
@@ -55,7 +54,8 @@ class World {
   run() {
     setStoppableInterval(() => {
       this.checkCollisions();
-      this.checkThrowableObjects();
+      this.createThrowableObjects();
+      this.checkThrowableObjectsCollisions();
     }, 300);
   }
 
@@ -68,7 +68,7 @@ class World {
     }
   }
 
-  checkThrowableObjects() {
+  createThrowableObjects() {
     if (this.keyboard.Y) {
       let bubble = new Bubble(this.sharkie.x + 100, this.sharkie.y + 80);
       bubble.otherDirection = false;
@@ -77,6 +77,18 @@ class World {
         bubble.otherDirection = true;
       }
       this.level.bubbles.push(bubble);
+    }
+  }
+
+  checkThrowableObjectsCollisions() {
+    for (let bubble of this.level.bubbles) {
+      this.level.enemies.forEach((enemy) => {
+        if (enemy.isColliding(bubble)) {
+            console.log(enemy,"hit");
+          enemy.hit();
+          bubble.hit();
+        }
+      });
     }
   }
 }
