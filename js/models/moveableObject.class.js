@@ -25,6 +25,13 @@ class MovableObject extends Drawable {
     }, 1000 / 25);
   }
 
+  applyAntiGravity() {
+    setInterval(() => {
+        this.y -= this.speedY;
+        this.x += Math.random() * 15;
+    }, 1000 / 25);
+  }
+
   isOverTheGround() {
     return this.y < 300;
   }

@@ -38,7 +38,5 @@ const LEVEL1 = new Level([
     new Light("img/3. Background/Layers/1. Light/2.png", 3*720, 0, 720, 480)
 ],
 
-bubbles = [
-    new Throwable(),
-]
+bubbles = []
 );

@@ -12,7 +12,7 @@ class World {
     this.ctx = canvas.getContext("2d");
     this.draw();
     this.setWorld();
-    this.checkCollisions();
+    this.run();
   }
 
   setWorld() {
@@ -22,20 +22,20 @@ class World {
   draw() {
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     this.ctx.translate(this.camera_x, 0);
-    this.drawObjects(this.level.backgrounds);
+    this.addObjectsToWorld(this.level.backgrounds);
 
     this.ctx.translate(-this.camera_x, 0);
     this.addToWorld(this.lifeBar);
     this.ctx.translate(this.camera_x, 0);
-    this.drawObjects(this.level.enemies);
+    this.addObjectsToWorld(this.level.enemies);
     this.addToWorld(this.sharkie);
-    this.drawObjects(this.level.bubbles);
+    this.addObjectsToWorld(this.level.bubbles);
     this.ctx.translate(-this.camera_x, 0);
     let self = this;
     requestAnimationFrame(() => self.draw());
   }
 
-  drawObjects(objects) {
+  addObjectsToWorld(objects) {
     objects.forEach((object) => {
       this.addToWorld(object);
     });
@@ -52,15 +52,25 @@ class World {
     }
   }
 
-  checkCollisions() {
+  run() {
     setInterval(() => {
-        for (let enemy of this.level.enemies){
-            if (this.sharkie.isColliding(enemy)) {
-                this.sharkie.hit();
-                this.lifeBar.setPercentage(this.sharkie.energy);
-            }
-        }
+      this.checkCollisions();
+      this.checkThrowableObjects();
     }, 200);
-      
+  }
+
+  checkCollisions() {
+    for (let enemy of this.level.enemies) {
+      if (this.sharkie.isColliding(enemy)) {
+        this.sharkie.hit();
+        this.lifeBar.setPercentage(this.sharkie.energy);
+      }
+    }
+  }
+  checkThrowableObjects() {
+    if (this.keyboard.Y) {
+        let bubble = new Bubble(this.sharkie.x + 100, this.sharkie.y + 80);
+        this.level.bubbles.push(bubble);
+    }
   }
 }

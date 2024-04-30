@@ -14,7 +14,7 @@ document.addEventListener('keydown', (event) => {
         case 'ArrowUp': keyboard.UP = true; break;
         case 'ArrowDown': keyboard.DOWN = true; break;
         case 'Space': keyboard.SPACE = true; break;
-        case 'KeyY': keyboard.Y = true; break;
+        case 'KeyZ': keyboard.Y = true; break;
     }
 });
 
@@ -25,6 +25,6 @@ document.addEventListener('keyup', (event) => {
         case 'ArrowUp': keyboard.UP = false; break;
         case 'ArrowDown': keyboard.DOWN = false; break;
         case 'Space': keyboard.SPACE = false; break;
-        case 'KeyY': keyboard.Y = false; break;
+        case 'KeyZ': keyboard.Y = false; break;
     }
 })
