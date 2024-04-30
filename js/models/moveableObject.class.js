@@ -14,6 +14,7 @@ class MovableObject {
   speed = 0.15;
   otherDirection = false;
   speedY = -1;
+  energy = 100;
 
   loadImg(src) {
     this.img = new Image();
@@ -82,5 +83,16 @@ class MovableObject {
             this.x <= (otherObject.x + otherObject.width - otherObject.offsetXRight) && 
             (this.y + this.height - this.offsetYBottom) >= (otherObject.y + otherObject.offsetYTop) &&
             (this.y + this.offsetYTop) <= (otherObject.y + otherObject.height - otherObject.offsetYBottom);
+  }
+
+  hit() {
+    this.energy -= 5;
+    if (this.energy <= 0) {
+      this.energy = 0;
+    }
+  }
+
+  isDead() {
+      return this.energy <= 0;
   }
 }
