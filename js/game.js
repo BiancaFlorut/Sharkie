@@ -2,6 +2,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 const AUDIO = new Audio("./audio/game-music-loop.mp3");
+intervalIds = [];
 
 function init () {
     canvas = document.getElementById('canvas');
@@ -31,4 +32,12 @@ document.addEventListener('keyup', (event) => {
         case 'Space': keyboard.SPACE = false; break;
         case 'KeyZ': keyboard.Y = false; break;
     }
-})
+});
+
+function setStoppableInterval(callback, time) {
+    intervalIds.push(setInterval(callback, time));
+  }
+
+  function stopGame() {
+    intervalIds.forEach(clearInterval);
+  }

@@ -1,17 +1,18 @@
 class World {
   ctx;
-  sharkie = new Character();
   level = LEVEL1;
+  sharkie = new Character();
   keyboard;
   camera_x = 0;
   height = 480;
   lifeBar = new StatusBar();
+  
 
   constructor(canvas, keyboard) {
     this.keyboard = keyboard;
+    this.setWorld();
     this.ctx = canvas.getContext("2d");
     this.draw();
-    this.setWorld();
     this.run();
   }
 
@@ -52,10 +53,10 @@ class World {
   }
 
   run() {
-    setInterval(() => {
+    setStoppableInterval(() => {
       this.checkCollisions();
       this.checkThrowableObjects();
-    }, 200);
+    }, 300);
   }
 
   checkCollisions() {
@@ -66,15 +67,16 @@ class World {
       }
     }
   }
+
   checkThrowableObjects() {
     if (this.keyboard.Y) {
-        let bubble = new Bubble(this.sharkie.x + 100, this.sharkie.y + 80);
-        bubble.otherDirection = false;
-        if (this.sharkie.otherDirection) {
-            bubble = new Bubble(this.sharkie.x, this.sharkie.y + 80);
-            bubble.otherDirection = true;
-        }
-        this.level.bubbles.push(bubble);
+      let bubble = new Bubble(this.sharkie.x + 100, this.sharkie.y + 80);
+      bubble.otherDirection = false;
+      if (this.sharkie.otherDirection) {
+        bubble = new Bubble(this.sharkie.x, this.sharkie.y + 80);
+        bubble.otherDirection = true;
+      }
+      this.level.bubbles.push(bubble);
     }
   }
 }
