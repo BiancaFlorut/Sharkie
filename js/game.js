@@ -1,10 +1,14 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+const AUDIO = new Audio("./audio/game-music-loop.mp3");
 
 function init () {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+    AUDIO.loop = true;
+    AUDIO.volume = 0.4;
+    AUDIO.play();
 }
 
 document.addEventListener('keydown', (event) => {

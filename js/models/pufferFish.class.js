@@ -22,7 +22,7 @@ class PufferFish extends Enemy {
         this.x = 200 + Math.random() * 400;
         this.y = Math.random() * 400;
         this.speed = 0.15 + Math.random() / 0.4;
-        this.MAX_DISTANCE = this.x - Math.random() * 200;
+        this.MAX_DISTANCE = 200 + Math.random() * 500;
         this.distance = this.MAX_DISTANCE;
         this.animate();
     }

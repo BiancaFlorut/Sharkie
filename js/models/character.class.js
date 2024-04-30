@@ -67,6 +67,7 @@ class Character extends MovableObject {
   SWIM_AUDIO = new Audio("../../audio/bubbles.mp3");
   SLAP_AUDIO = new Audio("../../audio/slap.mp3");
   HURT_AUDIO = new Audio("../../audio/groan.mp3");
+  
   world;
 
   constructor() {
@@ -77,6 +78,9 @@ class Character extends MovableObject {
     this.loadImgs(this.IMGS_HURT_POISONED);
     this.loadImgs(this.IMGS_DIE_POISONED);
     this.applyGravity();
+    this.HURT_AUDIO.volume = 0.03;
+    this.SLAP_AUDIO.volume = 0.03;
+    this.SWIM_AUDIO.volume = 0.06;
     this.animate();
   }
 

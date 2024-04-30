@@ -23,7 +23,6 @@ class World {
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToWorld(this.level.backgrounds);
-
     this.ctx.translate(-this.camera_x, 0);
     this.addToWorld(this.lifeBar);
     this.ctx.translate(this.camera_x, 0);
@@ -70,6 +69,11 @@ class World {
   checkThrowableObjects() {
     if (this.keyboard.Y) {
         let bubble = new Bubble(this.sharkie.x + 100, this.sharkie.y + 80);
+        bubble.otherDirection = false;
+        if (this.sharkie.otherDirection) {
+            bubble = new Bubble(this.sharkie.x, this.sharkie.y + 80);
+            bubble.otherDirection = true;
+        }
         this.level.bubbles.push(bubble);
     }
   }

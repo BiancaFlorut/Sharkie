@@ -28,7 +28,9 @@ class MovableObject extends Drawable {
   applyAntiGravity() {
     setInterval(() => {
         this.y -= this.speedY;
-        this.x += Math.random() * 15;
+        if (this.otherDirection) {
+            this.x -= Math.random() * 15;
+        } else this.x += Math.random() * 15;
     }, 1000 / 25);
   }
 
