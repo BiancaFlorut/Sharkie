@@ -22,7 +22,7 @@ class PufferFish extends Enemy {
   constructor() {
     super().loadImg("img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png");
     this.loadImgs(this.IMGS_IDLE);
-    this.x = 200 + Math.random() * 400;
+    this.x = 400 + Math.random() * 400;
     this.y = Math.random() * 400;
     this.speed = 0.15 + Math.random() / 0.4;
     this.MAX_DISTANCE = 200 + Math.random() * 500;
@@ -36,11 +36,14 @@ class PufferFish extends Enemy {
         this.moveRight();
         this.distance += this.speed;
       } else {
-        this.moveLeft();
+        if (this.x > 200) {
+            this.moveLeft();
         this.distance -= this.speed;
+        }
+        else this.otherDirection = true;
       }
       if (this.distance < 0) {
-        this.distance = this.x - Math.random() * 200;
+        this.distance = this.x + Math.random() * 200;
         this.otherDirection = true;
       }
       if (this.distance > this.MAX_DISTANCE) {

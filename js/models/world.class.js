@@ -68,7 +68,6 @@ class World {
             this.sharkie.hit();
         this.lifeBar.setPercentage(this.sharkie.energy);
         }
-        
       }
     }
   }
