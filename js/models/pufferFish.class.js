@@ -13,9 +13,11 @@ class PufferFish extends Enemy {
     "../../img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim5.png",
   ];
   IMGS_DIE = ["../../img/2.Enemy/1.Puffer fish (3 color options)/4.DIE/1.Dead 1 (can animate by going up).png"];
+  IMGS_SLAP_DIE = ["../../img/2.Enemy/1.Puffer fish (3 color options)/4.DIE/1.Dead 3 (can animate by going down to the floor after the Fin Slap attack).png"];
   speed = 0.35;
   distance;
   MAX_DISTANCE = 700;
+  slapped = false;
 
   constructor() {
     super().loadImg("img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png");
@@ -48,9 +50,12 @@ class PufferFish extends Enemy {
     }, 1000 / 60);
 
     setInterval(() => {
-      if (this.isDead()) this.die();
+      if (this.isDead())
+        if (this.slapped)
+          this.slapDie();  
+        else  this.die();
       else this.playAnimation(this.IMGS_IDLE);
-    }, 100);
+    }, 80);
   }
 
   hit() {
@@ -61,6 +66,15 @@ class PufferFish extends Enemy {
     this.loadImg(this.IMGS_DIE);
     this.y -= 10;
   }
-  
 
+  slapHit() {
+    this.energy -= 100;
+    this.slapped = true;
+  }
+
+  slapDie() {
+    this.loadImg(this.IMGS_SLAP_DIE);
+    this.y += 50;
+    this.x += 20;
+  }
 }

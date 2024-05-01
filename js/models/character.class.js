@@ -135,6 +135,7 @@ class Character extends MovableObject {
       if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
         this.playAnimation(this.IMGS_SWIM);
         if (this.world.keyboard.SPACE) this.playAnimation(this.IMGS_SLAP);
+        if (this.world.keyboard.Y) this.playAnimation(this.IMGS_BUBBLE_ATTACK);
       } 
       else {
         this.playAnimation(this.IMGS_IDLE);

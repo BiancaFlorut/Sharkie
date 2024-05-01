@@ -46,7 +46,6 @@ class World {
       movableObject.flipObject(this.ctx);
     }
     movableObject.draw(this.ctx);
-    movableObject.drawFrame(this.ctx);
     if (movableObject.otherDirection) {
       movableObject.flipObjectBack(this.ctx);
     }
@@ -62,9 +61,14 @@ class World {
 
   checkCollisions() {
     for (let enemy of this.level.enemies) {
-      if (this.sharkie.isColliding(enemy)) {
-        this.sharkie.hit();
+      if (this.sharkie.isColliding(enemy)) { 
+        if (this.keyboard.SPACE) {
+            enemy.slapHit();
+        } else {
+            this.sharkie.hit();
         this.lifeBar.setPercentage(this.sharkie.energy);
+        }
+        
       }
     }
   }
