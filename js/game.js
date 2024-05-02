@@ -68,7 +68,6 @@ function stopGame() {
 }
 
 function toggleMute() {
-    console.log(world.getAllAudios());
   if (isMute.valueOf()) {
     AUDIO.muted = false;
     world.getAllAudios().forEach((audio) => (audio.muted = false));

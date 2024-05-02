@@ -29,15 +29,17 @@ class World {
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToWorld(this.level.backgrounds);
     this.ctx.translate(-this.camera_x, 0);
-    this.addToWorld(this.lifeBar);
-    this.addToWorld(this.bubbleBar);
-    this.addToWorld(this.coinBar);
+    
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToWorld(this.level.enemies);
     this.addToWorld(this.sharkie);
     this.addObjectsToWorld(this.level.bubbles);
     this.addObjectsToWorld(this.level.coins);
+    
     this.ctx.translate(-this.camera_x, 0);
+    this.addToWorld(this.lifeBar);
+    this.addToWorld(this.bubbleBar);
+    this.addToWorld(this.coinBar);
     let self = this;
     requestAnimationFrame(() => self.draw());
   }

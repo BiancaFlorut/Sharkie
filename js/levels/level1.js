@@ -36,5 +36,7 @@ const LEVEL1 = new Level(
     new Light("img/3. Background/Layers/1. Light/2.png", 3 * 720, 0, 720, 480),
   ],
   [],
-  [new Coin(360, 400), new Coin(410, 380), new Coin(460, 360)]
+  [ new Coin(460, 360), new Coin(760, 80),
+    new Coin(1060, 400), new Coin(1110, 380), new Coin(1160, 360),  new Coin(1210, 360), new Coin(1260, 380), new Coin(1310, 400),
+   new Coin(2210, 260), new Coin(2160, 40)]
 );

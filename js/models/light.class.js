@@ -16,6 +16,10 @@ class Light extends MovableObject {
 
   animate() {
     setInterval(() => {
+      if (this.x < 0) this.otherDirection = true;
+      if (this.x > 2200) this.otherDirection = false;
+      if (this.otherDirection) this.moveRight();
+      else
       this.moveLeft();
     }, 1000 / 60);
   }
