@@ -62,7 +62,7 @@ class PufferFish extends Enemy {
   }
 
   hit() {
-    this.energy -= 100;
+    this.energy -= 20;
   }
 
   die() {

@@ -5,12 +5,14 @@ class World {
   keyboard;
   camera_x = 0;
   height = 480;
+  isMuted;
   lifeBar = new LifeBar();
   bubbleBar = new PoisonBar();
   coinBar = new CoinBar();
 
-  constructor(canvas, keyboard) {
+  constructor(canvas, keyboard, isMuted) {
     this.keyboard = keyboard;
+    this.isMuted = isMuted;
     this.setWorld();
     this.ctx = canvas.getContext("2d");
     this.draw();
@@ -65,12 +67,12 @@ class World {
 
   checkCollisions() {
     for (let enemy of this.level.enemies) {
-      if (this.sharkie.isColliding(enemy)) { 
+      if (this.sharkie.isColliding(enemy)) {
         if (this.keyboard.SPACE) {
-            enemy.slapHit();
+          enemy.slapHit();
         } else {
-            this.sharkie.hit();
-        this.lifeBar.setPercentage(this.sharkie.energy);
+          this.sharkie.hit();
+          this.lifeBar.setPercentage(this.sharkie.energy);
         }
       }
     }
@@ -78,10 +80,10 @@ class World {
 
   createThrowableObjects() {
     if (this.keyboard.Y) {
-      let bubble = new Bubble(this.sharkie.x + 100, this.sharkie.y + 80);
+      let bubble = new Bubble(this.sharkie.x + 100, this.sharkie.y + 80, this.isMuted);
       bubble.otherDirection = false;
       if (this.sharkie.otherDirection) {
-        bubble = new Bubble(this.sharkie.x, this.sharkie.y + 80);
+        bubble = new Bubble(this.sharkie.x, this.sharkie.y + 80, this.isMuted);
         bubble.otherDirection = true;
       }
       this.level.bubbles.push(bubble);
@@ -97,5 +99,21 @@ class World {
         }
       });
     }
+  }
+
+  getAllAudios() {
+    let result = this.sharkie.audios;
+    this.level.getAudios().forEach((audio) => {
+      result.push(audio);
+    });
+    return result;
+  }
+
+  mute() {
+    this.isMuted = true;
+  }
+
+  unmute() {
+    this.isMuted = false;
   }
 }

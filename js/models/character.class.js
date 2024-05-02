@@ -76,6 +76,7 @@ class Character extends MovableObject {
   SWIM_AUDIO = new Audio("../../audio/bubbles.mp3");
   SLAP_AUDIO = new Audio("../../audio/slap.mp3");
   HURT_AUDIO = new Audio("../../audio/groan.mp3");
+  audios = [this.SWIM_AUDIO, this.HURT_AUDIO, this.SLAP_AUDIO];
 
   world;
 

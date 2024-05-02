@@ -6,6 +6,7 @@ class Drawable {
   img;
   imgCache = {};
   currentImg = 0;
+  audios = [];
 
   loadImg(src) {
     this.img = new Image();
