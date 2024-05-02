@@ -5,8 +5,9 @@ class World {
   keyboard;
   camera_x = 0;
   height = 480;
-  lifeBar = new StatusBar();
-  bubblesBar = new PoisonBar();
+  lifeBar = new LifeBar();
+  bubbleBar = new PoisonBar();
+  coinBar = new CoinBar();
 
   constructor(canvas, keyboard) {
     this.keyboard = keyboard;
@@ -26,7 +27,8 @@ class World {
     this.addObjectsToWorld(this.level.backgrounds);
     this.ctx.translate(-this.camera_x, 0);
     this.addToWorld(this.lifeBar);
-    this.addToWorld(this.bubblesBar);
+    this.addToWorld(this.bubbleBar);
+    this.addToWorld(this.coinBar);
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToWorld(this.level.enemies);
     this.addToWorld(this.sharkie);

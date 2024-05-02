@@ -1,22 +1,13 @@
-class PoisonBar  extends Drawable {
-    IMGS = [
-        "../../img/4. Marcadores/orange/Poison Bubbles/0.png",
-        "../../img/4. Marcadores/orange/Poison Bubbles/20.png",
-        "../../img/4. Marcadores/orange/Poison Bubbles/40.png",
-        "../../img/4. Marcadores/orange/Poison Bubbles/60.png",
-        "../../img/4. Marcadores/orange/Poison Bubbles/80.png",
-        "../../img/4. Marcadores/orange/Poison Bubbles/100.png"
-    ];
+class Bar extends Drawable {
+
     percentage = 100;
-    x = 180;
-    y = 0;
     width = 150;
     height = 50;
 
-    constructor() {
-        super().loadImg("img/4. Marcadores/orange/Poison Bubbles/0.png");
-        this.loadImgs(this.IMGS);
-        this.setPercentage(0);
+    constructor(x, y) {
+        super();
+        this.x = x;
+        this.y = y;
     }
 
     setPercentage(percentage) {

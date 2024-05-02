@@ -15,7 +15,7 @@ body {
   height: 100vh;
   margin: 0;
   align-items: center;
-  color: white;
+  color: #2237ac;
   font-family: "Luckiest Guy", cursive;
 }
 
@@ -25,11 +25,13 @@ header {
   align-items: center;
   width: 100%;
   position: relative;
-  height: fit-content;
+  height: min-content;
 }
 
-h1 {
+.header_container {
   position: absolute;
+  transform: translate(0, -50%);
+  font-size: 36px;
 }
 
 canvas {
