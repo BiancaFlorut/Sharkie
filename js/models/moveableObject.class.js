@@ -13,6 +13,14 @@ class MovableObject extends Drawable {
     this.x -= this.speed;
   }
 
+  moveUp() {
+    this.y -= this.speed;
+  }
+
+  moveDown() {
+    this.y += this.speed;
+  }
+
   applyGravity() {
     setInterval(() => {
       if (this.isOverTheGround()) {
