@@ -9,6 +9,7 @@ class World {
   lifeBar = new LifeBar();
   bubbleBar = new PoisonBar();
   coinBar = new CoinBar();
+  totalNumberOfCoins = this.level.coins.length;
 
   constructor(canvas, keyboard, isMuted) {
     this.keyboard = keyboard;
@@ -62,6 +63,7 @@ class World {
       this.checkCollisions();
       this.createThrowableObjects();
       this.checkThrowableObjectsCollisions();
+      this.collectCoins();
     }, 300);
   }
 
@@ -115,5 +117,16 @@ class World {
 
   unmute() {
     this.isMuted = false;
+  }
+
+  collectCoins() {
+      this.level.coins.forEach((coin) => {
+        if (this.sharkie.isColliding(coin)) {
+          coin.collect();
+          this.level.coins.splice(this.level.coins.indexOf(coin), 1);
+          this.sharkie.coins += 1;
+          this.coinBar.setPercentage( this.sharkie.coins * 100 / this.totalNumberOfCoins);
+        }
+      })
   }
 }

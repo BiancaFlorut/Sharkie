@@ -1,6 +1,10 @@
 class Drawable {
   x = 20;
   y = 40;
+  offsetYTop = 0;
+  offsetYBottom = 0;
+  offsetXLeft = 0;
+  offsetXRight = 0;
   height = 100;
   width = 150;
   img;

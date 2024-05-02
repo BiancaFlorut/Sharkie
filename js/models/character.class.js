@@ -79,6 +79,7 @@ class Character extends MovableObject {
   audios = [this.SWIM_AUDIO, this.HURT_AUDIO, this.SLAP_AUDIO];
 
   world;
+  coins = 0;
 
   constructor() {
     super().loadImg("../../img/1.Sharkie/1.IDLE/1.png");

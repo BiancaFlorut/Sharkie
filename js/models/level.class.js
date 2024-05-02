@@ -15,11 +15,14 @@ class Level {
   getAudios() {
     let result = [];
     this.enemies.forEach((enemy) => {
-      if (enemy.audio) result.push(enemy.audio);
+      if (enemy.audios) enemy.audios.forEach((audio) => result.push(audio));
     });
     this.bubbles.forEach((bubble) => {
-      if (bubble.audio) result.push(bubble.audio);
+      if (bubble.audios) bubble.audios.forEach((audio) => result.push(audio));
     });
+    this.coins.forEach((coin) => {
+      if (coin.audios) coin.audios.forEach((audio) => result.push(audio));
+    })
     return result;
   }
 }

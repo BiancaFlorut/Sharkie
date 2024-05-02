@@ -1,8 +1,4 @@
 class MovableObject extends Drawable {
-  offsetYTop = 0;
-  offsetYBottom = 0;
-  offsetXLeft = 0;
-  offsetXRight = 0;
   speed = 0.15;
   otherDirection = false;
   speedY = -1;
