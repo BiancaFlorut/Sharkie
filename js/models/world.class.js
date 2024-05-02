@@ -6,7 +6,7 @@ class World {
   camera_x = 0;
   height = 480;
   lifeBar = new StatusBar();
-  bubblesBar = new StatusBar();
+  bubblesBar = new PoisonBar();
 
   constructor(canvas, keyboard) {
     this.keyboard = keyboard;
@@ -26,10 +26,12 @@ class World {
     this.addObjectsToWorld(this.level.backgrounds);
     this.ctx.translate(-this.camera_x, 0);
     this.addToWorld(this.lifeBar);
+    this.addToWorld(this.bubblesBar);
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToWorld(this.level.enemies);
     this.addToWorld(this.sharkie);
     this.addObjectsToWorld(this.level.bubbles);
+    this.addObjectsToWorld(this.level.coins);
     this.ctx.translate(-this.camera_x, 0);
     let self = this;
     requestAnimationFrame(() => self.draw());
