@@ -14,7 +14,6 @@ body {
   background-size: cover;
   height: 100vh;
   margin: 0;
-  align-items: center;
   color: #2237ac;
   font-family: "Luckiest Guy", cursive;
 }
@@ -24,16 +23,43 @@ header {
   justify-content: center;
   align-items: center;
   width: 100%;
-  position: relative;
   height: min-content;
+  flex: 1;
 }
 
 .header_container {
-  position: absolute;
-  transform: translate(0, -50%);
   font-size: 36px;
 }
 
 canvas {
   background-color: black;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 100%;
+  height: min-content;
+  flex: 1;
+}
+
+.footer_container {
+  font-size: 20px;
+  margin-bottom: 32px;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: min-content;
+  flex: 1;
+}
+
+.backIcon {
+  padding-top: 32px;
+  height: 60px;
 }
