@@ -38,5 +38,6 @@ const LEVEL1 = new Level(
   [],
   [ new Coin(460, 360), new Coin(760, 80),
     new Coin(1060, 400), new Coin(1110, 380), new Coin(1160, 360),  new Coin(1210, 360), new Coin(1260, 380), new Coin(1310, 400),
-   new Coin(2210, 260), new Coin(2160, 40)]
+   new Coin(2210, 260), new Coin(2160, 40)],
+   [new Poison(400, 360), new Poison(600, 360), new Poison(800, 360), new Poison(1000, 360), new Poison(1200, 360), new Poison(1400, 360)]
 );
