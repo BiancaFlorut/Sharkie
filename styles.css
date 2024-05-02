@@ -33,6 +33,7 @@ header {
 
 canvas {
   background-color: black;
+  display: block;
 }
 
 footer {
@@ -62,4 +63,32 @@ section {
 .backIcon {
   padding-top: 32px;
   height: 60px;
+}
+
+.game_container {
+  width: fit-content;
+}
+
+.mute {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+.mute img {
+  height: 30px;
+  position: absolute;
+  padding: 8px;
+  transform: translate(0, -50%);
+  cursor: pointer;
+}
+
+@media (max-width: 760px) {
+  canvas {
+    width: 100%;
+  }
+  .mute img {
+    height: 20px;
+  }
 }

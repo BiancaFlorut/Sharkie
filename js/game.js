@@ -41,3 +41,13 @@ function setStoppableInterval(callback, time) {
   function stopGame() {
     intervalIds.forEach(clearInterval);
   }
+
+  function toggleMute() {
+    if (AUDIO.muted) {
+      AUDIO.muted = false;
+      document.getElementById('speackerIcon').src = './img/Icons/speaker.png';
+    } else {
+      AUDIO.muted = true;
+      document.getElementById('speackerIcon').src = './img/Icons/mute.png';
+    }
+  }
