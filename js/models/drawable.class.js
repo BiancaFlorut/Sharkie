@@ -26,7 +26,6 @@ class Drawable {
       this.imgCache[src] = new Image();
       this.imgCache[src].src = src;
     });
-    this.img = this.imgCache[array[0]];
   }
 
   playAnimation(imgs) {

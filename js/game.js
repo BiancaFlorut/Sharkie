@@ -72,13 +72,13 @@ function toggleMute() {
   if (isMute.valueOf()) {
     AUDIO.muted = false;
     world.getAllAudios().forEach((audio) => (audio.muted = false));
-    document.getElementById("speakerIcon").src = "./img/Icons/speaker.png";
+    document.getElementById("speakerIcon").src = "./img/Icons/mute.png";
     isMute = new Boolean(false);
     world.unmute();
   } else {
     AUDIO.muted = true;
     world.getAllAudios().forEach((audio) => (audio.muted = true));
-    document.getElementById("speakerIcon").src = "./img/Icons/mute.png";
+    document.getElementById("speakerIcon").src = "./img/Icons/speaker.png";
     isMute = new Boolean(true);
     world.mute();
   }

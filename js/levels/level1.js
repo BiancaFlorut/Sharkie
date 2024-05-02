@@ -1,7 +1,9 @@
 const LEVEL1 = new Level(
   [new PufferFish(), new PufferFish(), new PufferFish(),
     new PufferFish(), new PufferFish(), new PufferFish(),
-    new LilaJellyFish(), new EndBoss()],
+    new LilaJellyFish(), new YellowJellyFish(), new LilaJellyFish() , 
+    new YellowJellyFish(), new LilaJellyFish(), new YellowJellyFish(),
+    new EndBoss()],
   [
     new Background("../img/3. Background/Layers/5. Water/L2.png", -720, 0, 720, 480),
     new Background("../img/3. Background/Layers/4.Fondo 2/L2.png", -720, 0, 720, 480),
