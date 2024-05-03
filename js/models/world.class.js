@@ -80,6 +80,9 @@ class World {
         if (this.keyboard.SPACE) {
           enemy.slapHit();
         } else {
+          if (enemy instanceof JellyFish) {
+            this.sharkie.electricShock();
+          }
           this.sharkie.hit();
           this.lifeBar.setPercentage(this.sharkie.energy);
         }

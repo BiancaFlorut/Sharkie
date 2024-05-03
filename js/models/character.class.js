@@ -90,10 +90,17 @@ class Character extends MovableObject {
     "../../img/1.Sharkie/2.Long_IDLE/I14.png",
   ];
 
+  IMGS_ELECTRIC_SHOCK = [
+    "../../img/1.Sharkie/5.Hurt/2.Electric shock/1.png", 
+    "../../img/1.Sharkie/5.Hurt/2.Electric shock/2.png",
+    "../../img/1.Sharkie/5.Hurt/2.Electric shock/3.png"
+  ]
+
   SWIM_AUDIO = new Audio("../../audio/bubbles.mp3");
   SLAP_AUDIO = new Audio("../../audio/slap.mp3");
   HURT_AUDIO = new Audio("../../audio/groan.mp3");
-  audios = [this.SWIM_AUDIO, this.HURT_AUDIO, this.SLAP_AUDIO];
+  TASER_AUDIO = new Audio("../../audio/taser.mp3");
+  audios = [this.SWIM_AUDIO, this.HURT_AUDIO, this.SLAP_AUDIO, this.TASER_AUDIO, this.HURT_AUDIO];
 
   world;
   coins = 0;
@@ -111,10 +118,12 @@ class Character extends MovableObject {
     this.loadImgs(this.IMGS_DIE_POISONED);
     this.loadImgs(this.IMGS_BUBBLE_ATTACK);
     this.loadImgs(this.IMGS_SLEEP);
+    this.loadImgs(this.IMGS_ELECTRIC_SHOCK);
     this.applyGravity();
     this.HURT_AUDIO.volume = 0.03;
     this.SLAP_AUDIO.volume = 0.03;
     this.SWIM_AUDIO.volume = 0.06;
+    this.TASER_AUDIO.volume = 0.03;
     this.animate();
   }
 
@@ -125,27 +134,22 @@ class Character extends MovableObject {
         this.moveRight();
         this.otherDirection = false;
         this.SWIM_AUDIO.play();
-        this.lastAction = new Date().getTime();
       }
       if (this.world.keyboard.LEFT && this.x > 0) {
         this.moveLeft();
         this.otherDirection = true;
         this.SWIM_AUDIO.play();
-        this.lastAction = new Date().getTime();
       }
       if (this.world.keyboard.UP && this.y > -75) {
         this.y -= this.speed + 1;
         this.SWIM_AUDIO.play();
-        this.lastAction = new Date().getTime();
       }
       if (this.world.keyboard.DOWN && this.y < 350) {
         this.y += this.speed;
         this.SWIM_AUDIO.play();
-        this.lastAction = new Date().getTime();
       }
       if (this.world.keyboard.SPACE) {
         this.SLAP_AUDIO.play();
-        this.lastAction = new Date().getTime();
       }
       this.world.camera_x = -this.x + 60;
     }, 1000 / 60);
@@ -155,11 +159,15 @@ class Character extends MovableObject {
         setTimeout(() => {
           stopGame();
         }, 1500);
+      } else if (this.isElectricShocked()) {
+        this.playAnimation(this.IMGS_ELECTRIC_SHOCK);
+        this.TASER_AUDIO.play();
+        this.resetParameters();
       } else if (this.isHurt()) {
         this.playAnimation(this.IMGS_HURT_POISONED);
         this.HURT_AUDIO.play();
         this.resetParameters();
-      } else if (this.world.keyboard.SPACE) {
+      }  else if (this.world.keyboard.SPACE) {
         this.playAnimation(this.IMGS_SLAP);
         this.resetParameters();
       } else if (this.world.keyboard.Y) {
