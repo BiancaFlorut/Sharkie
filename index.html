@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="./styles.css" />
     <script src="./js/models/drawable.class.js"></script>
     <script src="./js/models/bars/bar.class.js"></script>
-    <script src="./js/models/coin.class.js"></script>
-    <script src="./js/models/poison.class.js"></script>
+    <script src="./js/models/collectable/coin.class.js"></script>
+    <script src="./js/models/collectable/poison.class.js"></script>
     <script src="./js/models/moveableObject.class.js"></script>
 
     <script src="./js/models/character.class.js"></script>
@@ -40,15 +40,41 @@
     <script src="./js/game.js"></script>
     <title>Sharkie</title>
   </head>
-  <body onload="init()">
+  <body>
     <header>
       <div class="header_container">
         <h1>Sharkie</h1>
       </div>
     </header>
-    <section class="game_container">
+    <section id="game" class="game_container d_none">
       <canvas id="canvas" width="720" height="480"></canvas>
       <div class="mute"><img id="speakerIcon" src="./img/Icons/mute.png" alt="mute" onclick="toggleMute()" /></div>
+    </section>
+    <section id="start_game" class="start_game">
+      <div class="background_start_game">
+        <div class="start_game_container">
+          <div class="menu">
+            <img onclick="toggleMenu()" id="menu" src="img/Icons/app.png" alt="" />
+          </div>
+          <div class="buttons">
+            <div class="start_button" onclick="startGame()"><img src="img/6.Botones/Start/2.png" alt="" /></div>
+          </div>
+        </div>
+        <div id="menu_overlay" class="menu_overlay">
+          <div class="menu_container" id="menu_container">
+            <div class="cancel" onclick="toggleMenu()">
+              <div class="cancel_img">
+                <img src="./img/Icons/cancel.png" alt="" />
+              </div>
+            </div>
+            <h1>Instructions</h1>
+            <div class="instructions_item">
+              <img class="arrows" src="./img/6.Botones/Key/arrow keys.png" alt="" />
+              Move Sharkie
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <footer>

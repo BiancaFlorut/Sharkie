@@ -8,10 +8,9 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url("./img/3. Background/Layers/5. Water/L1.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-image: url("./img/3. Background/Layers/1. Light/2.png"), url("./img/3. Background/Layers/2. Floor/L1.png"), url("./img/3. Background/Layers/5. Water/L1.png");
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
   height: 100vh;
   margin: 0;
   color: #2237ac;
@@ -34,6 +33,9 @@ header {
 canvas {
   background-color: black;
   display: block;
+  border-radius: 32px;
+  border: 1px solid #48bcd6;
+  box-shadow: 0 0 4px 10px rgba(15, 40, 46, 0.055);
 }
 
 footer {
@@ -67,6 +69,7 @@ section {
 
 .game_container {
   width: fit-content;
+  height: 100%;
 }
 
 .mute {
@@ -84,11 +87,140 @@ section {
   cursor: pointer;
 }
 
-@media (max-width: 760px) {
+.start_game {
+  height: 100%;
+}
+
+.background_start_game {
+  border-radius: 32px;
+  border: 1px solid #48bcd6;
+  background-image: url("./img/3. Background/Mesa de trabajo 1.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-sizing: border-box;
+  min-height: 480px;
+  width: 90%;
+  max-width: 720px;
+  overflow: hidden;
+  box-shadow: 0 0 4px 10px rgba(33, 229, 255, 0.247);
+}
+
+.start_game_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  height: 100%;
+}
+
+.start_button {
+  height: 56px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border-radius: 16px;
+}
+
+.start_button img {
+  height: 100%;
+}
+
+.start_button img:hover {
+  box-shadow: 0 0 4px 10px rgba(33, 229, 255, 0.247);
+}
+
+.start_button:hover {
+  transform: scale(1.05);
+  filter: brightness(1.05);
+}
+
+.buttons {
+  padding-right: 20%;
+  padding-bottom: 10%;
+}
+
+.menu img {
+  width: 32px;
+  cursor: pointer;
+}
+
+.menu img:hover {
+  box-shadow: 0 0 4px 10px rgba(33, 229, 255, 0.247);
+}
+
+.menu {
+  padding: 16px;
+}
+
+.menu:hover {
+  transform: scale(1.05);
+}
+
+.menu_overlay {
+  position: relative;
+  width: 100%;
+}
+
+.menu_container {
+  position: absolute;
+  transform: translate(0, -100%);
+  background-color: #434f9248;
+  backdrop-filter: blur(10px);
+  width: 100%;
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.arrows {
+  height: 60px;
+}
+
+.instructions_item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cancel img {
+  width: 32px;
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.cancel_img {
+  padding: 16px;
+}
+
+.cancel img:hover {
+  box-shadow: 0 0 4px 10px rgba(33, 229, 255, 0.247);
+}
+
+.cancel {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.d_none {
+  display: none;
+}
+
+@media (max-width: 720px) {
   canvas {
     width: 100%;
+    box-sizing: border-box;
   }
   .mute img {
     height: 20px;
+  }
+  .background_start_game {
+    width: 100%;
+  }
+  .start_game {
+    padding: 8px;
+    box-sizing: border-box;
   }
 }
