@@ -11,6 +11,8 @@ class Drawable {
   imgCache = {};
   currentImg = 0;
   audios = [];
+  isPlayed = false;
+  onlyOncePlayingCounter = 0;
 
   loadImg(src) {
     this.img = new Image();
@@ -18,7 +20,13 @@ class Drawable {
   }
 
   draw(ctx) {
-    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    try {
+      ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    } catch(e) {
+      console.log('The image is not loaded: ', e);
+      console.log(typeof this, this.img);
+    }
+    
   }
 
   loadImgs(array) {
@@ -32,7 +40,6 @@ class Drawable {
     this.currentImg = ++this.currentImg % imgs.length;
     this.img = this.imgCache[imgs[this.currentImg]];
   }
-
 
 drawFrame(ctx) {
     if (this instanceof Character || this instanceof Enemy) {
