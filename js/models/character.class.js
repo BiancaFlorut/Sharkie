@@ -126,6 +126,9 @@ class Character extends MovableObject {
     setStoppableInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.IMGS_DIE_POISONED);
+        setTimeout(() => {
+          stopGame();
+        }, 1500);
       } else if (this.isHurt()) {
         this.playAnimation(this.IMGS_HURT_POISONED);
         this.HURT_AUDIO.play();

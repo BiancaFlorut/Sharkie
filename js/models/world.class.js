@@ -140,12 +140,10 @@ class World {
   collectBottles() {
     this.level.bottles.forEach((bottle) => {
       if (this.sharkie.isColliding(bottle)) {
-
         bottle.collect();
         this.level.bottles.splice(this.level.bottles.indexOf(bottle), 1);
         this.sharkie.bubbles += 3;
         this.bubbleBar.setPercentage((this.sharkie.bubbles * 100) / this.totalNumberOfPoisonBubbles);
-        console.log(this.sharkie.bubbles, this.totalNumberOfPoisonBubbles);
       }
     });
   }

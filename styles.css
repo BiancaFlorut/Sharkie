@@ -15,6 +15,7 @@ body {
   margin: 0;
   color: #2237ac;
   font-family: "Luckiest Guy", cursive;
+  -webkit-text-stroke: 0.3px white;
 }
 
 header {
@@ -124,6 +125,7 @@ section {
 
 .start_button img {
   height: 100%;
+  border-radius: 16px;
 }
 
 .start_button img:hover {
@@ -160,6 +162,8 @@ section {
 .menu_overlay {
   position: relative;
   width: 100%;
+  color: rgb(127, 255, 224);
+  -webkit-text-stroke: 0.3px white;
 }
 
 .menu_container {
@@ -172,22 +176,26 @@ section {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-size: 26px;
+}
+
+.menu_container h1 {
+  font-size: 36px;
 }
 
 .arrows {
   height: 60px;
 }
 
-.instructions_item {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+.space_bar {
+  height: 30px;
 }
-
 .cancel img {
   width: 32px;
   border-radius: 16px;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  filter: invert(1);
 }
 
 .cancel_img {
@@ -195,13 +203,39 @@ section {
 }
 
 .cancel img:hover {
-  box-shadow: 0 0 4px 10px rgba(33, 229, 255, 0.247);
+  box-shadow: 0 0 4px 10px rgba(0, 0, 0, 0.247);
+  transform: scale(1.05);
 }
 
 .cancel {
   display: flex;
   justify-content: flex-end;
   width: 100%;
+}
+
+.menu_container td {
+  padding: 16px;
+}
+
+.menu_container td:first-child {
+  text-align: right;
+}
+
+.key {
+  padding: 4px 8px;
+  background-color: rgb(127, 255, 224);
+  border: 1px solid white;
+  border-radius: 8px;
+  width: fit-content;
+  height: fit-content;
+  color: rgb(83, 26, 130);
+  font-size: 16px;
+  -webkit-text-stroke: 0;
+}
+
+.df_jc_fe {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .d_none {

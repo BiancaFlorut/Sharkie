@@ -2,8 +2,8 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 const AUDIO = new Audio("./audio/game-music-loop.mp3");
-intervalIds = [];
-isMute = new Boolean(false);
+let intervalIds = [];
+let isMute = new Boolean(false);
 
 document.addEventListener("keydown", (event) => {
   switch (event.code) {
@@ -56,7 +56,9 @@ function setStoppableInterval(callback, time) {
 }
 
 function stopGame() {
+  mute();
   intervalIds.forEach(clearInterval);
+  document.getElementById("game").classList.add("d_none");
 }
 
 function toggleMute() {
@@ -67,12 +69,16 @@ function toggleMute() {
     isMute = new Boolean(false);
     world.unmute();
   } else {
-    AUDIO.muted = true;
+    mute();
+  }
+}
+
+function mute() {
+  AUDIO.muted = true;
     world.getAllAudios().forEach((audio) => (audio.muted = true));
     document.getElementById("speakerIcon").src = "./img/Icons/speaker.png";
     isMute = new Boolean(true);
     world.mute();
-  }
 }
 
 function startGame() {
