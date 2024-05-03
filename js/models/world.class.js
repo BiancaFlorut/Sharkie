@@ -37,6 +37,7 @@ class World {
     this.addObjectsToWorld(this.level.bubbles);
     this.addObjectsToWorld(this.level.coins);
     this.addObjectsToWorld(this.level.bottles);
+    this.addObjectsToWorld(this.level.hearts);
 
     this.ctx.translate(-this.camera_x, 0);
     this.addToWorld(this.lifeBar);
@@ -69,6 +70,7 @@ class World {
       this.checkThrowableObjectsCollisions();
       this.collectCoins();
       this.collectBottles();
+      this.collectHearts();
     }, 300);
   }
 
@@ -144,6 +146,17 @@ class World {
         this.level.bottles.splice(this.level.bottles.indexOf(bottle), 1);
         this.sharkie.bubbles += 3;
         this.bubbleBar.setPercentage((this.sharkie.bubbles * 100) / this.totalNumberOfPoisonBubbles);
+      }
+    });
+  }
+
+  collectHearts() {
+    this.level.hearts.forEach((heart) => {
+      if (this.sharkie.isColliding(heart)) {
+        heart.collect();
+        this.level.hearts.splice(this.level.hearts.indexOf(heart), 1);
+        this.sharkie.energy += 20;
+        this.lifeBar.setPercentage(this.sharkie.energy);
       }
     });
   }

@@ -1,4 +1,4 @@
-class Poison extends Drawable {
+class Poison extends Collectable {
     IMGS = [
         "../../img/4. Marcadores/Posión/Animada/1.png",
         "../../img/4. Marcadores/Posión/Animada/2.png",
@@ -21,17 +21,5 @@ class Poison extends Drawable {
         this.x = x;
         this.y = y;
         this.animate();
-    }
-
-    animate() {
-        setInterval(() => {
-            this.playAnimation(this.IMGS);  
-        }, 1000 / 4);
-    }
-
-    collect() {
-        this.AUDIO.play();
-        this.height = 0;
-        this.width = 0;
     }
 }

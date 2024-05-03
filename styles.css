@@ -83,7 +83,7 @@ section {
 .mute img {
   height: 30px;
   position: absolute;
-  padding: 8px;
+  padding: 16px;
   transform: translate(0, -50%);
   cursor: pointer;
 }

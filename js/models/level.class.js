@@ -4,14 +4,16 @@ class Level {
   bubbles;
   coins;
   bottles;
+  hearts;
   level_end_x = 2220;
 
-  constructor(enemies, backgrounds, bubbles, coins, bottles) {
+  constructor(enemies, backgrounds, bubbles, coins, bottles, hearts) {
     this.enemies = enemies;
     this.backgrounds = backgrounds;
     this.bubbles = bubbles;
     this.coins = coins;
     this.bottles = bottles;
+    this.hearts = hearts;
   }
 
   getAudios() {
@@ -27,7 +29,10 @@ class Level {
     });
     this.bottles.forEach((bottle) => {
       if (bottle.audios) bottle.audios.forEach((audio) => result.push(audio));
-    })
+    });
+    this.hearts.forEach((heart) => {
+      if (heart.audios) heart.audios.forEach((audio) => result.push(audio));
+    });
     return result;
   }
 }

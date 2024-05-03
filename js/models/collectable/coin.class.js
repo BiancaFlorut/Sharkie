@@ -1,4 +1,4 @@
-class Coin extends Drawable {
+class Coin extends Collectable {
     IMGS = [
         "../../img/4. Marcadores/1. Coins/1.png",
         "../../img/4. Marcadores/1. Coins/2.png",
@@ -18,17 +18,4 @@ class Coin extends Drawable {
         this.y = y;
         this.animate();
     }
-
-    animate() {
-        setInterval(() => {
-            this.playAnimation(this.IMGS);  
-        }, 1000 / 4);
-    }
-
-    collect() {
-        this.AUDIO.play();
-        this.height = 0;
-        this.width = 0;
-    }
-
 }
