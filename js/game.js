@@ -2,6 +2,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 const AUDIO = new Audio("./audio/game-music-loop.mp3");
+const LOST_AUDIO = new Audio("./audio/lost.mp3");
 let intervalIds = [];
 let isMute = new Boolean(false);
 
@@ -55,10 +56,18 @@ function setStoppableInterval(callback, time) {
   intervalIds.push(setInterval(callback, time));
 }
 
-function stopGame() {
-  mute();
+function stopGame(isWon) {
+  AUDIO.muted = true;
   intervalIds.forEach(clearInterval);
   document.getElementById("game").classList.add("d_none");
+  if (isWon) {
+    document.getElementById("start_game").classList.remove("d_none");
+    document.getElementById("won_overlay").classList.remove("d_none");
+  } else {
+    document.getElementById("start_game").classList.remove("d_none");
+    document.getElementById("lost_overlay").classList.remove("d_none");
+    LOST_AUDIO.play();
+  }
 }
 
 function toggleMute() {
@@ -75,10 +84,11 @@ function toggleMute() {
 
 function mute() {
   AUDIO.muted = true;
-    world.getAllAudios().forEach((audio) => (audio.muted = true));
-    document.getElementById("speakerIcon").src = "./img/Icons/speaker.png";
-    isMute = new Boolean(true);
-    world.mute();
+  LOST_AUDIO.muted = true;
+  world.getAllAudios().forEach((audio) => (audio.muted = true));
+  document.getElementById("speakerIcon").src = "./img/Icons/speaker.png";
+  isMute = new Boolean(true);
+  world.mute();
 }
 
 function startGame() {
@@ -89,14 +99,23 @@ function startGame() {
   world = new World(canvas, keyboard, isMute);
   AUDIO.loop = true;
   AUDIO.volume = 0.4;
+  LOST_AUDIO.volume = 0.2;
   AUDIO.play();
 }
 
 function toggleMenu() {
-    const instructions = document.getElementById("menu_overlay");
-    if (instructions.classList.contains("d_none")) {
-        document.getElementById("menu_overlay").classList.remove("d_none");
-    } else {
-        document.getElementById("menu_overlay").classList.add("d_none");
-    }
+  const instructions = document.getElementById("menu_overlay");
+  if (instructions.classList.contains("d_none")) {
+    document.getElementById("menu_overlay").classList.remove("d_none");
+  } else {
+    document.getElementById("menu_overlay").classList.add("d_none");
+  }
+}
+
+function backToStart() {
+  document.getElementById("start_game").classList.remove("d_none");
+  document.getElementById("won_overlay").classList.add("d_none");
+  document.getElementById("lost_overlay").classList.add("d_none");
+  document.getElementById("menu_overlay").classList.add("d_none");
+  document.getElementById("game").classList.add("d_none");
 }

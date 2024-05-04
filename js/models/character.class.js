@@ -90,11 +90,7 @@ class Character extends MovableObject {
     "../../img/1.Sharkie/2.Long_IDLE/I14.png",
   ];
 
-  IMGS_ELECTRIC_SHOCK = [
-    "../../img/1.Sharkie/5.Hurt/2.Electric shock/1.png", 
-    "../../img/1.Sharkie/5.Hurt/2.Electric shock/2.png",
-    "../../img/1.Sharkie/5.Hurt/2.Electric shock/3.png"
-  ]
+  IMGS_ELECTRIC_SHOCK = ["../../img/1.Sharkie/5.Hurt/2.Electric shock/1.png", "../../img/1.Sharkie/5.Hurt/2.Electric shock/2.png", "../../img/1.Sharkie/5.Hurt/2.Electric shock/3.png"];
 
   SWIM_AUDIO = new Audio("../../audio/bubbles.mp3");
   SLAP_AUDIO = new Audio("../../audio/slap.mp3");
@@ -128,6 +124,25 @@ class Character extends MovableObject {
   }
 
   animate() {
+    this.move();
+    this.playAnimations();
+  }
+
+  playAnimationOnlyOnce(index, array) {
+    if (!this.isPlayed && index < array.length - 1) {
+      this.img = this.imgCache[this.IMGS_SLEEP[index]];
+    } else {
+      this.img = this.imgCache[this.IMGS_SLEEP[index]];
+    }
+  }
+
+  resetParameters() {
+    this.lastAction = new Date().getTime();
+    this.isPlayed = false;
+    this.indexImg = 0;
+  }
+
+  move() {
     setStoppableInterval(() => {
       this.SWIM_AUDIO.pause();
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
@@ -153,11 +168,14 @@ class Character extends MovableObject {
       }
       this.world.camera_x = -this.x + 60;
     }, 1000 / 60);
+  }
+
+  playAnimations() {
     setStoppableInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.IMGS_DIE_POISONED);
         setTimeout(() => {
-          stopGame();
+          stopGame(false);
         }, 1500);
       } else if (this.isElectricShocked()) {
         this.playAnimation(this.IMGS_ELECTRIC_SHOCK);
@@ -167,7 +185,7 @@ class Character extends MovableObject {
         this.playAnimation(this.IMGS_HURT_POISONED);
         this.HURT_AUDIO.play();
         this.resetParameters();
-      }  else if (this.world.keyboard.SPACE) {
+      } else if (this.world.keyboard.SPACE) {
         this.playAnimation(this.IMGS_SLAP);
         this.resetParameters();
       } else if (this.world.keyboard.Y) {
@@ -191,19 +209,5 @@ class Character extends MovableObject {
         }
       }
     }, 100);
-  }
-
-  playAnimationOnlyOnce(index, array) {
-    if (!this.isPlayed && index < array.length - 1) {
-      this.img = this.imgCache[this.IMGS_SLEEP[index]];
-    } else {
-      this.img = this.imgCache[this.IMGS_SLEEP[index]];
-    }
-  }
-
-  resetParameters() {
-    this.lastAction = new Date().getTime();
-    this.isPlayed = false;
-    this.indexImg = 0;
   }
 }

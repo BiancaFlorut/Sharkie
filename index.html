@@ -55,8 +55,8 @@
       <canvas id="canvas" width="720" height="480"></canvas>
       <div class="mute"><img id="speakerIcon" src="./img/Icons/mute.png" alt="mute" onclick="toggleMute()" /></div>
     </section>
-    <section id="start_game" class="start_game">
-      <div class="background_start_game">
+    <section class="start_game">
+      <div id="start_game" class="background_start_game">
         <div class="start_game_container">
           <div class="menu">
             <img onclick="toggleMenu()" id="menu" src="img/Icons/app.png" alt="" />
@@ -93,6 +93,27 @@
                 <td>Create poisonous bubbles</td>
               </tr>
             </table>
+          </div>
+        </div>
+        <div id="won_overlay" class="menu_overlay d_none">
+          <div class="menu_container">
+            <div><img src="./img/6.Botones/Tittles/You win/Mesa de trabajo 1.png" alt="" /></div>
+          </div>
+        </div>
+        <div id="lost_overlay" class="menu_overlay">
+          <div class="menu_container">
+            <div class="game_over">
+              <div class="cancel" onclick="backToStart()">
+                <div class="cancel_img">
+                  <img src="./img/Icons/cancel.png" alt="" />
+                </div>
+              </div>
+
+              <div class="game_over_container">
+                <img class="game_over_img" src="./img/6.Botones/Tittles/Game Over/Recurso 12.png" alt="game over" />
+                <div class="start_button" onclick="startGame()"><img src="./img/6.Botones/Try again/Recurso 17.png" alt="try again" /></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
