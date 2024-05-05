@@ -30,21 +30,23 @@ class World {
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToWorld(this.level.backgrounds);
     this.ctx.translate(-this.camera_x, 0);
-
     this.ctx.translate(this.camera_x, 0);
-    this.addObjectsToWorld(this.level.enemies);
+    this.addLevelObjects();
     this.addToWorld(this.sharkie);
-    this.addObjectsToWorld(this.level.bubbles);
-    this.addObjectsToWorld(this.level.coins);
-    this.addObjectsToWorld(this.level.bottles);
-    this.addObjectsToWorld(this.level.hearts);
-
     this.ctx.translate(-this.camera_x, 0);
     this.addToWorld(this.lifeBar);
     this.addToWorld(this.bubbleBar);
     this.addToWorld(this.coinBar);
     let self = this;
     requestAnimationFrame(() => self.draw());
+  }
+
+  addLevelObjects() {
+    this.addObjectsToWorld(this.level.enemies);
+    this.addObjectsToWorld(this.level.bubbles);
+    this.addObjectsToWorld(this.level.coins);
+    this.addObjectsToWorld(this.level.bottles);
+    this.addObjectsToWorld(this.level.hearts);
   }
 
   addObjectsToWorld(objects) {
@@ -57,6 +59,7 @@ class World {
     if (movableObject.otherDirection) {
       movableObject.flipObject(this.ctx);
     }
+    movableObject.drawFrame(this.ctx);
     movableObject.draw(this.ctx);
     if (movableObject.otherDirection) {
       movableObject.flipObjectBack(this.ctx);

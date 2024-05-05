@@ -4,7 +4,6 @@ class MovableObject extends Drawable {
   speedY = -1;
   energy = 100;
   lastHit = 0;
-  lastElectricShock = 0;
 
   moveRight() {
     this.x += this.speed;
@@ -80,17 +79,5 @@ class MovableObject extends Drawable {
   isHurt() {
     let timePassed = new Date().getTime() - this.lastHit;
     return timePassed < 1000;
-  }
-
-  isElectricShocked() {
-    let timePassed = new Date().getTime() - this.lastElectricShock;
-    return timePassed < 1000;
-  }
-
-  electricShock() {
-    this.energy -= 10;
-    if (this.energy <= 0) {
-      this.energy = 0;
-    } else this.lastElectricShock = new Date().getTime();
   }
 }

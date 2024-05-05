@@ -89,7 +89,7 @@ section {
 }
 
 .start_game {
-  height: 100%;
+  flex: none;
 }
 
 .background_start_game {

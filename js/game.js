@@ -95,7 +95,7 @@ function startGame() {
   document.getElementById("start_game").classList.add("d_none");
   document.getElementById("game").classList.remove("d_none");
   canvas = document.getElementById("canvas");
-
+  initLevel1();
   world = new World(canvas, keyboard, isMute);
   AUDIO.loop = true;
   AUDIO.volume = 0.4;
