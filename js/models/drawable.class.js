@@ -21,6 +21,7 @@ class Drawable {
 
   draw(ctx) {
     try {
+      if (this.img)
       ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     } catch(e) {
       console.log('The image is not loaded: ', e);
