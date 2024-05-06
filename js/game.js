@@ -56,6 +56,16 @@ function setStoppableInterval(callback, time) {
   intervalIds.push(setInterval(callback, time));
 }
 
+function pauseGame() {
+  world.isPaused = true;
+  mute();
+}
+
+function resumeGame() {
+  world.isPaused = false;
+  toggleMute();
+}
+
 function stopGame(isWon) {
   AUDIO.muted = true;
   intervalIds.forEach(clearInterval);
@@ -108,9 +118,12 @@ function toggleMenu() {
   const instructions = document.getElementById("menu_overlay");
   if (instructions.classList.contains("d_none")) {
     document.getElementById("menu_overlay").classList.remove("d_none");
+    pauseGame();
   } else {
     document.getElementById("menu_overlay").classList.add("d_none");
+    resumeGame();
   }
+
 }
 
 function backToStart() {

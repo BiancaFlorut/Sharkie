@@ -80,11 +80,17 @@ section {
   position: relative;
   width: 100%;
 }
+
+.game_menu {
+  display: flex;
+  position: absolute;
+  transform: translate(0, -50%);
+  gap: 16px;
+  padding: 16px;
+}
+
 .mute img {
   height: 30px;
-  position: absolute;
-  padding: 16px;
-  transform: translate(0, -50%);
   cursor: pointer;
 }
 

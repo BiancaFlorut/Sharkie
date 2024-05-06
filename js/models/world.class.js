@@ -12,6 +12,7 @@ class World {
   coinBar = new CoinBar();
   totalNumberOfCoins = this.level.coins.length;
   totalNumberOfPoisonBubbles = this.level.bottles.length * 4;
+  isPaused = false;
 
   constructor(canvas, keyboard, isMuted) {
     this.keyboard = keyboard;
@@ -27,18 +28,20 @@ class World {
   }
 
   draw() {
-    this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-    this.ctx.translate(this.camera_x, 0);
-    this.addObjectsToWorld(this.level.backgrounds);
-    this.ctx.translate(-this.camera_x, 0);
-    this.ctx.translate(this.camera_x, 0);
-    this.addLevelObjects();
-    this.addToWorld(this.sharkie);
-    this.ctx.translate(-this.camera_x, 0);
-    this.addToWorld(this.lifeBar);
-    this.addToWorld(this.bubbleBar);
-    this.bubbleNumber.drawNumber(this.ctx);
-    this.addToWorld(this.coinBar);
+    if (!this.isPaused) {
+      this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+      this.ctx.translate(this.camera_x, 0);
+      this.addObjectsToWorld(this.level.backgrounds);
+      this.ctx.translate(-this.camera_x, 0);
+      this.ctx.translate(this.camera_x, 0);
+      this.addLevelObjects();
+      this.addToWorld(this.sharkie);
+      this.ctx.translate(-this.camera_x, 0);
+      this.addToWorld(this.lifeBar);
+      this.addToWorld(this.bubbleBar);
+      this.bubbleNumber.drawNumber(this.ctx);
+      this.addToWorld(this.coinBar);
+    }
     let self = this;
     requestAnimationFrame(() => self.draw());
   }
@@ -70,12 +73,14 @@ class World {
 
   run() {
     setStoppableInterval(() => {
-      this.checkCollisions();
-      this.createThrowableObjects();
-      this.checkThrowableObjectsCollisions();
-      this.collectCoins();
-      this.collectBottles();
-      this.collectHearts();
+      if (!this.isPaused) {
+        this.checkCollisions();
+        this.createThrowableObjects();
+        this.checkThrowableObjectsCollisions();
+        this.collectCoins();
+        this.collectBottles();
+        this.collectHearts();
+      }
     }, 300);
   }
 

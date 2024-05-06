@@ -54,7 +54,12 @@
     </header>
     <section id="game" class="game_container d_none">
       <canvas id="canvas" width="720" height="480"></canvas>
-      <div class="mute"><img id="speakerIcon" src="./img/Icons/mute.png" alt="mute" onclick="toggleMute()" /></div>
+      <div class="mute">
+        <div class="game_menu">
+          <img id="speakerIcon" src="./img/Icons/mute.png" alt="mute" onclick="toggleMute()" />
+          <img onclick="toggleMenu()" id="menu" src="img/Icons/app.png" alt="" />
+        </div>
+      </div>
     </section>
     <section class="start_game">
       <div id="start_game" class="background_start_game">
