@@ -1,10 +1,10 @@
 class JellyFish extends Enemy {
   width = 80;
   height = 80;
-  offsetYTop = 8;
+  offsetYTop = 13;
   offsetYBottom = 25;
-  offsetXLeft = 5;
-  offsetXRight = 5;
+  offsetXLeft = 20;
+  offsetXRight = 20;
   speed = 0.35;
   distance;
   MAX_DISTANCE = 2200;

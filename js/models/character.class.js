@@ -157,16 +157,29 @@ class Character extends MovableObject {
 
   move() {
     this.SWIM_AUDIO.pause();
+    let oldOffsetXRight = this.offsetXRight;
     if (this.canMoveRight()) this.moveRight();
     if (this.canMoveLeft()) this.moveLeft();
     if (this.canMoveUp()) this.moveUp();
     if (this.canMoveDown()) this.moveDown();
-    if (this.world.keyboard.SPACE) this.SLAP_AUDIO.play();
+    if (this.world.keyboard.SPACE) {
+       
+      this.SLAP_AUDIO.play();
+      
+      this.offsetXRight = -15; 
+      setTimeout(() => {
+        this.resetOffsetXRight();
+      }, 100);
+    }
     this.world.camera_x = -this.x + 60;
   }
 
   canMoveRight() {
     return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
+  }
+
+  resetOffsetXRight() {
+    this.offsetXRight = 30;
   }
 
   moveRight() {

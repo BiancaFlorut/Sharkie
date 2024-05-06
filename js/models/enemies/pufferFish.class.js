@@ -1,10 +1,10 @@
 class PufferFish extends Enemy {
   width = 80;
   height = 80;
-  offsetYTop = 8;
-  offsetYBottom = 25;
-  offsetXLeft = 5;
-  offsetXRight = 5;
+  offsetYTop = 18;
+  offsetYBottom = 30;
+  offsetXLeft = 15;
+  offsetXRight = 15;
   IMGS_IDLE = [
     "../../img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png",
     "../../img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim2.png",

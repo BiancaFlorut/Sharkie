@@ -44,11 +44,11 @@ class World {
   }
 
   addLevelObjects() {
-    this.addObjectsToWorld(this.level.enemies);
-    this.addObjectsToWorld(this.level.bubbles);
     this.addObjectsToWorld(this.level.coins);
     this.addObjectsToWorld(this.level.bottles);
     this.addObjectsToWorld(this.level.hearts);
+    this.addObjectsToWorld(this.level.enemies);
+    this.addObjectsToWorld(this.level.bubbles);
   }
 
   addObjectsToWorld(objects) {
@@ -61,8 +61,8 @@ class World {
     if (movableObject.otherDirection) {
       movableObject.flipObject(this.ctx);
     }
-    movableObject.drawFrame(this.ctx);
     movableObject.draw(this.ctx);
+    movableObject.drawFrame(this.ctx);
     if (movableObject.otherDirection) {
       movableObject.flipObjectBack(this.ctx);
     }
@@ -164,9 +164,8 @@ class World {
       if (this.sharkie.isColliding(heart)) {
         heart.collect();
         this.level.hearts.splice(this.level.hearts.indexOf(heart), 1);
-        this.sharkie.energy += 20;
+        this.sharkie.energy += 25;
         this.lifeBar.setPercentage(this.sharkie.energy);
-        console.log('energy', this.sharkie.energy);
       }
     });
   }
