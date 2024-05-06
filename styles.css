@@ -167,6 +167,7 @@ section {
 
 .menu_overlay {
   position: relative;
+  display: flex;
   width: 100%;
   color: rgb(127, 255, 224);
   -webkit-text-stroke: 0.3px white;
@@ -184,6 +185,14 @@ section {
   align-items: center;
   font-size: 26px;
   height: 100%;
+  flex: 1;
+}
+
+.instruction_footer {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 16px;
 }
 
 .menu_container h1 {
@@ -207,6 +216,7 @@ section {
 
 .cancel_img {
   padding: 16px;
+  position: absolute;
 }
 
 .cancel_img img:hover {

@@ -58,12 +58,12 @@ function setStoppableInterval(callback, time) {
 
 function pauseGame() {
   world.isPaused = true;
-  mute();
+  if (!isMute.valueOf()) AUDIO.muted = true;
 }
 
 function resumeGame() {
   world.isPaused = false;
-  toggleMute();
+  if (!isMute.valueOf()) AUDIO.muted = false;
 }
 
 function stopGame(isWon) {
@@ -102,28 +102,41 @@ function mute() {
 }
 
 function startGame() {
-  AUDIO.muted = false;
+  if (!isMute.valueOf()) {
+    AUDIO.loop = true;
+    AUDIO.volume = 0.4;
+    LOST_AUDIO.volume = 0.2;
+    AUDIO.play();
+  } else mute();
+  AUDIO.muted = isMute.valueOf();
   document.getElementById("start_game").classList.add("d_none");
   document.getElementById("game").classList.remove("d_none");
   canvas = document.getElementById("canvas");
   initLevel1();
   world = new World(canvas, keyboard, isMute);
-  AUDIO.loop = true;
-  AUDIO.volume = 0.4;
-  LOST_AUDIO.volume = 0.2;
-  AUDIO.play();
 }
 
 function toggleMenu() {
   const instructions = document.getElementById("menu_overlay");
+  const game = document.getElementById("game");
   if (instructions.classList.contains("d_none")) {
     document.getElementById("menu_overlay").classList.remove("d_none");
-    pauseGame();
+
+    if (world) {
+      document.getElementById("start_game").classList.remove("d_none");
+      document.getElementById('restart').classList.remove('d_none');
+      game.classList.add("d_none");
+      pauseGame();
+    }
   } else {
     document.getElementById("menu_overlay").classList.add("d_none");
-    resumeGame();
+    if (world) {
+      game.classList.remove("d_none");
+      document.getElementById('restart').classList.add('d_none');
+      document.getElementById("start_game").classList.add("d_none");
+      resumeGame();
+    }
   }
-
 }
 
 function backToStart() {
