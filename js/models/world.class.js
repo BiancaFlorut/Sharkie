@@ -10,7 +10,7 @@ class World {
   bubbleBar = new PoisonBar();
   coinBar = new CoinBar();
   totalNumberOfCoins = this.level.coins.length;
-  totalNumberOfPoisonBubbles = this.level.bottles.length * 3;
+  totalNumberOfPoisonBubbles = this.level.bottles.length * 4;
 
   constructor(canvas, keyboard, isMuted) {
     this.keyboard = keyboard;
@@ -103,7 +103,8 @@ class World {
       }
       this.sharkie.bubbles--;
       this.level.bubbles.push(bubble);
-      this.bubbleBar.setPercentage((this.sharkie.bubbles * 300) / this.totalNumberOfPoisonBubbles);
+      this.bubbleBar.setPercentage((this.sharkie.bubbles * 100) / this.totalNumberOfPoisonBubbles);
+      console.log(this.sharkie.bubbles, this.totalNumberOfPoisonBubbles); 
     }
   }
 
@@ -151,7 +152,7 @@ class World {
       if (this.sharkie.isColliding(bottle)) {
         bottle.collect();
         this.level.bottles.splice(this.level.bottles.indexOf(bottle), 1);
-        this.sharkie.bubbles += 3;
+        this.sharkie.bubbles += 4;
         this.bubbleBar.setPercentage((this.sharkie.bubbles * 100) / this.totalNumberOfPoisonBubbles);
       }
     });
