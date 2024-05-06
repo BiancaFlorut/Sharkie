@@ -8,6 +8,7 @@ class World {
   isMuted;
   lifeBar = new LifeBar();
   bubbleBar = new PoisonBar();
+  bubbleNumber = new Number(350, 40, 0);
   coinBar = new CoinBar();
   totalNumberOfCoins = this.level.coins.length;
   totalNumberOfPoisonBubbles = this.level.bottles.length * 4;
@@ -36,6 +37,7 @@ class World {
     this.ctx.translate(-this.camera_x, 0);
     this.addToWorld(this.lifeBar);
     this.addToWorld(this.bubbleBar);
+    this.bubbleNumber.drawNumber(this.ctx);
     this.addToWorld(this.coinBar);
     let self = this;
     requestAnimationFrame(() => self.draw());
@@ -94,17 +96,16 @@ class World {
   }
 
   createThrowableObjects() {
-    if (this.keyboard.Y && this.sharkie.bubbles > 0) {
+    if (this.keyboard.Y && this.bubbleNumber.number > 0) {
       let bubble = new Bubble(this.sharkie.x + 100, this.sharkie.y + 80, this.isMuted);
       bubble.otherDirection = false;
       if (this.sharkie.otherDirection) {
         bubble = new Bubble(this.sharkie.x, this.sharkie.y + 80, this.isMuted);
         bubble.otherDirection = true;
       }
-      this.sharkie.bubbles--;
+      this.bubbleNumber.number--;
       this.level.bubbles.push(bubble);
-      this.bubbleBar.setPercentage((this.sharkie.bubbles * 100) / this.totalNumberOfPoisonBubbles);
-      console.log(this.sharkie.bubbles, this.totalNumberOfPoisonBubbles); 
+      this.bubbleBar.setPercentage((this.bubbleNumber.number * 100) / 4);
     }
   }
 
@@ -152,8 +153,8 @@ class World {
       if (this.sharkie.isColliding(bottle)) {
         bottle.collect();
         this.level.bottles.splice(this.level.bottles.indexOf(bottle), 1);
-        this.sharkie.bubbles += 4;
-        this.bubbleBar.setPercentage((this.sharkie.bubbles * 100) / this.totalNumberOfPoisonBubbles);
+        this.bubbleNumber.number += 4;
+        this.bubbleBar.setPercentage((this.bubbleNumber.number * 100) / 4);
       }
     });
   }
@@ -165,6 +166,7 @@ class World {
         this.level.hearts.splice(this.level.hearts.indexOf(heart), 1);
         this.sharkie.energy += 20;
         this.lifeBar.setPercentage(this.sharkie.energy);
+        console.log('energy', this.sharkie.energy);
       }
     });
   }
