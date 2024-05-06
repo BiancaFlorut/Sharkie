@@ -96,12 +96,13 @@ class Character extends MovableObject {
   SLAP_AUDIO = new Audio("../../audio/slap.mp3");
   HURT_AUDIO = new Audio("../../audio/groan.mp3");
   TASER_AUDIO = new Audio("../../audio/taser.mp3");
-  audios = [this.SWIM_AUDIO, this.HURT_AUDIO, this.SLAP_AUDIO, this.TASER_AUDIO, this.HURT_AUDIO];
+  SNORE_AUDIO = new Audio("../../audio/snore.mp3");
+  audios = [this.SWIM_AUDIO, this.HURT_AUDIO, this.SLAP_AUDIO, this.TASER_AUDIO, this.HURT_AUDIO, this.SNORE_AUDIO];
 
   world;
   coins = 0;
   bubbles = 0;
-  lastAction = 0;
+  lastAction = new Date().getTime();
   isPlayed = false;
   indexImg = 0;
   lastElectricShock = 0;
@@ -130,6 +131,7 @@ class Character extends MovableObject {
     this.SLAP_AUDIO.volume = volume;
     this.SWIM_AUDIO.volume = volume;
     this.TASER_AUDIO.volume = volume + 0.2;
+    this.SNORE_AUDIO.volume = volume + 0.1;
   }
 
   animate() {
@@ -157,15 +159,12 @@ class Character extends MovableObject {
 
   move() {
     this.SWIM_AUDIO.pause();
-    let oldOffsetXRight = this.offsetXRight;
     if (this.canMoveRight()) this.moveRight();
     if (this.canMoveLeft()) this.moveLeft();
     if (this.canMoveUp()) this.moveUp();
     if (this.canMoveDown()) this.moveDown();
     if (this.world.keyboard.SPACE) {
-       
       this.SLAP_AUDIO.play();
-      
       this.offsetXRight = -15; 
       setTimeout(() => {
         this.resetOffsetXRight();
@@ -281,13 +280,14 @@ class Character extends MovableObject {
   playIdle() {
     this.playAnimation(this.IMGS_IDLE);
     const now = new Date().getTime();
-    if (now - this.lastAction > 2000) {
+    if (now - this.lastAction > 5000) {
       this.playAnimationOnlyOnce(this.indexImg, this.IMGS_SLEEP);
       this.indexImg++;
       if (this.indexImg == this.IMGS_SLEEP.length) {
         this.isPlayed = true;
         this.indexImg = 10;
       }
+      this.SNORE_AUDIO.play();
     }
   }
 }

@@ -29,20 +29,35 @@ class EndBoss extends Enemy {
         '../../img/2.Enemy/3 Final Enemy/2.floating/12.png',
         '../../img/2.Enemy/3 Final Enemy/2.floating/13.png'
     ];
+    isSharkieComing = false;
+    hadFirstContact = false;
 
     constructor() {
         super().loadImg('../../img/2.Enemy/3 Final Enemy/1.Introduce/1.png');
         this.loadImgs(this.IMGS_ENTRY);
+        this.loadImgs(this.IMGS_IDLE);
         this.x = 2000;
         this.y = 0;
         this.speed = 0.15 + Math.random() / 0.4;
+        this.applyGravity();
         this.animate();
     }
 
     animate() {
+        let i = 0;
         setInterval(() => {
+            if (i < this.IMGS_ENTRY.length) {
             this.playAnimation(this.IMGS_ENTRY);
+            i++;
+            } else {
+                this.playAnimation(this.IMGS_IDLE);
+            }
+            if (this.isSharkieComing && !this.hadFirstContact) {
+                i = 0;
+                this.x = 2000;
+        this.y = 0;
+                this.hadFirstContact = true;
+            }
         }, 140);
-
     }
 }
