@@ -113,6 +113,7 @@ class World {
         if (enemy.isColliding(bubble)) {
           enemy.hit();
           bubble.hit();
+          this.level.bubbles.splice(this.level.bubbles.indexOf(bubble), 1);
         }
       });
     }

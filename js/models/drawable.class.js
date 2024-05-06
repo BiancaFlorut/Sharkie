@@ -42,7 +42,7 @@ class Drawable {
   }
 
 drawFrame(ctx) {
-    if (this instanceof Character || this instanceof Enemy) {
+    if (this instanceof Character || this instanceof Enemy || this instanceof Collectable || this instanceof Throwable) {
       ctx.beginPath();
       ctx.lineWidth = 2;
       ctx.strokeStyle = "green";

@@ -92,6 +92,7 @@ function mute() {
 }
 
 function startGame() {
+  AUDIO.muted = false;
   document.getElementById("start_game").classList.add("d_none");
   document.getElementById("game").classList.remove("d_none");
   canvas = document.getElementById("canvas");
