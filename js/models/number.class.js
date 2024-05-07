@@ -9,7 +9,7 @@ class Number extends Drawable {
 
     drawNumber(ctx) {
         ctx.fillStyle = "#2237ac";
-        ctx.font = "20px Luckiest Guy";
+        ctx.font = "19px Luckiest Guy";
         ctx.fillText(this.number, this.x, this.y);
     }
 

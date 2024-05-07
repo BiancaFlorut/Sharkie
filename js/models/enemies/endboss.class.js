@@ -57,7 +57,8 @@ class EndBoss extends Enemy {
   UMPH_AUDIO = new Audio("../../audio/umph.mp3");
   OW_AUDIO = new Audio("../../audio/ow.mp3");
   WON_AUDIO = new Audio("../../audio/level-completed.mp3");
-  audios = [this.SPLASH_AUDIO, this.PUNCH_AUDIO, this.UMPH_AUDIO, this.OW_AUDIO, this.WON_AUDIO];
+  BITE_AUDIO = new Audio("../../audio/bite.mp3");
+  audios = [this.SPLASH_AUDIO, this.PUNCH_AUDIO, this.UMPH_AUDIO, this.OW_AUDIO, this.WON_AUDIO, this.BITE_AUDIO];
   i = 100;
   indexImgAnimationOnlyOnce = 0;
   lastAttack = new Date().getTime();
@@ -75,63 +76,54 @@ class EndBoss extends Enemy {
     this.x = 3000;
     this.y = 0;
     this.speed = 0.15 + Math.random() * 10;
-    this.animate();
+    this.checkIfSharkieIsComing();
   }
+
+
 
   animate() {
     setInterval(() => {
+      if (this.canDie()) {
+        this.playDieAnimation();
+      } else
+      if (!this.isDead()) {
       if (this.i < this.IMGS_ENTRY.length) {
         this.playAnimation(this.IMGS_ENTRY);
         this.i++;
-      } else {
-        if (this.hadFirstContact && !this.isDead()) {
-          let now = new Date().getTime();
-          if (now - this.lastAttack > 3000) {
-            if (!this.isAttackAnimationPlayed) {
-              this.playAnimationOnlyOnce(this.indexAttack, this.IMGS_ATTACK);
-              if (this.otherDirection) this.moveRight();
-              else this.moveLeft();
-              this.indexAttack++;
-              if (this.indexAttack == this.IMGS_ATTACK.length) {
-                this.isAttackAnimationPlayed = true;
-                this.indexAttack = 0;
-                this.lastAttack = new Date().getTime();
-              }
-            }
-          } else {
-            this.playAnimation(this.IMGS_IDLE);
-            this.makeAMove();
-            this.isAttackAnimationPlayed = false;
+      } else
+      
+        if (this.canAttack()) {
+          this.playAnimationOnlyOnce(this.indexAttack, this.IMGS_ATTACK);
+          if (this.otherDirection) this.moveRight();
+          else this.moveLeft();
+          this.indexAttack++;
+          if (this.indexAttack == this.IMGS_ATTACK.length) {
+            this.isAttackAnimationPlayed = true;
+            this.indexAttack = 0;
+            this.lastAttack = new Date().getTime();
           }
+        } else {
+          this.playAnimation(this.IMGS_IDLE);
+          this.makeAMove();
+          this.isAttackAnimationPlayed = false;
         }
+      } else {
+        this.moveUp();
+        this.x += Math.random() * 10;
       }
-      if (this.isSharkieComing && !this.hadFirstContact) {
-        this.i = 0;
-        this.x = 2200;
-        this.y = 0;
-        this.hadFirstContact = true;
-      }
-    }, 180);
+    }, 120);
 
     setInterval(() => {
-      if (this.isDead())
-        if (!this.isPlayed) {
-          this.playAnimationOnlyOnce(this.indexImgAnimationOnlyOnce, this.IMGS_DIE);
-          this.indexImgAnimationOnlyOnce++;
-          if (this.indexImgAnimationOnlyOnce == this.IMGS_DIE.length) {
-            this.isPlayed = true;
-          }
+      if (this.canDie()) {
           this.OW_AUDIO.play();
           this.WON_AUDIO.play();
           setTimeout(() => {
             stopGame(true);
           }, 2500);
-        } else {
-          this.x += Math.random() * 5;
-          this.y -= 2;
-        }
+        } 
 
       if (this.i < this.IMGS_ENTRY.length) this.SPLASH_AUDIO.play();
+      if (this.canAttack()) this.BITE_AUDIO.play();
       if (this.isHurt()) {
         this.playAnimation(this.IMGS_HURT);
         this.PUNCH_AUDIO.play();
@@ -140,26 +132,52 @@ class EndBoss extends Enemy {
     }, 100);
   }
 
+  checkIfSharkieIsComing() {
+    setStoppableInterval(() => {
+      if (this.isSharkieComing && !this.hadFirstContact) {
+        this.i = 0;
+        this.x = 2200;
+        this.y = 0;
+        this.hadFirstContact = true;
+        this.animate();
+      }
+    }, 100);
+  }
+
+  canAttack() {
+    if (this.hadFirstContact && !this.isDead()) {
+      let now = new Date().getTime();
+      if (now - this.lastAttack > 3000) if (!this.isAttackAnimationPlayed) return true;
+    }
+    return false;
+  }
+
+  canDie() {
+    return this.isDead() && !this.isPlayed;
+  }
+
+  playDieAnimation() {
+    this.playAnimationOnlyOnce(this.indexImgAnimationOnlyOnce, this.IMGS_DIE);
+          this.indexImgAnimationOnlyOnce++;
+          if (this.indexImgAnimationOnlyOnce == this.IMGS_DIE.length) {
+            this.isPlayed = true;
+          }
+  }
+
   makeAMove() {
-    let i = 0;
     if (this.sharkie.x < this.x) {
-      i = 0; 
       this.otherDirection = false;
       this.moveLeft();
     }
     if (this.sharkie.x > this.x) {
-      i = 1;
       this.otherDirection = true;
       this.moveRight();
     }
     if (this.sharkie.y < this.y) {
-      i = 2;
       this.moveUp();
     }
     if (this.sharkie.y > this.y) {
-      i = 3;
       this.moveDown();
     }
-    console.log(i);
   }
 }
