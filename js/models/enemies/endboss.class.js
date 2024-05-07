@@ -89,7 +89,8 @@ class EndBoss extends Enemy {
           if (now - this.lastAttack > 3000) {
             if (!this.isAttackAnimationPlayed) {
               this.playAnimationOnlyOnce(this.indexAttack, this.IMGS_ATTACK);
-              this.moveLeft();
+              if (this.otherDirection) this.moveRight();
+              else this.moveLeft();
               this.indexAttack++;
               if (this.indexAttack == this.IMGS_ATTACK.length) {
                 this.isAttackAnimationPlayed = true;
@@ -141,24 +142,24 @@ class EndBoss extends Enemy {
 
   makeAMove() {
     let i = 0;
-    if (this.sharkie.x < this.x) i = 0;
-    if (this.sharkie.x > this.x) i = 1;
-    if (this.sharkie.y < this.y) i = 2;
-    if (this.sharkie.y > this.y) i = 3;
-    console.log(i);
-    switch (i) {
-      case 0:
-        this.moveLeft();
-        break;
-      case 1:
-        this.moveRight();
-        break;
-      case 2:
-        this.moveUp();
-        break;
-      case 3:
-        this.moveDown();
-        break;
+    if (this.sharkie.x < this.x) {
+      i = 0; 
+      this.otherDirection = false;
+      this.moveLeft();
     }
+    if (this.sharkie.x > this.x) {
+      i = 1;
+      this.otherDirection = true;
+      this.moveRight();
+    }
+    if (this.sharkie.y < this.y) {
+      i = 2;
+      this.moveUp();
+    }
+    if (this.sharkie.y > this.y) {
+      i = 3;
+      this.moveDown();
+    }
+    console.log(i);
   }
 }
