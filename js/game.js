@@ -67,15 +67,18 @@ function resumeGame() {
 }
 
 function stopGame(isWon) {
+  world.isOver = true;
   AUDIO.muted = true;
   intervalIds.forEach(clearInterval);
   document.getElementById("game").classList.add("d_none");
   if (isWon) {
     document.getElementById("start_game").classList.remove("d_none");
     document.getElementById("won_overlay").classList.remove("d_none");
+
   } else {
     document.getElementById("start_game").classList.remove("d_none");
     document.getElementById("lost_overlay").classList.remove("d_none");
+    document.getElementById("won_overlay").classList.add("d_none");
     LOST_AUDIO.play();
   }
 }
@@ -122,7 +125,7 @@ function toggleMenu() {
   if (instructions.classList.contains("d_none")) {
     document.getElementById("menu_overlay").classList.remove("d_none");
 
-    if (world) {
+    if (world && !world.isOver) {
       document.getElementById("start_game").classList.remove("d_none");
       document.getElementById('restart').classList.remove('d_none');
       game.classList.add("d_none");
@@ -130,7 +133,7 @@ function toggleMenu() {
     }
   } else {
     document.getElementById("menu_overlay").classList.add("d_none");
-    if (world) {
+    if (world && !world.isOver) {
       game.classList.remove("d_none");
       document.getElementById('restart').classList.add('d_none');
       document.getElementById("start_game").classList.add("d_none");

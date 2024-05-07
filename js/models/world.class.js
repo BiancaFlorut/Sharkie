@@ -123,11 +123,11 @@ class World {
 
   checkThrowableObjectsCollisions() {
     for (let bubble of this.level.bubbles) {
-      this.level.enemies.forEach((enemy) => {
+      this.level.enemies.forEach((enemy, index) => {
         if (enemy.isColliding(bubble)) {
           enemy.hit();
           bubble.hit();
-          this.level.bubbles.splice(this.level.bubbles.indexOf(bubble), 1);
+          this.level.bubbles.splice(index, 1);
         }
       });
     }
@@ -150,10 +150,10 @@ class World {
   }
 
   collectCoins() {
-    this.level.coins.forEach((coin) => {
+    this.level.coins.forEach((coin, index) => {
       if (this.sharkie.isColliding(coin)) {
         coin.collect();
-        this.level.coins.splice(this.level.coins.indexOf(coin), 1);
+        this.level.coins.splice(index, 1);
         this.sharkie.coins += 1;
         this.coinBar.setPercentage((this.sharkie.coins * 100) / this.totalNumberOfCoins);
       }
@@ -161,10 +161,10 @@ class World {
   }
 
   collectBottles() {
-    this.level.bottles.forEach((bottle) => {
+    this.level.bottles.forEach((bottle, index) => {
       if (this.sharkie.isColliding(bottle)) {
         bottle.collect();
-        this.level.bottles.splice(this.level.bottles.indexOf(bottle), 1);
+        this.level.bottles.splice(index, 1);
         this.bubbleNumber.number += 4;
         this.bubbleBar.setPercentage((this.bubbleNumber.number * 100) / 4);
       }
@@ -172,10 +172,10 @@ class World {
   }
 
   collectHearts() {
-    this.level.hearts.forEach((heart) => {
+    this.level.hearts.forEach((heart, index) => {
       if (this.sharkie.isColliding(heart)) {
         heart.collect();
-        this.level.hearts.splice(this.level.hearts.indexOf(heart), 1);
+        this.level.hearts.splice(index, 1);
         this.sharkie.energy += 25;
         this.lifeBar.setPercentage(this.sharkie.energy);
       }

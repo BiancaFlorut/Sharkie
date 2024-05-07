@@ -281,6 +281,13 @@ section {
   gap: 16px;
 }
 
+.won {
+  background-image: url("./img/6.Botones/Tittles/You win/Mesa de trabajo 1.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .jc_c {
   justify-content: center;
 }
