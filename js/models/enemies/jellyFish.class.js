@@ -9,6 +9,7 @@ class JellyFish extends Enemy {
   distance;
   MAX_DISTANCE = 2200;
   upDirection = true;
+  lifeBar;
 
   constructor() {
     super();
@@ -18,6 +19,7 @@ class JellyFish extends Enemy {
     this.MAX_DISTANCE = 200 + Math.random() * 500;
     this.otherDirection = Math.random() < 0.5;
     this.distance = this.MAX_DISTANCE;
+    this.setLifeBar();
     this.animate();
   }
 
@@ -25,17 +27,28 @@ class JellyFish extends Enemy {
     setInterval(() => {
       if (this.otherDirection) {
         this.moveRight();
-        if (this.x > 2200) this.otherDirection = false;
+        this.lifeBar.moveRight();
+        if (this.x > 2200) {
+          this.otherDirection = false;
+          this.lifeBar.otherDirection = false;
+        }
       } else {
         if (this.x > 200) {
           this.moveLeft();
-        } else this.otherDirection = true;
+          this.lifeBar.moveLeft();
+        } else {
+          this.otherDirection = true;
+          this.lifeBar.otherDirection = true;
+        }
       }
       if (this.upDirection) {
         this.moveUp();
-        if (this.y < 0) this.upDirection = false;
+        this.lifeBar.moveUp();
+        if (this.y < 0)
+          this.upDirection = false;
       } else {
         this.moveDown();
+        this.lifeBar.moveDown();
         if (this.y > 400) this.upDirection = true;
         if (this.isDead()) this.moveUp();
       }
@@ -52,9 +65,11 @@ class JellyFish extends Enemy {
 
   hit() {
     this.energy -= 100;
+    this.lifeBar.setPercentage(this.energy);
   }
 
   die() {
     this.y -= 10;
+    this.lifeBar.y -= 10;
   }
 }

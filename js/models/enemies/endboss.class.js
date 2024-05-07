@@ -65,6 +65,7 @@ class EndBoss extends Enemy {
   isAttackAnimationPlayed = false;
   indexAttack = 0;
   sharkie;
+  lifeBar;
 
   constructor() {
     super().loadImg("../../img/2.Enemy/3 Final Enemy/1.Introduce/1.png");
@@ -76,6 +77,8 @@ class EndBoss extends Enemy {
     this.x = 3000;
     this.y = 0;
     this.speed = 0.15 + Math.random() * 10;
+    this.setLifeBar();
+    this.lifeBar.offsetY = 100;
     this.checkIfSharkieIsComing();
   }
 
@@ -94,8 +97,14 @@ class EndBoss extends Enemy {
       
         if (this.canAttack()) {
           this.playAnimationOnlyOnce(this.indexAttack, this.IMGS_ATTACK);
-          if (this.otherDirection) this.moveRight();
-          else this.moveLeft();
+          if (this.otherDirection) {
+            this.moveRight();
+            this.lifeBar.moveRight();
+          }
+          else {
+            this.moveLeft();
+            this.lifeBar.moveLeft();
+          }
           this.indexAttack++;
           if (this.indexAttack == this.IMGS_ATTACK.length) {
             this.isAttackAnimationPlayed = true;
@@ -110,6 +119,8 @@ class EndBoss extends Enemy {
       } else {
         this.moveUp();
         this.x += Math.random() * 10;
+        this.lifeBar.moveUp();
+        this.lifeBar.x += this.x;
       }
     }, 120);
 
@@ -139,6 +150,7 @@ class EndBoss extends Enemy {
         this.x = 2200;
         this.y = 0;
         this.hadFirstContact = true;
+        this.setPosition();
         this.animate();
       }
     }, 100);
@@ -168,16 +180,21 @@ class EndBoss extends Enemy {
     if (this.sharkie.x < this.x) {
       this.otherDirection = false;
       this.moveLeft();
+      this.lifeBar.moveLeft();
     }
     if (this.sharkie.x > this.x) {
       this.otherDirection = true;
       this.moveRight();
+      this.lifeBar.moveRight();
     }
     if (this.sharkie.y < this.y) {
       this.moveUp();
+      this.lifeBar.moveUp();
     }
     if (this.sharkie.y > this.y) {
       this.moveDown();
+      this.lifeBar.moveDown();
     }
+    this.lifeBar.otherDirection = this.otherDirection;
   }
 }

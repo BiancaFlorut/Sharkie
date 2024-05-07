@@ -28,6 +28,7 @@ class PufferFish extends Enemy {
     this.MAX_DISTANCE = 200 + Math.random() * 500;
     this.otherDirection = Math.random() < 0.5;
     this.distance = this.MAX_DISTANCE;
+    this.setLifeBar();
     this.animate();
   }
 
@@ -35,11 +36,15 @@ class PufferFish extends Enemy {
     setInterval(() => {
       if (this.otherDirection) {
         this.moveRight();
+        this.lifeBar.moveRight();
         if (this.x > 2200) this.otherDirection = false;
       } else {
         if (this.x > 200) {
           this.moveLeft();
-        } else this.otherDirection = true;
+          this.lifeBar.moveLeft();
+        } else {
+          this.otherDirection = true;
+          this.lifeBar.otherDirection = true;}
       }
     }, 1000 / 60);
 
@@ -53,15 +58,18 @@ class PufferFish extends Enemy {
 
   hit() {
     this.energy -= 20;
+    this.lifeBar.setPercentage(this.energy);
   }
 
   die() {
     this.loadImg(this.IMGS_DIE);
     this.y -= 10;
+    this.lifeBar.y -= 10;
   }
 
   slapHit() {
     this.energy -= 100;
+    this.lifeBar.setPercentage(this.energy);
     this.slapped = true;
   }
 
@@ -69,5 +77,7 @@ class PufferFish extends Enemy {
     this.loadImg(this.IMGS_SLAP_DIE);
     this.y += 50;
     this.x += 20;
+    this.lifeBar.y += 50;
+    this.lifeBar.x += 20;
   }
 }

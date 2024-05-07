@@ -68,13 +68,21 @@ class World {
   }
 
   addToWorld(movableObject) {
+    
     if (movableObject.otherDirection) {
       movableObject.flipObject(this.ctx);
     }
     movableObject.draw(this.ctx);
-    
     if (movableObject.otherDirection) {
       movableObject.flipObjectBack(this.ctx);
+    }
+
+    if (movableObject.lifeBar) {
+      if (movableObject.lifeBar.otherDirection)
+        movableObject.lifeBar.flipObject(this.ctx);
+      movableObject.lifeBar.draw(this.ctx);
+      if (movableObject.lifeBar.otherDirection)
+        movableObject.lifeBar.flipObjectBack(this.ctx);
     }
   }
 

@@ -70,6 +70,7 @@ class MovableObject extends Drawable {
     } else {
       this.lastHit = new Date().getTime();
     }
+    if (this.lifeBar) this.lifeBar.setPercentage(this.energy);
   }
 
   isDead() {
