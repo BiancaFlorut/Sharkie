@@ -25,6 +25,7 @@ class World {
 
   setWorld() {
     this.sharkie.world = this;
+    this.level.enemies[this.level.enemies.length - 1].sharkie = this.sharkie;
   }
 
   draw() {

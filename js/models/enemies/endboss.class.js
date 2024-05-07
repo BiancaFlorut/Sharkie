@@ -42,6 +42,14 @@ class EndBoss extends Enemy {
     "../../img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 9.png",
     "../../img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 10.png",
   ];
+  IMGS_ATTACK = [
+    "../../img/2.Enemy/3 Final Enemy/Attack/1.png",
+    "../../img/2.Enemy/3 Final Enemy/Attack/2.png",
+    "../../img/2.Enemy/3 Final Enemy/Attack/3.png",
+    "../../img/2.Enemy/3 Final Enemy/Attack/4.png",
+    "../../img/2.Enemy/3 Final Enemy/Attack/5.png",
+    "../../img/2.Enemy/3 Final Enemy/Attack/6.png",
+  ];
   isSharkieComing = false;
   hadFirstContact = false;
   SPLASH_AUDIO = new Audio("../../audio/splash.mp3");
@@ -52,6 +60,10 @@ class EndBoss extends Enemy {
   audios = [this.SPLASH_AUDIO, this.PUNCH_AUDIO, this.UMPH_AUDIO, this.OW_AUDIO, this.WON_AUDIO];
   i = 100;
   indexImgAnimationOnlyOnce = 0;
+  lastAttack = new Date().getTime();
+  isAttackAnimationPlayed = false;
+  indexAttack = 0;
+  sharkie;
 
   constructor() {
     super().loadImg("../../img/2.Enemy/3 Final Enemy/1.Introduce/1.png");
@@ -59,10 +71,10 @@ class EndBoss extends Enemy {
     this.loadImgs(this.IMGS_IDLE);
     this.loadImgs(this.IMGS_HURT);
     this.loadImgs(this.IMGS_DIE);
+    this.loadImgs(this.IMGS_ATTACK);
     this.x = 3000;
     this.y = 0;
-    this.speed = 0.15 + Math.random() / 0.4;
-    // this.applyGravity();
+    this.speed = 0.15 + Math.random() * 10;
     this.animate();
   }
 
@@ -72,7 +84,25 @@ class EndBoss extends Enemy {
         this.playAnimation(this.IMGS_ENTRY);
         this.i++;
       } else {
-        if (this.hadFirstContact && !this.isDead()) this.playAnimation(this.IMGS_IDLE);
+        if (this.hadFirstContact && !this.isDead()) {
+          let now = new Date().getTime();
+          if (now - this.lastAttack > 3000) {
+            if (!this.isAttackAnimationPlayed) {
+              this.playAnimationOnlyOnce(this.indexAttack, this.IMGS_ATTACK);
+              this.moveLeft();
+              this.indexAttack++;
+              if (this.indexAttack == this.IMGS_ATTACK.length) {
+                this.isAttackAnimationPlayed = true;
+                this.indexAttack = 0;
+                this.lastAttack = new Date().getTime();
+              }
+            }
+          } else {
+            this.playAnimation(this.IMGS_IDLE);
+            this.makeAMove();
+            this.isAttackAnimationPlayed = false;
+          }
+        }
       }
       if (this.isSharkieComing && !this.hadFirstContact) {
         this.i = 0;
@@ -80,11 +110,10 @@ class EndBoss extends Enemy {
         this.y = 0;
         this.hadFirstContact = true;
       }
-    }, 140);
+    }, 180);
 
     setInterval(() => {
       if (this.isDead())
-        
         if (!this.isPlayed) {
           this.playAnimationOnlyOnce(this.indexImgAnimationOnlyOnce, this.IMGS_DIE);
           this.indexImgAnimationOnlyOnce++;
@@ -100,7 +129,7 @@ class EndBoss extends Enemy {
           this.x += Math.random() * 5;
           this.y -= 2;
         }
-        
+
       if (this.i < this.IMGS_ENTRY.length) this.SPLASH_AUDIO.play();
       if (this.isHurt()) {
         this.playAnimation(this.IMGS_HURT);
@@ -110,4 +139,26 @@ class EndBoss extends Enemy {
     }, 100);
   }
 
+  makeAMove() {
+    let i = 0;
+    if (this.sharkie.x < this.x) i = 0;
+    if (this.sharkie.x > this.x) i = 1;
+    if (this.sharkie.y < this.y) i = 2;
+    if (this.sharkie.y > this.y) i = 3;
+    console.log(i);
+    switch (i) {
+      case 0:
+        this.moveLeft();
+        break;
+      case 1:
+        this.moveRight();
+        break;
+      case 2:
+        this.moveUp();
+        break;
+      case 3:
+        this.moveDown();
+        break;
+    }
+  }
 }
