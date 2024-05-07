@@ -70,6 +70,7 @@ class MovableObject extends Drawable {
     } else {
       this.lastHit = new Date().getTime();
     }
+    console.log(this.energy);
   }
 
   isDead() {

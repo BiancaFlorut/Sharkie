@@ -143,14 +143,6 @@ class Character extends MovableObject {
     }, 100);
   }
 
-  playAnimationOnlyOnce(index, array) {
-    if (!this.isPlayed && index < array.length - 1) {
-      this.img = this.imgCache[this.IMGS_SLEEP[index]];
-    } else {
-      this.img = this.imgCache[this.IMGS_SLEEP[index]];
-    }
-  }
-
   resetParameters() {
     this.lastAction = new Date().getTime();
     this.isPlayed = false;

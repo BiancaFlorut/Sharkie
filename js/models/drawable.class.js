@@ -23,6 +23,8 @@ class Drawable {
     try {
       if (this.img)
       ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    else
+      console.log('The image is not loaded');
     } catch(e) {
       console.log('The image is not loaded: ', e);
       console.log(typeof this, this.img);
@@ -40,6 +42,14 @@ class Drawable {
   playAnimation(imgs) {
     this.currentImg = ++this.currentImg % imgs.length;
     this.img = this.imgCache[imgs[this.currentImg]];
+  }
+
+  playAnimationOnlyOnce(index, array) {
+    if (!this.isPlayed && index < array.length - 1) {
+      this.img = this.imgCache[array[index]];
+    } else {
+      this.img = this.imgCache[array[index]];
+    }
   }
 
 drawFrame(ctx) {

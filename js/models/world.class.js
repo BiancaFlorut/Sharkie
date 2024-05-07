@@ -36,8 +36,7 @@ class World {
       this.ctx.translate(this.camera_x, 0);
       this.addLevelObjects();
       this.addToWorld(this.sharkie);
-      if (this.sharkie.x > 1855) this.level.enemies[this.level.enemies.length - 1].isSharkieComing = true;
-      if (this.sharkie.x < 1855) this.level.enemies[this.level.enemies.length - 1].isSharkieComing = false;
+      this.setFirstContact();
       this.ctx.translate(-this.camera_x, 0);
       this.addToWorld(this.lifeBar);
       this.addToWorld(this.bubbleBar);
@@ -46,6 +45,11 @@ class World {
     }
     let self = this;
     requestAnimationFrame(() => self.draw());
+  }
+
+  setFirstContact() {
+    if (this.sharkie.x >= 1855) this.level.enemies[this.level.enemies.length - 1].isSharkieComing = true;
+    if (this.sharkie.x < 1855) this.level.enemies[this.level.enemies.length - 1].isSharkieComing = false;
   }
 
   addLevelObjects() {
@@ -67,6 +71,8 @@ class World {
       movableObject.flipObject(this.ctx);
     }
     movableObject.draw(this.ctx);
+    movableObject.drawFrame(this.ctx);
+    
     if (movableObject.otherDirection) {
       movableObject.flipObjectBack(this.ctx);
     }
