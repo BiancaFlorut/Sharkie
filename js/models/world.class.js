@@ -123,15 +123,15 @@ class World {
   }
 
   checkThrowableObjectsCollisions() {
-    for (let bubble of this.level.bubbles) {
-      this.level.enemies.forEach((enemy, index) => {
+    this.level.bubbles.forEach((bubble, index) => {
+      this.level.enemies.forEach((enemy) => {
         if (enemy.isColliding(bubble)) {
           enemy.hit();
           bubble.hit();
           this.level.bubbles.splice(index, 1);
         }
       });
-    }
+    });
   }
 
   getAllAudios() {

@@ -3,11 +3,11 @@ let LEVEL1;
 function initLevel1() {
   LEVEL1 = new Level(
     [
-      // new PufferFish(), new PufferFish(), new PufferFish(),
-      // new PufferFish(), new PufferFish(), new PufferFish(),
-      // new LilaJellyFish(), new YellowJellyFish(), new LilaJellyFish() , 
-      // new YellowJellyFish(), new LilaJellyFish(), new YellowJellyFish(),
-      // new SuperJellyFish(), new SuperJellyFish(), new SuperJellyFish(),
+      new PufferFish(), new PufferFish(), new PufferFish(),
+      new PufferFish(), new PufferFish(), new PufferFish(),
+      new LilaJellyFish(), new YellowJellyFish(), new LilaJellyFish() , 
+      new YellowJellyFish(), new LilaJellyFish(), new YellowJellyFish(),
+      new SuperJellyFish(), new SuperJellyFish(), new SuperJellyFish(),
       new EndBoss()],
     [
       new Background("../img/3. Background/Layers/5. Water/L2.png", -720, 0, 720, 480),

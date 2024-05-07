@@ -149,3 +149,13 @@ function backToStart() {
   document.getElementById("menu_overlay").classList.add("d_none");
   document.getElementById("game").classList.add("d_none");
 }
+
+function toggleFullScreen() {
+  let canvas = document.getElementById("canvas");
+  if (!document.fullscreenElement) {
+    canvas.requestFullscreen();
+  }
+  else {
+    document.exitFullscreen();
+  }
+}
