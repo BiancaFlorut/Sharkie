@@ -48,7 +48,8 @@ class EndBoss extends Enemy {
   PUNCH_AUDIO = new Audio("../../audio/punch.mp3");
   UMPH_AUDIO = new Audio("../../audio/umph.mp3");
   OW_AUDIO = new Audio("../../audio/ow.mp3");
-  audios = [this.SPLASH_AUDIO, this.PUNCH_AUDIO, this.UMPH_AUDIO, this.OW_AUDIO];
+  WON_AUDIO = new Audio("../../audio/level-completed.mp3");
+  audios = [this.SPLASH_AUDIO, this.PUNCH_AUDIO, this.UMPH_AUDIO, this.OW_AUDIO, this.WON_AUDIO];
   i = 100;
   indexImgAnimationOnlyOnce = 0;
 
@@ -83,6 +84,7 @@ class EndBoss extends Enemy {
 
     setInterval(() => {
       if (this.isDead())
+        
         if (!this.isPlayed) {
           this.playAnimationOnlyOnce(this.indexImgAnimationOnlyOnce, this.IMGS_DIE);
           this.indexImgAnimationOnlyOnce++;
@@ -90,10 +92,15 @@ class EndBoss extends Enemy {
             this.isPlayed = true;
           }
           this.OW_AUDIO.play();
+          this.WON_AUDIO.play();
+          setTimeout(() => {
+            stopGame(true);
+          }, 2500);
         } else {
           this.x += Math.random() * 5;
           this.y -= 2;
         }
+        
       if (this.i < this.IMGS_ENTRY.length) this.SPLASH_AUDIO.play();
       if (this.isHurt()) {
         this.playAnimation(this.IMGS_HURT);
@@ -102,4 +109,5 @@ class EndBoss extends Enemy {
       }
     }, 100);
   }
+
 }
