@@ -188,11 +188,11 @@ class EndBoss extends Enemy {
       this.moveRight();
       this.lifeBar.moveRight();
     }
-    if (this.sharkie.y < this.y + this.offsetYTop + 50) {
+    if ((this.sharkie.y + this.sharkie.offsetYTop) < (this.y + this.offsetYTop + 50)) {
       this.moveUp();
       this.lifeBar.moveUp();
     }
-    if (this.sharkie.y > this.y && this.y < 250) {
+    if ((this.sharkie.y - this.sharkie.offsetYBottom - this.sharkie.offsetYTop + this.sharkie.height) > (this.y - this.offsetYTop - this.offsetYBottom + this.height)) {
       this.moveDown();
       this.lifeBar.moveDown();
     }

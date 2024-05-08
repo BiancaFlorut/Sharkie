@@ -20,8 +20,8 @@ document.addEventListener("keydown", (event) => {
     case "ArrowDown":
       keyboard.DOWN = true;
       break;
-    case "Space":
-      keyboard.SPACE = true;
+    case "KeyX":
+      keyboard.X = true;
       break;
     case "KeyZ":
       keyboard.Y = true;
@@ -43,8 +43,8 @@ document.addEventListener("keyup", (event) => {
     case "ArrowDown":
       keyboard.DOWN = false;
       break;
-    case "Space":
-      keyboard.SPACE = false;
+    case "KeyX":
+      keyboard.X = false;
       break;
     case "KeyZ":
       keyboard.Y = false;

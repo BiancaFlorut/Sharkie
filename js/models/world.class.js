@@ -8,7 +8,7 @@ class World {
   isMuted;
   lifeBar = new LifeBar();
   bubbleBar = new PoisonBar();
-  bubbleNumber = new Number(350, 40, 0);
+  bubbleNumber = new Number(285, 40, 0);
   coinBar = new CoinBar();
   totalNumberOfCoins = this.level.coins.length;
   totalNumberOfPoisonBubbles = this.level.bottles.length * 4;
@@ -99,7 +99,7 @@ class World {
   checkCollisions() {
     for (let enemy of this.level.enemies) {
       if (this.sharkie.isColliding(enemy)) {
-        if (this.keyboard.SPACE) {
+        if (this.keyboard.X) {
           enemy.slapHit();
         } else {
           if (enemy instanceof JellyFish) {

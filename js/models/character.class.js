@@ -155,7 +155,7 @@ class Character extends MovableObject {
     if (this.canMoveLeft()) this.moveLeft();
     if (this.canMoveUp()) this.moveUp();
     if (this.canMoveDown()) this.moveDown();
-    if (this.world.keyboard.SPACE) {
+    if (this.world.keyboard.X) {
       this.SLAP_AUDIO.play();
       this.offsetXRight = -15; 
       setTimeout(() => {
@@ -211,7 +211,7 @@ class Character extends MovableObject {
     if (this.isDead()) this.die();
     else if (this.isElectricShocked()) this.playElectricShock();
     else if (this.isHurt()) this.playHurt();
-    else if (this.world.keyboard.SPACE) this.playSlap();
+    else if (this.world.keyboard.X) this.playSlap();
     else if (this.world.keyboard.Y) this.playBubbleAttack();
     else if (this.isMoving()) this.playMove();
     else this.playIdle();
@@ -264,7 +264,7 @@ class Character extends MovableObject {
 
   playMove() {
     this.playAnimation(this.IMGS_SWIM);
-    if (this.world.keyboard.SPACE) this.playAnimation(this.IMGS_BUBBLE_ATTACK);
+    if (this.world.keyboard.X) this.playAnimation(this.IMGS_BUBBLE_ATTACK);
     if (this.world.keyboard.Y) this.playBubbleAttack();
     this.resetParameters();
   }

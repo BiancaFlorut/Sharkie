@@ -8,7 +8,7 @@ class CoinBar extends Bar {
         "../../img/4. Marcadores/orange/Coins/100.png"
     ]
     constructor() {
-        super(540, 0);
+        super(410, 0);
         this.loadImg("../../../../img/4. Marcadores/orange/Coins/0.png");
         this.loadImgs(this.IMGS);
         this.setPercentage(0);

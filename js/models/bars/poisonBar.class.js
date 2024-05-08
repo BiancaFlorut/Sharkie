@@ -10,7 +10,7 @@ class PoisonBar  extends Bar {
 
 
     constructor() {
-        super(280, 0);
+        super(210, 0);
         this.loadImg("img/4. Marcadores/orange/Poison Bubbles/0.png");
         this.loadImgs(this.IMGS);
         this.setPercentage(0);
