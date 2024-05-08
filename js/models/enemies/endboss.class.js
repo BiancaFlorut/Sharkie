@@ -76,8 +76,9 @@ class EndBoss extends Enemy {
     this.loadImgs(this.IMGS_ATTACK);
     this.x = 3000;
     this.y = 0;
-    this.speed = 0.15 + Math.random() * 10;
+    this.speed = 8;
     this.setLifeBar();
+    this.lifeBar.visibility = true;
     this.lifeBar.offsetY = 100;
     this.checkIfSharkieIsComing();
   }
@@ -187,11 +188,11 @@ class EndBoss extends Enemy {
       this.moveRight();
       this.lifeBar.moveRight();
     }
-    if (this.sharkie.y < this.y) {
+    if (this.sharkie.y < this.y + this.offsetYTop + 50) {
       this.moveUp();
       this.lifeBar.moveUp();
     }
-    if (this.sharkie.y > this.y) {
+    if (this.sharkie.y > this.y && this.y < 250) {
       this.moveDown();
       this.lifeBar.moveDown();
     }

@@ -70,7 +70,14 @@ class MovableObject extends Drawable {
     } else {
       this.lastHit = new Date().getTime();
     }
-    if (this.lifeBar) this.lifeBar.setPercentage(this.energy);
+    if (this.lifeBar) {
+      this.lifeBar.setPercentage(this.energy);
+      this.lifeBar.visibility = true;
+      if (!(this instanceof EndBoss))
+      setInterval(() => {
+        this.lifeBar.visibility = false;
+      });
+    }
   }
 
   isDead() {

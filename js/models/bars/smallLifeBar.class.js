@@ -4,6 +4,7 @@ class SmallLifeBar extends MovableObject {
     percentage = 100;
     speed = 0.15;
     offsetY = 0;
+    visibility = false;
 
     constructor(x, y) {
         super();

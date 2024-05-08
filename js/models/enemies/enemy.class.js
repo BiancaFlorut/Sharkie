@@ -4,14 +4,18 @@ class Enemy extends MovableObject {
     this.energy -= 20;
     if (this.otherDirection) {
       this.x -= 100;
-      this.otherDirection = false;
     } else {
       this.x += 100;
-      this.otherDirection = true;
     }
     this.lifeBar.setPercentage(this.energy);
-    this.lifeBar.y = this.y - 10;
+    this.lifeBar.y = this.y +this.lifeBar.offsetY;
     this.lifeBar.x = this.x;
+    this.lifeBar.visibility = true;
+    this.lifeBar.otherDirection = this.otherDirection;
+    if (!(this instanceof EndBoss))
+    setTimeout(() => {
+      this.lifeBar.visibility = false;
+    }, 1000);
   }
 
   setLifeBar() {

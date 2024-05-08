@@ -58,23 +58,22 @@ function setStoppableInterval(callback, time) {
 
 function pauseGame() {
   world.isPaused = true;
-  if (!isMute.valueOf()) AUDIO.muted = true;
+  if (!isMute.valueOf()) mute();
 }
 
 function resumeGame() {
   world.isPaused = false;
-  if (!isMute.valueOf()) AUDIO.muted = false;
+  if (!isMute.valueOf()) unmute();
 }
 
 function stopGame(isWon) {
   world.isOver = true;
-  AUDIO.muted = true;
+  mute();
   intervalIds.forEach(clearInterval);
   document.getElementById("game").classList.add("d_none");
   if (isWon) {
     document.getElementById("start_game").classList.remove("d_none");
     document.getElementById("won_overlay").classList.remove("d_none");
-
   } else {
     document.getElementById("start_game").classList.remove("d_none");
     document.getElementById("lost_overlay").classList.remove("d_none");
@@ -85,12 +84,10 @@ function stopGame(isWon) {
 
 function toggleMute() {
   if (isMute.valueOf()) {
-    AUDIO.muted = false;
-    world.getAllAudios().forEach((audio) => (audio.muted = false));
-    document.getElementById("speakerIcon").src = "./img/Icons/mute.png";
+    unmute();
     isMute = new Boolean(false);
-    world.unmute();
   } else {
+    isMute = new Boolean(true);
     mute();
   }
 }
@@ -100,8 +97,15 @@ function mute() {
   LOST_AUDIO.muted = true;
   world.getAllAudios().forEach((audio) => (audio.muted = true));
   document.getElementById("speakerIcon").src = "./img/Icons/speaker.png";
-  isMute = new Boolean(true);
   world.mute();
+}
+
+function unmute() {
+  AUDIO.muted = false;
+  LOST_AUDIO.muted = false;
+  world.getAllAudios().forEach((audio) => (audio.muted = false));
+  document.getElementById("speakerIcon").src = "./img/Icons/mute.png";
+  world.unmute();
 }
 
 function startGame() {
@@ -127,7 +131,7 @@ function toggleMenu() {
 
     if (world && !world.isOver) {
       document.getElementById("start_game").classList.remove("d_none");
-      document.getElementById('restart').classList.remove('d_none');
+      document.getElementById("restart").classList.remove("d_none");
       game.classList.add("d_none");
       pauseGame();
     }
@@ -135,7 +139,7 @@ function toggleMenu() {
     document.getElementById("menu_overlay").classList.add("d_none");
     if (world && !world.isOver) {
       game.classList.remove("d_none");
-      document.getElementById('restart').classList.add('d_none');
+      document.getElementById("restart").classList.add("d_none");
       document.getElementById("start_game").classList.add("d_none");
       resumeGame();
     }
@@ -152,10 +156,6 @@ function backToStart() {
 
 function toggleFullScreen() {
   let canvas = document.getElementById("canvas");
-  if (!document.fullscreenElement) {
-    canvas.requestFullscreen();
-  }
-  else {
-    document.exitFullscreen();
-  }
+  if (!document.fullscreenElement) canvas.requestFullscreen();
+  else document.exitFullscreen();
 }

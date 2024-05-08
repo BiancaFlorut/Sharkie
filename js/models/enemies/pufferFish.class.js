@@ -59,6 +59,10 @@ class PufferFish extends Enemy {
   hit() {
     this.energy -= 20;
     this.lifeBar.setPercentage(this.energy);
+    this.lifeBar.visibility = true;
+    setTimeout(() => {
+      this.lifeBar.visibility = false;  
+    }, 1000);
   }
 
   die() {

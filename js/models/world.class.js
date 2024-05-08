@@ -68,7 +68,6 @@ class World {
   }
 
   addToWorld(movableObject) {
-    
     if (movableObject.otherDirection) {
       movableObject.flipObject(this.ctx);
     }
@@ -77,12 +76,10 @@ class World {
       movableObject.flipObjectBack(this.ctx);
     }
 
-    if (movableObject.lifeBar) {
-      if (movableObject.lifeBar.otherDirection)
-        movableObject.lifeBar.flipObject(this.ctx);
+    if (movableObject.lifeBar && movableObject.lifeBar.visibility) {
+      if (movableObject.lifeBar.otherDirection) movableObject.lifeBar.flipObject(this.ctx);
       movableObject.lifeBar.draw(this.ctx);
-      if (movableObject.lifeBar.otherDirection)
-        movableObject.lifeBar.flipObjectBack(this.ctx);
+      if (movableObject.lifeBar.otherDirection) movableObject.lifeBar.flipObjectBack(this.ctx);
     }
   }
 
@@ -108,8 +105,10 @@ class World {
           if (enemy instanceof JellyFish) {
             this.sharkie.electricShock();
           }
-          this.sharkie.hit();
-          this.lifeBar.setPercentage(this.sharkie.energy);
+          if (!this.sharkie.isHurt()) {
+            this.sharkie.hit();
+            this.lifeBar.setPercentage(this.sharkie.energy);
+          }
         }
       }
     }
