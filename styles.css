@@ -83,10 +83,17 @@ section {
 
 .game_menu {
   display: flex;
+  align-items: center;
   position: absolute;
   transform: translate(0, 50%);
   gap: 16px;
   padding: 16px;
+}
+
+.operations {
+  transform: translate(0, -50%);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .mute img {
@@ -288,8 +295,47 @@ section {
   background-position: center;
 }
 
+button {
+  border: none;
+  background: none;
+}
+
+button img {
+  height: 30px;
+}
+
+#swimRightIcon {
+  transform: rotate(180deg);
+}
+
+#swimUpIcon {
+  transform: rotate(90deg);
+}
+
+#swimDownIcon {
+  transform: rotate(270deg);
+}
+
+.attack_icons .key {
+  padding: 5px;
+  height: 20px;
+}
+
+.attack_icons img {
+  height: 20px;
+  width: 20px;
+}
 .jc_c {
   justify-content: center;
+}
+
+.jc_sb {
+  justify-content: space-between;
+}
+
+.op_icons {
+  display: flex;
+  gap: 16px;
 }
 
 .df_jc_fe {
@@ -302,18 +348,28 @@ section {
 }
 
 @media (max-width: 720px) {
+  #game,
   canvas {
     width: 100%;
+    height: 100%;
     box-sizing: border-box;
+  }
+  button img {
+    height: 30px !important;
   }
   .mute img {
     height: 20px;
   }
+
   .background_start_game {
     width: 100%;
+    min-height: 100vh;
   }
   .start_game {
-    padding: 8px;
     box-sizing: border-box;
+  }
+  header,
+  footer {
+    display: none;
   }
 }

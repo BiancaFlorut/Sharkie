@@ -52,6 +52,76 @@ document.addEventListener("keyup", (event) => {
   }
 });
 
+function bindeTouchEvents() {
+  document.getElementById("swimLeftIcon").addEventListener("touchstart",  (e) => {
+    e.preventDefault();
+    keyboard.LEFT = true;
+  });
+  document.getElementById("swimLeftIcon").addEventListener("touchend", (e) => {
+    e.preventDefault();
+    keyboard.LEFT = false;
+  });
+  document.getElementById('swimRightIcon').addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    keyboard.RIGHT = true;
+  });
+  document.getElementById('swimRightIcon').addEventListener('touchend', (e) => {
+    e.preventDefault();
+    keyboard.RIGHT = false;
+  });
+  
+  document.getElementById("swimUpIcon").addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    keyboard.UP = true;
+  });
+  document.getElementById("swimUpIcon").addEventListener("touchend", (e) => {
+    e.preventDefault();
+    keyboard.UP = false;
+  });
+  document.getElementById('swimDownIcon').addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    keyboard.DOWN = true;
+  });
+  document.getElementById('swimDownIcon').addEventListener('touchend', (e) => {
+    e.preventDefault();
+    keyboard.DOWN = false;
+  });
+  document.getElementById('bubbleAttack').addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    keyboard.Y = true;
+  });
+  document.getElementById('bubbleAttack').addEventListener('touchend', (e) => {
+    e.preventDefault();
+    keyboard.Y = false;
+  });
+  document.getElementById('slapAttack').addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    keyboard.X = true;
+  });
+  document.getElementById('slapAttack').addEventListener('touchend', (e) => {
+    e.preventDefault();
+    keyboard.X = false;
+  });
+  window.addEventListener("orientationchange", checkRightOrientation);
+}
+
+function checkRightOrientation() {
+  switch (screen.orientation.type) {
+    case "landscape-primary":
+      console.log("That looks good.");
+      break;
+    case "landscape-secondary":
+      console.log("Mmmh… the screen is upside down!");
+      break;
+    case "portrait-secondary":
+    case "portrait-primary":
+      console.log("Mmmh… you should rotate your device to landscape");
+      break;
+    default:
+      console.log("The orientation API isn't supported in this browser :(");
+}
+}
+
 function setStoppableInterval(callback, time) {
   intervalIds.push(setInterval(callback, time));
 }
@@ -118,6 +188,9 @@ function startGame() {
   AUDIO.muted = isMute.valueOf();
   document.getElementById("start_game").classList.add("d_none");
   document.getElementById("game").classList.remove("d_none");
+  document.getElementById("menu_overlay").classList.add("d_none");
+  document.getElementById("lost_overlay").classList.add("d_none");
+  document.getElementById("won_overlay").classList.add("d_none");
   canvas = document.getElementById("canvas");
   initLevel1();
   world = new World(canvas, keyboard, isMute);
@@ -155,7 +228,14 @@ function backToStart() {
 }
 
 function toggleFullScreen() {
-  let canvas = document.getElementById("canvas");
-  if (!document.fullscreenElement) canvas.requestFullscreen();
-  else document.exitFullscreen();
+  let game = document.getElementById("game");
+  if (!window.fullscreenElement) {
+    game.requestFullscreen();
+    document.getElementById("canvas").style.width = "100%";
+  }
+  else {
+    document.getElementById("canvas").style.width = "auto";
+    game.exitFullscreen();
+  }
+
 }

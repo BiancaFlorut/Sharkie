@@ -47,7 +47,7 @@
     <script src="./js/game.js"></script>
     <title>Sharkie</title>
   </head>
-  <body>
+  <body onload="bindeTouchEvents()">
     <header>
       <div class="header_container">
         <h1>Sharkie</h1>
@@ -62,6 +62,30 @@
         </div>
       </div>
       <canvas id="canvas" width="720" height="480"></canvas>
+      <div class="mute">
+        <div class="game_menu operations jc_sb">
+          <div>
+            <div class="op_icons jc_c">
+              <button id="swimUpIcon" /><img src="./img/Icons/back.png" alt=""></button>
+            </div>
+            <div class="op_icons jc_c">
+              <button id="swimLeftIcon"/><img  src="./img/Icons/back.png" alt=""></button>
+              <button id="swimRightIcon"><img src="./img/Icons/back.png" alt="" /></button>
+            </div>
+            <div class="op_icons jc_c">
+              <button id="swimDownIcon"> <img  src="./img/Icons/back.png" alt="" /></button>
+            </div>
+          </div>
+          <div class="attack_icons op_icons">
+            <div class="key">
+              <img id="bubbleAttack" src="./img/1.Sharkie/4.Attack/Bubble trap/Bubble.png" alt="" />
+            </div>
+            <div class="key">
+              <img id="slapAttack" src="./img/1.Sharkie/4.Attack/Fin slap/slap.png" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
     <section class="start_game">
       <div id="start_game" class="background_start_game">
@@ -102,7 +126,7 @@
               </tr>
             </table>
             <div class="instruction_footer">
-              <div class="start_button d_none" id="restart" onclick="startGame()"><img src="./img/6.Botones/Try again/Recurso 18.png" alt="try again" /></div>
+              <div class="start_button d_none" id="restart" onclick="startGame()" touchStart="startGame()"><img src="./img/6.Botones/Try again/Recurso 18.png" alt="try again" /></div>
             </div>
           </div>
         </div>
@@ -115,7 +139,7 @@
                 </div>
               </div>
               <div class="game_over_container df_jc_fe">
-                <div class="start_button" onclick="startGame()"><img src="./img/6.Botones/Try again/Recurso 17.png" alt="try again" /></div>
+                <div class="start_button" onclick="startGame()" touchStart="startGame()"><img src="./img/6.Botones/Try again/Recurso 17.png" alt="try again" /></div>
               </div>
             </div>
           </div>
