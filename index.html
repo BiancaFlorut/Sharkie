@@ -47,7 +47,7 @@
     <script src="./js/game.js"></script>
     <title>Sharkie</title>
   </head>
-  <body onload="bindeTouchEvents()">
+  <body onload="init()">
     <header>
       <div class="header_container">
         <h1>Sharkie</h1>
@@ -58,7 +58,7 @@
         <div class="game_menu">
           <img id="speakerIcon" src="./img/Icons/mute.png" alt="mute" onclick="toggleMute()" />
           <img onclick="toggleMenu()" id="menu" src="./img/Icons/app.png" alt="" />
-          <img src="./img/Icons/maximize.png" onclick="toggleFullScreen()" alt="" />
+          <img id="fullScreen" src="./img/Icons/maximize.png" onclick="toggleFullScreen()" alt="" />
         </div>
       </div>
       <canvas id="canvas" width="720" height="480"></canvas>
@@ -161,6 +161,13 @@
           </div>
         </div>
       </div>
+      <div id="changeOrientation" class="dialog d_none">
+        <h1>
+          Please turn your device in landscape mode!
+        </h1>
+        <img src="./img/Icons/turn_to_landscape.gif" alt="rotate" />
+      </div>
+      
     </section>
 
     <footer>

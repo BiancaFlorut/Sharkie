@@ -162,7 +162,7 @@ class Character extends MovableObject {
         this.resetOffsetXRight();
       }, 100);
     }
-    this.world.camera_x = -this.x + 60;
+    this.world.camera_x = -this.x + 180;
   }
 
   canMoveRight() {

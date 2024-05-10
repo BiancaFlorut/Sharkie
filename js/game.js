@@ -52,8 +52,21 @@ document.addEventListener("keyup", (event) => {
   }
 });
 
+function init() {
+  bindeTouchEvents();
+  onfullscreenchange = () => {
+    toggleFullScreen();
+  };
+  window.addEventListener("orientationchange", checkRightOrientation);
+  if (window.matchMedia("(orientation: portrait)").matches && window.matchMedia("(max-width: 720px)").matches) {
+    if (document.getElementById("changeOrientation").classList.contains("d_none")) {
+      document.getElementById("changeOrientation").classList.remove("d_none");
+    }
+  }
+}
+
 function bindeTouchEvents() {
-  document.getElementById("swimLeftIcon").addEventListener("touchstart",  (e) => {
+  document.getElementById("swimLeftIcon").addEventListener("touchstart", (e) => {
     e.preventDefault();
     keyboard.LEFT = true;
   });
@@ -61,15 +74,15 @@ function bindeTouchEvents() {
     e.preventDefault();
     keyboard.LEFT = false;
   });
-  document.getElementById('swimRightIcon').addEventListener('touchstart', (e) => {
+  document.getElementById("swimRightIcon").addEventListener("touchstart", (e) => {
     e.preventDefault();
     keyboard.RIGHT = true;
   });
-  document.getElementById('swimRightIcon').addEventListener('touchend', (e) => {
+  document.getElementById("swimRightIcon").addEventListener("touchend", (e) => {
     e.preventDefault();
     keyboard.RIGHT = false;
   });
-  
+
   document.getElementById("swimUpIcon").addEventListener("touchstart", (e) => {
     e.preventDefault();
     keyboard.UP = true;
@@ -78,48 +91,48 @@ function bindeTouchEvents() {
     e.preventDefault();
     keyboard.UP = false;
   });
-  document.getElementById('swimDownIcon').addEventListener('touchstart', (e) => {
+  document.getElementById("swimDownIcon").addEventListener("touchstart", (e) => {
     e.preventDefault();
     keyboard.DOWN = true;
   });
-  document.getElementById('swimDownIcon').addEventListener('touchend', (e) => {
+  document.getElementById("swimDownIcon").addEventListener("touchend", (e) => {
     e.preventDefault();
     keyboard.DOWN = false;
   });
-  document.getElementById('bubbleAttack').addEventListener('touchstart', (e) => {
+  document.getElementById("bubbleAttack").addEventListener("touchstart", (e) => {
     e.preventDefault();
     keyboard.Y = true;
   });
-  document.getElementById('bubbleAttack').addEventListener('touchend', (e) => {
+  document.getElementById("bubbleAttack").addEventListener("touchend", (e) => {
     e.preventDefault();
     keyboard.Y = false;
   });
-  document.getElementById('slapAttack').addEventListener('touchstart', (e) => {
+  document.getElementById("slapAttack").addEventListener("touchstart", (e) => {
     e.preventDefault();
     keyboard.X = true;
   });
-  document.getElementById('slapAttack').addEventListener('touchend', (e) => {
+  document.getElementById("slapAttack").addEventListener("touchend", (e) => {
     e.preventDefault();
     keyboard.X = false;
   });
-  window.addEventListener("orientationchange", checkRightOrientation);
 }
 
 function checkRightOrientation() {
-  switch (screen.orientation.type) {
-    case "landscape-primary":
-      console.log("That looks good.");
-      break;
-    case "landscape-secondary":
-      console.log("Mmmh… the screen is upside down!");
-      break;
-    case "portrait-secondary":
-    case "portrait-primary":
-      console.log("Mmmh… you should rotate your device to landscape");
-      break;
-    default:
-      console.log("The orientation API isn't supported in this browser :(");
-}
+  window.matchMedia("(orientation: portrait)").addEventListener("change", (e) => {
+    const portrait = e.matches;
+    const mql = window.matchMedia("(max-width: 720px)");
+    if (portrait && mql.matches) {
+      if (document.getElementById("changeOrientation").classList.contains("d_none")) {
+        document.getElementById("changeOrientation").classList.remove("d_none");
+      }
+      pauseGame();
+    } else {
+      if (!document.getElementById("changeOrientation").classList.contains("d_none")) {
+        document.getElementById("changeOrientation").classList.add("d_none");
+      }
+      resumeGame();
+    }
+  });
 }
 
 function setStoppableInterval(callback, time) {
@@ -127,13 +140,17 @@ function setStoppableInterval(callback, time) {
 }
 
 function pauseGame() {
-  world.isPaused = true;
-  if (!isMute.valueOf()) mute();
+  if (world) {
+    world.isPaused = true;
+    if (!isMute.valueOf()) mute();
+  }
 }
 
 function resumeGame() {
-  world.isPaused = false;
-  if (!isMute.valueOf()) unmute();
+  if (world) {
+    world.isPaused = false;
+    if (!isMute.valueOf()) unmute();
+  }
 }
 
 function stopGame(isWon) {
@@ -229,13 +246,13 @@ function backToStart() {
 
 function toggleFullScreen() {
   let game = document.getElementById("game");
-  if (!window.fullscreenElement) {
+  if (!document.fullscreenElement) {
     game.requestFullscreen();
     document.getElementById("canvas").style.width = "100%";
-  }
-  else {
+    document.getElementById("fullScreen").src = "./img/Icons/minimize.png";
+  } else {
     document.getElementById("canvas").style.width = "auto";
-    game.exitFullscreen();
+    document.exitFullscreen();
+    document.getElementById("fullScreen").src = "./img/Icons/maximize.png";
   }
-
 }
