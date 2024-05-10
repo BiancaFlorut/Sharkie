@@ -51,6 +51,12 @@ footer {
 .footer_container {
   font-size: 20px;
   margin-bottom: 32px;
+  display: flex;
+  gap: 16px;
+}
+
+a {
+  -webkit-text-stroke: 0.3px white;
 }
 
 section {
@@ -135,6 +141,7 @@ section {
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   border-radius: 16px;
+  padding-right: 8px;
 }
 
 .start_button img {
@@ -197,10 +204,12 @@ section {
 }
 
 .instruction_footer {
-  flex: 1;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
   padding-bottom: 16px;
+  gap: 8px;
 }
 
 .menu_container h1 {
@@ -363,6 +372,10 @@ h1 {
   justify-content: flex-end;
 }
 
+.flex_1 {
+  flex: 1;
+}
+
 .d_none {
   display: none;
 }
@@ -398,12 +411,16 @@ h1 {
     min-height: 100vh;
   }
   h1 {
-    margin: 16px 0;
+    margin: 0;
+    margin-top: 8px;
   }
   .menu_container td {
     padding: 8px;
   }
   .operations {
     display: flex;
+  }
+  .instruction_footer {
+    padding: 0;
   }
 }

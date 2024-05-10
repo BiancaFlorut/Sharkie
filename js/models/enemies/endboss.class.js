@@ -83,61 +83,35 @@ class EndBoss extends Enemy {
     this.checkIfSharkieIsComing();
   }
 
-
-
   animate() {
+    this.move();
+    this.playAudios();
+  }
+
+  move() {
     setInterval(() => {
-      if (this.canDie()) {
-        this.playDieAnimation();
-      } else
-      if (!this.isDead()) {
-      if (this.i < this.IMGS_ENTRY.length) {
-        this.playAnimation(this.IMGS_ENTRY);
-        this.i++;
-      } else
-      
-        if (this.canAttack()) {
-          this.playAnimationOnlyOnce(this.indexAttack, this.IMGS_ATTACK);
-          if (this.otherDirection) {
-            this.moveRight();
-            this.lifeBar.moveRight();
-          }
-          else {
-            this.moveLeft();
-            this.lifeBar.moveLeft();
-          }
-          this.indexAttack++;
-          if (this.indexAttack == this.IMGS_ATTACK.length) {
-            this.isAttackAnimationPlayed = true;
-            this.indexAttack = 0;
-            this.lastAttack = new Date().getTime();
-          }
-        } else {
-          this.playAnimation(this.IMGS_IDLE);
-          this.makeAMove();
-          this.isAttackAnimationPlayed = false;
-        }
-      } else {
-        this.moveUp();
-        this.x += Math.random() * 10;
-        this.lifeBar.moveUp();
-        this.lifeBar.x += this.x;
-      }
+      if (this.canDie()) this.playDieAnimation();
+      else if (!this.isDead()) {
+        if (this.canEntry()) this.playEntryAnimation();
+        else if (this.canAttack()) this.attack();
+        else if (this.isHurt()) this.playAnimation(this.IMGS_HURT);
+        else this.makeAMove();
+      } else this.float();
     }, 120);
+  }
 
+  playAudios() {
     setInterval(() => {
       if (this.canDie()) {
-          this.OW_AUDIO.play();
-          this.WON_AUDIO.play();
-          setTimeout(() => {
-            stopGame(true);
-          }, 2500);
-        } 
-
-      if (this.i < this.IMGS_ENTRY.length) this.SPLASH_AUDIO.play();
+        this.OW_AUDIO.play();
+        this.WON_AUDIO.play();
+        setTimeout(() => {
+          stopGame(true);
+        }, 2500);
+      }
+      if (this.canEntry()) this.SPLASH_AUDIO.play();
       if (this.canAttack()) this.BITE_AUDIO.play();
       if (this.isHurt()) {
-        this.playAnimation(this.IMGS_HURT);
         this.PUNCH_AUDIO.play();
         this.UMPH_AUDIO.play();
       }
@@ -171,31 +145,84 @@ class EndBoss extends Enemy {
 
   playDieAnimation() {
     this.playAnimationOnlyOnce(this.indexImgAnimationOnlyOnce, this.IMGS_DIE);
-          this.indexImgAnimationOnlyOnce++;
-          if (this.indexImgAnimationOnlyOnce == this.IMGS_DIE.length) {
-            this.isPlayed = true;
-          }
+    this.indexImgAnimationOnlyOnce++;
+    if (this.indexImgAnimationOnlyOnce == this.IMGS_DIE.length) {
+      this.isPlayed = true;
+    }
+  }
+
+  canEntry() {
+    return this.i < this.IMGS_ENTRY.length;
+  }
+
+  playEntryAnimation() {
+    this.playAnimation(this.IMGS_ENTRY);
+    this.i++;
+  }
+
+  resetAttack() {
+    this.isAttackAnimationPlayed = true;
+    this.indexAttack = 0;
+    this.lastAttack = new Date().getTime();
   }
 
   makeAMove() {
-    if (this.sharkie.x < this.x) {
-      this.otherDirection = false;
+    if (this.sharkie.x < this.x) this.makeALeftMove();
+    if (this.sharkie.x > this.x) this.makeARightMove();
+    if (this.isSharkieAbove()) this.makeAUpMove();
+    if (this.isSharkieUnderneath()) this.makeADownMove();
+    this.lifeBar.otherDirection = this.otherDirection;
+    this.playAnimation(this.IMGS_IDLE);
+    this.isAttackAnimationPlayed = false;
+  }
+
+  isSharkieAbove() {
+    return this.sharkie.y + this.sharkie.offsetYTop < this.y + this.offsetYTop + 50;
+  }
+
+  isSharkieUnderneath() {
+    return this.sharkie.y - this.sharkie.offsetYBottom - this.sharkie.offsetYTop + this.sharkie.height > this.y - this.offsetYTop - this.offsetYBottom + this.height;
+  }
+
+  makeALeftMove() {
+    this.otherDirection = false;
+    this.moveLeft();
+    this.lifeBar.moveLeft();
+  }
+
+  makeARightMove() {
+    this.otherDirection = true;
+    this.moveRight();
+    this.lifeBar.moveRight();
+  }
+
+  makeAUpMove() {
+    this.moveUp();
+    this.lifeBar.moveUp();
+  }
+
+  makeADownMove() {
+    this.moveDown();
+    this.lifeBar.moveDown();
+  }
+
+  attack() {
+    this.playAnimationOnlyOnce(this.indexAttack, this.IMGS_ATTACK);
+    if (this.otherDirection) {
+      this.moveRight();
+      this.lifeBar.moveRight();
+    } else {
       this.moveLeft();
       this.lifeBar.moveLeft();
     }
-    if (this.sharkie.x > this.x) {
-      this.otherDirection = true;
-      this.moveRight();
-      this.lifeBar.moveRight();
-    }
-    if ((this.sharkie.y + this.sharkie.offsetYTop) < (this.y + this.offsetYTop + 50)) {
-      this.moveUp();
-      this.lifeBar.moveUp();
-    }
-    if ((this.sharkie.y - this.sharkie.offsetYBottom - this.sharkie.offsetYTop + this.sharkie.height) > (this.y - this.offsetYTop - this.offsetYBottom + this.height)) {
-      this.moveDown();
-      this.lifeBar.moveDown();
-    }
-    this.lifeBar.otherDirection = this.otherDirection;
+    this.indexAttack++;
+    if (this.indexAttack == this.IMGS_ATTACK.length) this.resetAttack();
+  }
+
+  float() {
+    this.moveUp();
+    this.x += Math.random() * 10;
+    this.lifeBar.moveUp();
+    this.lifeBar.x += this.x;
   }
 }

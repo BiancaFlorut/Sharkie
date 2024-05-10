@@ -1,0 +1,17 @@
+body {
+  font-family: "Courier New", Courier, monospace;
+  color: black;
+  -webkit-text-stroke: 0;
+  align-items: flex-start;
+  margin-left: 32px;
+}
+
+.goBack {
+  padding-top: 16px;
+}
+
+a {
+  font-family: "Luckiest Guy";
+  font-size: 20px !important;
+  color: rgb(83, 26, 130) !important;
+}
