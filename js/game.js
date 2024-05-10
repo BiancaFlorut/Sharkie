@@ -210,7 +210,7 @@ function startGame() {
   document.getElementById("won_overlay").classList.add("d_none");
   canvas = document.getElementById("canvas");
   initLevel1();
-  world = new World(canvas, keyboard, isMute);
+  world = new World(canvas, keyboard, isMute.valueOf());
 }
 
 function toggleMenu() {

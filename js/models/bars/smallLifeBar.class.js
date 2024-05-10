@@ -6,10 +6,11 @@ class SmallLifeBar extends MovableObject {
     offsetY = 0;
     visibility = false;
 
-    constructor(x, y) {
+    constructor(x, y, offsetY) {
         super();
+        this.offsetY = offsetY;
         this.x = x;
-        this.y = y + this.offsetY;
+        this.y = y - this.offsetY;
     }
 
     setPercentage(percentage) {

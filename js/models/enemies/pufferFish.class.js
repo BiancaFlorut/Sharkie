@@ -28,7 +28,7 @@ class PufferFish extends Enemy {
     this.MAX_DISTANCE = 200 + Math.random() * 500;
     this.otherDirection = Math.random() < 0.5;
     this.distance = this.MAX_DISTANCE;
-    this.setLifeBar();
+    this.setLifeBar(-6);
     this.animate();
   }
 

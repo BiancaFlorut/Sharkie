@@ -97,7 +97,7 @@ class Character extends MovableObject {
   HURT_AUDIO = new Audio("../../audio/groan.mp3");
   TASER_AUDIO = new Audio("../../audio/taser.mp3");
   SNORE_AUDIO = new Audio("../../audio/snore.mp3");
-  audios = [this.SWIM_AUDIO, this.HURT_AUDIO, this.SLAP_AUDIO, this.TASER_AUDIO, this.HURT_AUDIO, this.SNORE_AUDIO];
+  audios = [this.SWIM_AUDIO, this.HURT_AUDIO, this.SLAP_AUDIO, this.TASER_AUDIO, this.SNORE_AUDIO];
 
   world;
   coins = 0;
@@ -130,8 +130,8 @@ class Character extends MovableObject {
     this.HURT_AUDIO.volume = volume;
     this.SLAP_AUDIO.volume = volume;
     this.SWIM_AUDIO.volume = volume;
-    this.TASER_AUDIO.volume = volume + 0.2;
-    this.SNORE_AUDIO.volume = volume + 0.1;
+    this.TASER_AUDIO.volume = volume;
+    this.SNORE_AUDIO.volume = volume;
   }
 
   animate() {
@@ -155,13 +155,8 @@ class Character extends MovableObject {
     if (this.canMoveLeft()) this.moveLeft();
     if (this.canMoveUp()) this.moveUp();
     if (this.canMoveDown()) this.moveDown();
-    if (this.world.keyboard.X) {
-      this.SLAP_AUDIO.play();
-      this.offsetXRight = -15; 
-      setTimeout(() => {
-        this.resetOffsetXRight();
-      }, 100);
-    }
+    if (this.world.keyboard.X) this.makeSlapAttack();
+    if (this.isHurt()) this.HURT_AUDIO.play();
     this.world.camera_x = -this.x + 180;
   }
 
@@ -171,6 +166,14 @@ class Character extends MovableObject {
 
   resetOffsetXRight() {
     this.offsetXRight = 30;
+  }
+
+  makeSlapAttack() {
+    this.SLAP_AUDIO.play();
+      this.offsetXRight = -15; 
+      setTimeout(() => {
+        this.resetOffsetXRight();
+      }, 100);
   }
 
   moveRight() {
@@ -244,7 +247,6 @@ class Character extends MovableObject {
 
   playHurt() {
     this.playAnimation(this.IMGS_HURT_POISONED);
-    this.HURT_AUDIO.play();
     this.resetParameters();
   }
 

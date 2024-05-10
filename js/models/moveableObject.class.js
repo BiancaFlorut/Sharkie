@@ -76,7 +76,7 @@ class MovableObject extends Drawable {
       if (!(this instanceof EndBoss))
       setInterval(() => {
         this.lifeBar.visibility = false;
-      });
+      }, 1000);
     }
   }
 

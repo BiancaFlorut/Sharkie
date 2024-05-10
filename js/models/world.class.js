@@ -13,6 +13,7 @@ class World {
   totalNumberOfCoins = this.level.coins.length;
   totalNumberOfPoisonBubbles = this.level.bottles.length * 4;
   isPaused = false;
+  BUBBLE_AUDIO = new Audio("../../audio/bubble_attack.mp3");
 
   constructor(canvas, keyboard, isMuted) {
     this.keyboard = keyboard;
@@ -93,18 +94,15 @@ class World {
         this.collectBottles();
         this.collectHearts();
       }
-    }, 300);
+    }, 200);
   }
 
   checkCollisions() {
     for (let enemy of this.level.enemies) {
       if (this.sharkie.isColliding(enemy)) {
-        if (this.keyboard.X) {
-          enemy.slapHit();
-        } else {
-          if (enemy instanceof JellyFish) {
-            this.sharkie.electricShock();
-          }
+        if (this.keyboard.X) enemy.slapHit();
+        else {
+          if (enemy instanceof JellyFish) this.sharkie.electricShock();
           if (!this.sharkie.isHurt()) {
             this.sharkie.hit();
             this.lifeBar.setPercentage(this.sharkie.energy);
@@ -132,9 +130,13 @@ class World {
     this.level.bubbles.forEach((bubble, index) => {
       this.level.enemies.forEach((enemy) => {
         if (enemy.isColliding(bubble)) {
-          enemy.hit();
-          bubble.hit();
-          this.level.bubbles.splice(index, 1);
+          if (enemy instanceof JellyFish) enemy.bubbleHit();
+          else {
+            enemy.hit();
+            bubble.hit();
+            this.BUBBLE_AUDIO.play();
+          }
+            this.level.bubbles.splice(index, 1);
         }
       });
     });
