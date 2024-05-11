@@ -13,6 +13,7 @@ class Bubble extends Throwable {
     this.y = y;
     this.AUDIO.muted = isMuted;
     this.NEW_BUBBLE_AUDIO.muted = isMuted;
+    this.setVolume(0.3);	
     this.throw();
   }
 
@@ -24,6 +25,7 @@ class Bubble extends Throwable {
 
   hit() {
     this.AUDIO.play();
+
   }
 
   die() {

@@ -136,7 +136,7 @@ class World {
             bubble.hit();
             this.BUBBLE_AUDIO.play();
           }
-            this.level.bubbles.splice(index, 1);
+          this.level.bubbles.splice(index, 1);
         }
       });
     });

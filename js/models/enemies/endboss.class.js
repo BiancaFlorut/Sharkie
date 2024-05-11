@@ -6,7 +6,7 @@ class EndBoss extends Enemy {
   offsetXLeft = 30;
   offsetXRight = 30;
   speed = 4;
-  energy = 50;
+  energy = 100;
   IMGS_ENTRY = [
     "../../img/2.Enemy/3 Final Enemy/1.Introduce/1.png",
     "../../img/2.Enemy/3 Final Enemy/1.Introduce/2.png",
@@ -74,6 +74,7 @@ class EndBoss extends Enemy {
     this.loadImgs(this.IMGS_HURT);
     this.loadImgs(this.IMGS_DIE);
     this.loadImgs(this.IMGS_ATTACK);
+    this.setVolume(0.1);
     this.x = 3000;
     this.y = 0;
     this.speed = 8;
@@ -125,7 +126,7 @@ class EndBoss extends Enemy {
         this.x = 2200;
         this.y = 0;
         this.hadFirstContact = true;
-        this.setPosition();
+        this.lifeBar.setPosition(this);
         this.animate();
       }
     }, 100);

@@ -72,7 +72,6 @@ class MovableObject extends Drawable {
     }
     if (this.lifeBar) {
       this.lifeBar.setPercentage(this.energy);
-      this.lifeBar.visibility = true;
       if (!(this instanceof EndBoss))
       setInterval(() => {
         this.lifeBar.visibility = false;

@@ -19,6 +19,12 @@ class Drawable {
     this.img.src = src;
   }
 
+  setVolume(volume) {
+    this.audios.forEach((audio) => {
+      audio.volume = volume;
+    });
+  }
+
   draw(ctx) {
     try {
       if (this.img)
