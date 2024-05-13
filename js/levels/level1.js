@@ -8,7 +8,8 @@ function initLevel1() {
       new LilaJellyFish(), new YellowJellyFish(), new LilaJellyFish() , 
       new YellowJellyFish(), new LilaJellyFish(), new YellowJellyFish(),
       new SuperJellyFish(), new SuperJellyFish(), new SuperJellyFish(),
-      new EndBoss()],
+      new EndBoss()
+    ],
     [
       new Background("../img/3. Background/Layers/5. Water/L2.png", -720, 0, 720, 480),
       new Background("../img/3. Background/Layers/4.Fondo 2/L2.png", -720, 0, 720, 480),
@@ -41,10 +42,10 @@ function initLevel1() {
       new Light("img/3. Background/Layers/1. Light/2.png", 3 * 720, 0, 720, 480),
     ],
     [],
-    [ new Coin(460, 360), new Coin(760, 80),
-      new Coin(1060, 400), new Coin(1110, 380), new Coin(1160, 360),  new Coin(1210, 360), new Coin(1260, 380), new Coin(1310, 400),
+    [ new Coin(470, 230), new Coin(760, 80),
+      new Coin(1060, 200), new Coin(1110, 180), new Coin(1160, 160),  new Coin(1210, 160), new Coin(1260, 180), new Coin(1310, 200),
      new Coin(2210, 260), new Coin(2160, 40)],
-     [new Poison(400, 360), new Poison(600, 360), new Poison(800, 360), new Poison(1000, 360), new Poison(1200, 360), new Poison(1400, 360)],
-     [new Heart(840, 300), new Heart(1640, 100), new Heart(1940, 300), new Heart(2040, 30)]
+     [new Poison(105, 250), new Poison(527, 337), new Poison(560, 323), new Poison(1010, 360), new Poison(1323, 310), new Poison(1290, 290)],
+     [new Heart(890, 420), new Heart(1560, 420), new Heart(1940, 300), new Heart(2040, 130)]
   );
 }

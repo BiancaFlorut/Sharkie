@@ -26,6 +26,7 @@ class World {
 
   setWorld() {
     this.sharkie.world = this;
+    if (this.level.enemies.length > 0)
     this.level.enemies[this.level.enemies.length - 1].sharkie = this.sharkie;
   }
 
@@ -50,8 +51,11 @@ class World {
   }
 
   setFirstContact() {
-    if (this.sharkie.x >= 1855) this.level.enemies[this.level.enemies.length - 1].isSharkieComing = true;
+    if (this.level.enemies.length > 0) {
+      if (this.sharkie.x >= 1855) this.level.enemies[this.level.enemies.length - 1].isSharkieComing = true;
     if (this.sharkie.x < 1855) this.level.enemies[this.level.enemies.length - 1].isSharkieComing = false;
+    }
+    
   }
 
   addLevelObjects() {
