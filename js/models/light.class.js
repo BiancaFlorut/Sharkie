@@ -14,6 +14,12 @@ class Light extends MovableObject {
     this.animate();
   }
 
+  /**
+   * Animates the object by changing its direction based on the x-coordinate.
+   *
+   * @param {} - No parameters
+   * @return {} - No return value
+   */
   animate() {
     setInterval(() => {
       if (this.x < 0) this.otherDirection = true;

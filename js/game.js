@@ -52,11 +52,24 @@ document.addEventListener("keyup", (event) => {
   }
 });
 
+/**
+ * Initializes the game by binding touch events, setting up fullscreen change listener,
+ * and handling orientation change based on device portrait mode.
+ *
+ * @return {void} No return value
+ */
 function init() {
   bindeTouchEvents();
-  onfullscreenchange = () => {
-    toggleFullScreen();
-  };
+  onfullscreenchange = toggleFullScreen();
+  changeToLandscape();
+}
+
+/**
+ * Changes the layout to landscape orientation based on device conditions.
+ *
+ * @return {void} No return value
+ */
+function changeToLandscape() {
   window.addEventListener("orientationchange", checkRightOrientation);
   if (window.matchMedia("(orientation: portrait)").matches && window.matchMedia("(max-width: 720px)").matches) {
     if (document.getElementById("changeOrientation").classList.contains("d_none")) {
@@ -65,6 +78,14 @@ function init() {
   }
 }
 
+/**
+ * Binds touch events to the swimLeftIcon, swimRightIcon, swimUpIcon, swimDownIcon,
+ * bubbleAttack, and slapAttack elements. When the corresponding element is touched,
+ * the corresponding key on the keyboard object is set to true. When the touch ends,
+ * the corresponding key is set to false.
+ *
+ * @return {void} This function does not return anything.
+ */
 function bindeTouchEvents() {
   document.getElementById("swimLeftIcon").addEventListener("touchstart", (e) => {
     e.preventDefault();
@@ -117,6 +138,11 @@ function bindeTouchEvents() {
   });
 }
 
+/**
+ * Checks the right orientation of the device and performs certain actions based on the orientation.
+ *
+ * @return {void} This function does not return anything.
+ */
 function checkRightOrientation() {
   window.matchMedia("(orientation: portrait)").addEventListener("change", (e) => {
     const portrait = e.matches;
@@ -135,10 +161,23 @@ function checkRightOrientation() {
   });
 }
 
+/**
+ * Executes a callback function repeatedly at a specified time interval and stores the interval ID.
+ *
+ * @param {Function} callback - The function to be executed.
+ * @param {number} time - The time interval in milliseconds.
+ * @return {void} This function does not return anything.
+ */
 function setStoppableInterval(callback, time) {
   intervalIds.push(setInterval(callback, time));
 }
 
+/**
+ * Pauses the game by setting the `isPaused` property of the `world` object to `true`.
+ * If the game is not muted, the `mute` function is called.
+ *
+ * @return {void} This function does not return anything.
+ */
 function pauseGame() {
   if (world) {
     world.isPaused = true;
@@ -146,6 +185,11 @@ function pauseGame() {
   }
 }
 
+/**
+ * Resumes the game if it is currently paused.
+ *
+ * @return {void} This function does not return anything.
+ */
 function resumeGame() {
   if (world) {
     world.isPaused = false;
@@ -153,6 +197,12 @@ function resumeGame() {
   }
 }
 
+/**
+ * Stops the game based on the outcome, updating various elements on the page accordingly.
+ *
+ * @param {boolean} isWon - Indicates whether the game was won or lost.
+ * @return {void} This function does not return anything.
+ */
 function stopGame(isWon) {
   world.isOver = true;
   mute();
@@ -161,6 +211,7 @@ function stopGame(isWon) {
   if (isWon) {
     document.getElementById("start_game").classList.remove("d_none");
     document.getElementById("won_overlay").classList.remove("d_none");
+    playCoinsAnimation();
   } else {
     document.getElementById("start_game").classList.remove("d_none");
     document.getElementById("lost_overlay").classList.remove("d_none");
@@ -169,6 +220,31 @@ function stopGame(isWon) {
   }
 }
 
+/**
+ * Plays an animation that updates the number of coins and their points on the page.
+ *
+ * @return {void} This function does not return anything.
+ */
+function playCoinsAnimation() {
+  document.getElementById("points").innerHTML = world.level.points;
+  document.getElementById("totalPoints").innerHTML = world.level.points;
+  const coins = world.getCollectedCoins();
+  for (let i = 1; i <= coins; i++) {
+    setTimeout(() => {
+      document.getElementById("coins").innerHTML = coins - i;
+      document.getElementById("coinPoints").innerHTML = i * 5;
+    }, 300 * i);
+  }
+  setTimeout(() => {
+    document.getElementById("totalPoints").innerHTML = coins * 5 + world.level.points;
+  }, 300 * (coins + 1));
+}
+
+/**
+ * Toggles the mute state of the audio.
+ *
+ * @return {void} This function does not return anything.
+ */
 function toggleMute() {
   if (isMute.valueOf()) {
     unmute();
@@ -179,6 +255,9 @@ function toggleMute() {
   }
 }
 
+/**
+ * Mutes the audio by setting properties and updating elements.
+ */
 function mute() {
   AUDIO.muted = true;
   LOST_AUDIO.muted = true;
@@ -187,6 +266,13 @@ function mute() {
   world.mute();
 }
 
+/**
+ * Unmutes the audio by setting the `muted` property of the `AUDIO` and `LOST_AUDIO` variables to `false`.
+ * It also unmutes all audios in the `world` by iterating over them and setting their `muted` property to `false`.
+ * Finally, it updates the `src` attribute of the `speakerIcon` element to "./img/Icons/mute.png" and calls the `unmute()` method of the `world` object.
+ *
+ * @return {void} This function does not return a value.
+ */
 function unmute() {
   AUDIO.muted = false;
   LOST_AUDIO.muted = false;
@@ -195,6 +281,11 @@ function unmute() {
   world.unmute();
 }
 
+/**
+ * Starts the game by initializing various elements on the page and creating a new instance of the World class.
+ *
+ * @return {void} This function does not return a value.
+ */
 function startGame() {
   if (!isMute.valueOf()) {
     AUDIO.loop = true;
@@ -213,29 +304,56 @@ function startGame() {
   world = new World(canvas, keyboard, isMute.valueOf());
 }
 
+/**
+ * Toggles the visibility of the menu based on current state, showing or hiding elements accordingly.
+ *
+ * @return {void} This function does not return a value.
+ */
 function toggleMenu() {
   const instructions = document.getElementById("menu_overlay");
   const game = document.getElementById("game");
   if (instructions.classList.contains("d_none")) {
     document.getElementById("menu_overlay").classList.remove("d_none");
-
     if (world && !world.isOver) {
-      document.getElementById("start_game").classList.remove("d_none");
-      document.getElementById("restart").classList.remove("d_none");
-      game.classList.add("d_none");
-      pauseGame();
+      toggleMenuAndPause();
     }
   } else {
     document.getElementById("menu_overlay").classList.add("d_none");
     if (world && !world.isOver) {
-      game.classList.remove("d_none");
-      document.getElementById("restart").classList.add("d_none");
-      document.getElementById("start_game").classList.add("d_none");
-      resumeGame();
+      toggleMenuAndResume();
     }
   }
 }
 
+/**
+ * Toggles the menu and pauses the game by hiding and showing specific elements.
+ *
+ * @return {void} This function does not return anything.
+ */
+function toggleMenuAndPause() {
+  document.getElementById("start_game").classList.remove("d_none");
+  document.getElementById("restart").classList.remove("d_none");
+  document.getElementById("game").classList.add("d_none");
+  pauseGame();
+}
+
+/**
+ * Resumes the game by displaying game elements and hiding menu elements.
+ *
+ * @return {void} This function does not return anything.
+ */
+function toggleMenuAndResume() {
+  document.getElementById("game").classList.remove("d_none");
+  document.getElementById("restart").classList.add("d_none");
+  document.getElementById("start_game").classList.add("d_none");
+  resumeGame();
+}
+
+/**
+ * Hides the game and menu overlays, and shows the start game button.
+ *
+ * @return {void} This function does not return anything.
+ */
 function backToStart() {
   document.getElementById("start_game").classList.remove("d_none");
   document.getElementById("won_overlay").classList.add("d_none");
@@ -244,6 +362,11 @@ function backToStart() {
   document.getElementById("game").classList.add("d_none");
 }
 
+/**
+ * Toggles the full screen mode of the game.
+ *
+ * @return {void} This function does not return anything.
+ */
 function toggleFullScreen() {
   let game = document.getElementById("game");
   if (!document.fullscreenElement) {

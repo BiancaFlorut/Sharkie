@@ -6,6 +6,7 @@ class Level {
   bottles;
   hearts;
   level_end_x = 2220;
+  points = 0;
 
   constructor(enemies, backgrounds, bubbles, coins, bottles, hearts) {
     this.enemies = enemies;
@@ -16,6 +17,11 @@ class Level {
     this.hearts = hearts;
   }
 
+  /**
+   * Retrieves all audio elements from enemies, bubbles, coins, bottles, and hearts.
+   *
+   * @return {Array} An array containing all audio elements from the different game entities.
+   */
   getAudios() {
     let result = [];
     this.enemies.forEach((enemy) => {

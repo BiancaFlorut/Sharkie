@@ -8,7 +8,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url("./img/3. Background/Layers/1. Light/2.png"), url("./img/3. Background/Layers/2. Floor/L1.png"), url("./img/3. Background/Layers/5. Water/L1.png");
+  background-image: url("./img/3. Background/Layers/1. Light/2.png"), url("./img/3. Background/Legacy/Layers/4.Fondo 2/L1.png"), url("./img/3. Background/Layers/5. Water/L1.png");
   background-position: center, center;
   background-repeat: no-repeat, no-repeat;
   height: 100vh;
@@ -352,6 +352,31 @@ button img {
 
 h1 {
   text-align: center;
+}
+
+h2 {
+  margin: 0;
+}
+
+.df_ai_c {
+  display: flex;
+  align-items: center;
+}
+
+.statistics td {
+  padding: 4px;
+  font-size: 28px;
+}
+
+#points,
+#coins,
+#coinPoints,
+#totalPoints {
+  color: #f15d28;
+}
+
+.statistics img {
+  height: 40px;
 }
 
 .jc_c {

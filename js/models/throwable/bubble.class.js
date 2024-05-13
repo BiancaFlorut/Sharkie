@@ -17,17 +17,32 @@ class Bubble extends Throwable {
     this.throw();
   }
 
+  /**
+   * Sets the speedY property to 5, applies anti-gravity, and plays the NEW_BUBBLE_AUDIO.
+   *
+   * @return {void} This function does not return anything.
+   */
   throw() {
     this.speedY = 5;
     this.applyAntiGravity();
     this.NEW_BUBBLE_AUDIO.play();
   }
 
+/**
+ * Plays the audio associated with the object.
+ *
+ * @return {void} This function does not return anything.
+ */
   hit() {
     this.AUDIO.play();
 
   }
 
+  /**
+   * Plays the audio associated with the object when it dies.
+   *
+   * @return {void} This function does not return anything.
+   */
   die() {
     this.AUDIO.play();
   }

@@ -16,6 +16,11 @@ class Bar extends Drawable {
         this.img = this.imgCache[path];
     }
 
+    /**
+     * Returns the index of the image based on the percentage value.
+     *
+     * @return {number} The index of the image.
+     */
     getImageIndex() {
         if (this.percentage >= 100) {
             return 5;

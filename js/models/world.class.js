@@ -24,12 +24,19 @@ class World {
     this.run();
   }
 
+  /**
+   * Sets the world reference for the sharkie and assigns the sharkie as the last enemy's sharkie if enemies exist.
+   */
   setWorld() {
     this.sharkie.world = this;
-    if (this.level.enemies.length > 0)
-    this.level.enemies[this.level.enemies.length - 1].sharkie = this.sharkie;
+    if (this.level.enemies.length > 0) this.level.enemies[this.level.enemies.length - 1].sharkie = this.sharkie;
   }
 
+  /**
+   * Draws the game world elements if the game is not paused.
+   *
+   * @return {void} Does not return anything.
+   */
   draw() {
     if (!this.isPaused) {
       this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
@@ -50,14 +57,29 @@ class World {
     requestAnimationFrame(() => self.draw());
   }
 
+/**
+ * Sets the first contact between the sharkie and the last enemy in the level.
+ * If the sharkie's x position is greater than or equal to 1855, the last enemy's
+ * `isSharkieComing` property is set to true. If the sharkie's x position is less
+ * than 1855, the last enemy's `isSharkieComing` property is set to false.
+ *
+ * @return {void} This function does not return anything.
+ */
   setFirstContact() {
     if (this.level.enemies.length > 0) {
       if (this.sharkie.x >= 1855) this.level.enemies[this.level.enemies.length - 1].isSharkieComing = true;
-    if (this.sharkie.x < 1855) this.level.enemies[this.level.enemies.length - 1].isSharkieComing = false;
+      if (this.sharkie.x < 1855) this.level.enemies[this.level.enemies.length - 1].isSharkieComing = false;
     }
-    
   }
 
+  /**
+   * Adds the level objects to the world.
+   *
+   * This function adds the coins, bottles, hearts, enemies, and bubbles from the level to the world.
+   * It iterates over each object and calls the `addObjectsToWorld` function to add them to the world.
+   *
+   * @return {void} This function does not return anything.
+   */
   addLevelObjects() {
     this.addObjectsToWorld(this.level.coins);
     this.addObjectsToWorld(this.level.bottles);
@@ -66,12 +88,23 @@ class World {
     this.addObjectsToWorld(this.level.bubbles);
   }
 
+  /**
+   * Adds the given objects to the world.
+   *
+   * @param {Array} objects - The objects to be added to the world.
+   * @return {void} This function does not return anything.
+   */
   addObjectsToWorld(objects) {
     objects.forEach((object) => {
       this.addToWorld(object);
     });
   }
 
+  /**
+   * Adds the given movable object to the world.
+   *
+   * @param {Object} movableObject - The movable object to be added to the world.
+   */
   addToWorld(movableObject) {
     if (movableObject.otherDirection) {
       movableObject.flipObject(this.ctx);
@@ -80,14 +113,20 @@ class World {
     if (movableObject.otherDirection) {
       movableObject.flipObjectBack(this.ctx);
     }
-
-    if (movableObject.lifeBar && movableObject.lifeBar.visibility) {
+    if (movableObject.lifeBar) {
       if (movableObject.lifeBar.otherDirection) movableObject.lifeBar.flipObject(this.ctx);
-      movableObject.lifeBar.draw(this.ctx);
+      if (movableObject.lifeBar.visibility) movableObject.lifeBar.draw(this.ctx);
       if (movableObject.lifeBar.otherDirection) movableObject.lifeBar.flipObjectBack(this.ctx);
     }
   }
 
+/**
+ * Runs the game loop, checking for collisions, creating throwable objects,
+ * checking throwable object collisions, collecting coins, collecting bottles,
+ * and collecting hearts.
+ *
+ * @return {void} This function does not return anything.
+ */
   run() {
     setStoppableInterval(() => {
       if (!this.isPaused) {
@@ -101,11 +140,17 @@ class World {
     }, 200);
   }
 
+  /**
+   * Iterates through each enemy in the level, checks for collisions with the sharkie,
+   * handles different types of hits, and updates points accordingly.
+   */
   checkCollisions() {
     for (let enemy of this.level.enemies) {
       if (this.sharkie.isColliding(enemy)) {
-        if (this.keyboard.X) enemy.slapHit();
-        else {
+        if (this.keyboard.X) {
+          enemy.slapHit();
+          this.level.points += 15;
+        } else {
           if (enemy instanceof JellyFish) this.sharkie.electricShock();
           if (!this.sharkie.isHurt()) {
             this.sharkie.hit();
@@ -116,6 +161,17 @@ class World {
     }
   }
 
+  /**
+   * Creates throwable objects based on the current state of the keyboard and bubble number.
+   *
+   * This function checks if the 'Y' key is pressed and if the bubble number is greater than 0.
+   * If both conditions are met, it creates a new Bubble object at a specific position relative
+   * to the sharkie's position, and sets its 'otherDirection' property based on the sharkie's
+   * 'otherDirection' property. It then decrements the bubble number, adds the new bubble to the
+   * level's bubbles array, and updates the bubble bar percentage based on the new bubble number.
+   *
+   * @return {void} This function does not return anything.
+   */
   createThrowableObjects() {
     if (this.keyboard.Y && this.bubbleNumber.number > 0) {
       let bubble = new Bubble(this.sharkie.x + 100, this.sharkie.y + 80, this.isMuted);
@@ -130,22 +186,46 @@ class World {
     }
   }
 
+  /**
+   * Iterates through each bubble and enemy, checks for collisions, handles hits, and updates points.
+   *
+   * @param {Object} bubble - The bubble object to check collisions with enemies.
+   * @param {number} index - The index of the current bubble in the array.
+   * @return {void} This function does not return anything.
+   */
   checkThrowableObjectsCollisions() {
     this.level.bubbles.forEach((bubble, index) => {
       this.level.enemies.forEach((enemy) => {
         if (enemy.isColliding(bubble)) {
-          if (enemy instanceof JellyFish) enemy.bubbleHit();
-          else {
-            enemy.hit();
-            bubble.hit();
-            this.BUBBLE_AUDIO.play();
-          }
+          if (enemy instanceof JellyFish) {
+            enemy.bubbleHit();
+            this.level.points += 10;
+          } else this.normalHit(enemy, bubble);
           this.level.bubbles.splice(index, 1);
         }
       });
     });
   }
 
+  /**
+   * Handles the normal hit event between an enemy and a bubble.
+   *
+   * @param {Object} enemy - The enemy object that was hit.
+   * @param {Object} bubble - The bubble object that was hit.
+   * @return {void} This function does not return anything.
+   */
+  normalHit(enemy, bubble) {
+    enemy.hit();
+    this.level.points += 5;
+    bubble.hit();
+    this.BUBBLE_AUDIO.play();
+  }
+
+  /**
+   * Retrieves all audios from the world.
+   *
+   * @return {Array} An array containing all audios from the world.
+   */
   getAllAudios() {
     let result = this.sharkie.audios;
     this.level.getAudios().forEach((audio) => {
@@ -162,6 +242,11 @@ class World {
     this.isMuted = false;
   }
 
+  /**
+   * Collects coins when the sharkie collides with them, updates the sharkie's coin count, and adjusts the coin bar percentage accordingly.
+   *
+   * @return {void} This function does not return anything.
+   */
   collectCoins() {
     this.level.coins.forEach((coin, index) => {
       if (this.sharkie.isColliding(coin)) {
@@ -173,6 +258,15 @@ class World {
     });
   }
 
+  /**
+   * Collects bottles that collide with the sharkie character.
+   *
+   * This function iterates over each bottle in the level and checks if it collides with the sharkie character. 
+   * If a collision is detected, the bottle is collected, removed from the level, and the bubble number is increased by 4. 
+   * The bubble bar percentage is then updated accordingly.
+   *
+   * @return {void} This function does not return anything.
+   */
   collectBottles() {
     this.level.bottles.forEach((bottle, index) => {
       if (this.sharkie.isColliding(bottle)) {
@@ -184,6 +278,10 @@ class World {
     });
   }
 
+  /**
+   * Loops through the hearts in the level, collects them if the shark collides,
+   * updates energy, and sets the life bar percentage accordingly.
+   */
   collectHearts() {
     this.level.hearts.forEach((heart, index) => {
       if (this.sharkie.isColliding(heart)) {
@@ -193,5 +291,14 @@ class World {
         this.lifeBar.setPercentage(this.sharkie.energy);
       }
     });
+  }
+
+  /**
+   * Retrieves the number of coins collected by the sharkie.
+   *
+   * @return {number} The number of coins collected by the sharkie.
+   */
+  getCollectedCoins() {
+    return this.sharkie.coins;
   }
 }

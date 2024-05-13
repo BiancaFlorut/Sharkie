@@ -90,7 +90,11 @@ class Character extends MovableObject {
     "../../img/1.Sharkie/2.Long_IDLE/I14.png",
   ];
 
-  IMGS_ELECTRIC_SHOCK = ["../../img/1.Sharkie/5.Hurt/2.Electric shock/1.png", "../../img/1.Sharkie/5.Hurt/2.Electric shock/2.png", "../../img/1.Sharkie/5.Hurt/2.Electric shock/3.png"];
+  IMGS_ELECTRIC_SHOCK = [
+    "../../img/1.Sharkie/5.Hurt/2.Electric shock/1.png", 
+    "../../img/1.Sharkie/5.Hurt/2.Electric shock/2.png", 
+    "../../img/1.Sharkie/5.Hurt/2.Electric shock/3.png"
+  ];
 
   SWIM_AUDIO = new Audio("../../audio/bubbles.mp3");
   SLAP_AUDIO = new Audio("../../audio/slap.mp3");
@@ -115,6 +119,11 @@ class Character extends MovableObject {
     this.animate();
   }
 
+/**
+ * Loads all the images required for the character's animations.
+ *
+ * @return {void} This function does not return anything.
+ */
   loadAllImages() {
     this.loadImgs(this.IMGS_IDLE);
     this.loadImgs(this.IMGS_SWIM);
@@ -126,14 +135,24 @@ class Character extends MovableObject {
     this.loadImgs(this.IMGS_ELECTRIC_SHOCK);
   }
 
+/**
+ * Sets the volume of all audio elements associated with the character.
+ *
+ * @param {number} volume - The volume level to set for the audio elements.
+ * @return {void} This function does not return anything.
+ */
   setAudioVolume(volume) {
-    this.HURT_AUDIO.volume = volume;
-    this.SLAP_AUDIO.volume = volume;
-    this.SWIM_AUDIO.volume = volume;
-    this.TASER_AUDIO.volume = volume;
-    this.SNORE_AUDIO.volume = volume;
+    this.audios.forEach((audio) => (audio.volume = volume));
   }
 
+  /**
+   * Animates the character by moving it and playing animations.
+   *
+   * This function uses setStoppableInterval to repeatedly execute the provided callbacks at a rate of 60 times per second and 10 times per second respectively.
+   * The callbacks move the character and play its animations, but only if the world is not paused.
+   *
+   * @return {void} This function does not return anything.
+   */
   animate() {
     setStoppableInterval(() => {
       if (!this.world.isPaused) this.move();
@@ -143,12 +162,23 @@ class Character extends MovableObject {
     }, 100);
   }
 
+  /**
+   * Resets the parameters of the character.
+   *
+   * @param {} - No parameters
+   * @return {} - No return value
+   */
   resetParameters() {
     this.lastAction = new Date().getTime();
     this.isPlayed = false;
     this.indexImg = 0;
   }
 
+  /**
+   * Moves the character based on keyboard input and triggers specific actions.
+   *
+   * @return {void} This function does not return anything.
+   */
   move() {
     this.SWIM_AUDIO.pause();
     if (this.canMoveRight()) this.moveRight();
@@ -160,22 +190,43 @@ class Character extends MovableObject {
     this.world.camera_x = -this.x + 180;
   }
 
+  /**
+   * Checks if the character can move to the right.
+   *
+   * @return {boolean} Returns true if the character can move to the right, false otherwise.
+   */
   canMoveRight() {
     return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
   }
 
+/**
+ * Resets the value of the offsetXRight property to 30.
+ *
+ * @return {void} This function does not return anything.
+ */
   resetOffsetXRight() {
     this.offsetXRight = 30;
   }
 
+  /**
+   * Executes a slap attack, playing the slap audio and updating the offsetXRight property.
+   *
+   * @return {void} This function does not return anything.
+   */
   makeSlapAttack() {
     this.SLAP_AUDIO.play();
       this.offsetXRight = -15; 
-      setTimeout(() => {
+      setStoppableInterval(() => {
         this.resetOffsetXRight();
       }, 100);
   }
 
+  /**
+   * Moves the object to the right and sets the direction as false before playing the swim audio.
+   *
+   * @param {void} This function does not have any parameters.
+   * @return {void} This function does not return anything.
+   */
   moveRight() {
     super.moveRight();
     this.otherDirection = false;
@@ -186,6 +237,12 @@ class Character extends MovableObject {
     return this.world.keyboard.LEFT && this.x > 0;
   }
 
+  /**
+   * Moves the object to the left and sets the direction as true before playing the swim audio.
+   *
+   * @param {void} This function does not have any parameters.
+   * @return {void} This function does not return anything.
+   */
   moveLeft() {
     super.moveLeft();
     this.otherDirection = true;
@@ -210,6 +267,12 @@ class Character extends MovableObject {
     this.SWIM_AUDIO.play();
   }
 
+  /**
+   * Plays different animations based on the character's state and user input.
+   *
+   * @param {} - No parameters
+   * @return {} - No return value
+   */
   playAnimations() {
     if (this.isDead()) this.die();
     else if (this.isElectricShocked()) this.playElectricShock();
@@ -220,6 +283,12 @@ class Character extends MovableObject {
     else this.playIdle();
   }
 
+  /**
+   * Plays the die animation for the character and stops the game after a delay.
+   *
+   * @param {} - No parameters
+   * @return {} - No return value
+   */
   die() {
     this.playAnimation(this.IMGS_DIE_POISONED);
     setTimeout(() => {
@@ -227,17 +296,32 @@ class Character extends MovableObject {
     }, 1500);
   }
 
+/**
+ * Plays the electric shock animation for the character.
+ *
+ * @return {void} This function does not return anything.
+ */
   playElectricShock() {
     this.playAnimation(this.IMGS_ELECTRIC_SHOCK);
     this.TASER_AUDIO.play();
     this.resetParameters();
   }
 
+/**
+ * Checks if the character is currently electric shocked.
+ *
+ * @return {boolean} Returns true if the character is electric shocked, false otherwise.
+ */
   isElectricShocked() {
     let timePassed = new Date().getTime() - this.lastElectricShock;
     return timePassed < 1000;
   }
 
+  /**
+   * Decreases the energy of the character by 10 units and updates the lastElectricShock timestamp.
+   *
+   * @return {void} This function does not return anything.
+   */
   electricShock() {
     this.energy -= 10;
     if (this.energy <= 0) {
@@ -245,25 +329,52 @@ class Character extends MovableObject {
     } else this.lastElectricShock = new Date().getTime();
   }
 
+/**
+ * Plays the hurt animation for the character and resets the parameters.
+ *
+ * @param {type} this.IMGS_HURT_POISONED - the hurt animation images
+ * @return {type} no return value
+ */
   playHurt() {
     this.playAnimation(this.IMGS_HURT_POISONED);
     this.resetParameters();
   }
 
+/**
+ * Plays the slap animation for the character and resets its parameters.
+ *
+ * @return {void} This function does not return anything.
+ */
   playSlap() {
     this.playAnimation(this.IMGS_SLAP);
     this.resetParameters();
   }
 
+  /**
+   * Plays the bubble attack animation for the character and resets its parameters.
+   *
+   * @param {type} - No parameters needed
+   * @return {type} - No return value
+   */
   playBubbleAttack() {
     this.playAnimation(this.IMGS_BUBBLE_ATTACK);
     this.resetParameters();
   }
 
+  /**
+   * Checks if the character is currently moving in any direction.
+   *
+   * @return {boolean} Returns true if the character is moving, false otherwise.
+   */
   isMoving() {
     return this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN;
   }
 
+/**
+ * Plays the move animation for the character.
+ *
+ * @return {void} This function does not return anything.
+ */
   playMove() {
     this.playAnimation(this.IMGS_SWIM);
     if (this.world.keyboard.X) this.playAnimation(this.IMGS_BUBBLE_ATTACK);
@@ -271,6 +382,12 @@ class Character extends MovableObject {
     this.resetParameters();
   }
 
+  /**
+   * Plays the idle animation for the character and handles sleeping behavior.
+   *
+   * @param {type} No parameters needed
+   * @return {type} No return value
+   */
   playIdle() {
     this.playAnimation(this.IMGS_IDLE);
     const now = new Date().getTime();
