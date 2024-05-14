@@ -21,7 +21,7 @@ class Light extends MovableObject {
    * @return {} - No return value
    */
   animate() {
-    setInterval(() => {
+    setStoppableInterval(() => {
       if (this.x < 0) this.otherDirection = true;
       if (this.x > 2200) this.otherDirection = false;
       if (this.otherDirection) this.moveRight();

@@ -2,6 +2,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 const AUDIO = new Audio("./audio/game-music-loop.mp3");
+const COIN_AUDIO = new Audio("./audio/coin.mp3");
 const LOST_AUDIO = new Audio("./audio/lost.mp3");
 let intervalIds = [];
 let isMute = new Boolean(false);
@@ -59,6 +60,9 @@ document.addEventListener("keyup", (event) => {
  * @return {void} No return value
  */
 function init() {
+  AUDIO.volume = 0.4;
+  LOST_AUDIO.volume = 0.2;
+  COIN_AUDIO.volume = 0.2;
   bindeTouchEvents();
   onfullscreenchange = () => {
     toggleFullScreen();
@@ -230,14 +234,16 @@ function stopGame(isWon) {
 function playCoinsAnimation() {
   document.getElementById("points").innerHTML = world.level.points;
   document.getElementById("totalPoints").innerHTML = world.level.points;
+  showFirstScores();
   const coins = world.getCollectedCoins();
   for (let i = 1; i <= coins; i++) {
-    fadeInCoins(i);
+    fadeInCoins(i, coins);
     fadeOutCoins(i);
   }
   setTimeout(() => {
     document.getElementById("totalPoints").innerHTML = coins * 5 + world.level.points;
     document.getElementById("totalPoints").classList.add("fadeIn");
+    COIN_AUDIO.play();
   }, 1000 * (coins + 1) + 500);
 }
 
@@ -247,7 +253,7 @@ function playCoinsAnimation() {
  * @param {number} i - The index of the coin to fade in.
  * @return {void} This function does not return anything.
  */
-function fadeInCoins(i) {
+function fadeInCoins(i, coins) {
   setTimeout(() => {
     document.getElementById("coins").classList.remove("fadeOut");
     document.getElementById("coinPoints").classList.remove("fadeOut");
@@ -255,6 +261,7 @@ function fadeInCoins(i) {
     document.getElementById("coins").classList.add("fadeIn");
     document.getElementById("coinPoints").innerHTML = i * 5;
     document.getElementById("coinPoints").classList.add("fadeIn");
+    COIN_AUDIO.play();
   }, 1000 * i);
 }
 
@@ -325,8 +332,6 @@ function startGame() {
   world = new World(canvas, keyboard, isMute.valueOf());
   if (!isMute.valueOf()) {
     AUDIO.loop = true;
-    AUDIO.volume = 0.4;
-    LOST_AUDIO.volume = 0.2;
     AUDIO.play();
   } else mute();
   AUDIO.muted = isMute.valueOf();

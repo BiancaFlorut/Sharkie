@@ -45,6 +45,7 @@
 
     <script src="./js/models/keyboard.class.js"></script>
 
+    <script src="./scores.js"></script>
     <script src="./js/game.js"></script>
     <title>Sharkie</title>
   </head>
@@ -132,6 +133,7 @@
             <div class="instruction_footer">
               <div class="df_jc_fe"><a href="./html/credits.html">Credits</a></div>
               <div class="df_jc_fe"><a href="./html/impressum.html">Impressum</a></div>
+              <div class="df_jc_fe"><a href="#">Highscore</a></div>
             </div>
           </div>
         </div>
@@ -144,19 +146,32 @@
                 </div>
               </div>
               <div class="game_over_container jc_sb">
-                <table class="statistics">
-                  <tr>
-                    <td>Points:</td>
-                    <td><span id="points"></span></td>
-                    <td><img src="./img/4. Marcadores/1. Coins/3.png" alt="" /></td>
-                    <td>X</td>
-                    <td><span id="coins"></span></td>
-                    <td>=</td>
-                    <td><span id="coinPoints"></span></td>
-                    <td>Total Points:</td>
-                    <td><span id="totalPoints"></span></td>
-                  </tr>
-                </table>
+                <div>
+                  <table class="statistics" id="yourStatistics">
+                    <tr>
+                      <td>Rank:<span class="rank" id="rank"></span></td>
+                      <td>
+                        <button onclick="saveScore()"><div id="save" class="key">Save Score</div></button>
+                        <button id="saveKey" onclick="setScore()" class="key d_none">Save</button>
+                        <div id="saved" class="key d_none">Saved</div>
+                      </td>
+                    </tr>
+                  </table>
+                  <table class="statistics" id="pointsTable">
+                    <tr>
+                      <td>Points:</td>
+                      <td><span id="points"></span></td>
+                      <td><img src="./img/4. Marcadores/1. Coins/3.png" alt="" /></td>
+                      <td>X</td>
+                      <td><span id="coins"></span></td>
+                      <td>=</td>
+                      <td><span id="coinPoints"></span></td>
+                      <td>Total Points:</td>
+                      <td><span id="totalPoints"></span></td>
+                    </tr>
+                  </table>
+                  <table class="statistics" id="statistics"></table>
+                </div>
 
                 <div class="start_button" onclick="startGame()" touchStart="startGame()"><img src="./img/6.Botones/Try again/Recurso 17.png" alt="try again" /></div>
               </div>

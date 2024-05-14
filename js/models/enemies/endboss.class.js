@@ -66,6 +66,7 @@ class EndBoss extends Enemy {
   indexAttack = 0;
   sharkie;
   lifeBar;
+  gameOverCalled = true;
 
   constructor() {
     super().loadImg("../../img/2.Enemy/3 Final Enemy/1.Introduce/1.png");
@@ -121,10 +122,15 @@ class EndBoss extends Enemy {
   playAudios() {
     setStoppableInterval(() => {
       if (this.canDie()) {
+        this.gameOverCalled = false;
         this.OW_AUDIO.play();
         this.WON_AUDIO.play();
         setTimeout(() => {
-          stopGame(true);
+          if (!this.gameOverCalled) {
+            stopGame(true);
+            this.gameOverCalled = true;
+          }
+
         }, 2500);
       }
       if (this.canEntry()) this.SPLASH_AUDIO.play();

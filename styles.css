@@ -303,6 +303,7 @@ section {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  gap: 0;
 }
 
 button {
