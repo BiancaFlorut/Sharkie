@@ -60,7 +60,9 @@ document.addEventListener("keyup", (event) => {
  */
 function init() {
   bindeTouchEvents();
-  onfullscreenchange = toggleFullScreen();
+  onfullscreenchange = () => {
+    toggleFullScreen();
+  };
   changeToLandscape();
 }
 
@@ -230,14 +232,45 @@ function playCoinsAnimation() {
   document.getElementById("totalPoints").innerHTML = world.level.points;
   const coins = world.getCollectedCoins();
   for (let i = 1; i <= coins; i++) {
-    setTimeout(() => {
-      document.getElementById("coins").innerHTML = coins - i;
-      document.getElementById("coinPoints").innerHTML = i * 5;
-    }, 300 * i);
+    fadeInCoins(i);
+    fadeOutCoins(i);
   }
   setTimeout(() => {
     document.getElementById("totalPoints").innerHTML = coins * 5 + world.level.points;
-  }, 300 * (coins + 1));
+    document.getElementById("totalPoints").classList.add("fadeIn");
+  }, 1000 * (coins + 1) + 500);
+}
+
+/**
+ * Fades in the coins on the page by gradually increasing their opacity.
+ *
+ * @param {number} i - The index of the coin to fade in.
+ * @return {void} This function does not return anything.
+ */
+function fadeInCoins(i) {
+  setTimeout(() => {
+    document.getElementById("coins").classList.remove("fadeOut");
+    document.getElementById("coinPoints").classList.remove("fadeOut");
+    document.getElementById("coins").innerHTML = coins - i;
+    document.getElementById("coins").classList.add("fadeIn");
+    document.getElementById("coinPoints").innerHTML = i * 5;
+    document.getElementById("coinPoints").classList.add("fadeIn");
+  }, 1000 * i);
+}
+
+/**
+ * Fades out the coins on the page by gradually decreasing their opacity after a delay.
+ *
+ * @param {number} i - The index of the coin to fade out.
+ * @return {void} This function does not return anything.
+ */
+function fadeOutCoins(i) {
+  setTimeout(() => {
+    document.getElementById("coins").classList.remove("fadeIn");
+    document.getElementById("coinPoints").classList.remove("fadeIn");
+    document.getElementById("coins").classList.add("fadeOut");
+    document.getElementById("coinPoints").classList.add("fadeOut");
+  }, 1000 * i + 500);
 }
 
 /**
@@ -287,6 +320,9 @@ function unmute() {
  * @return {void} This function does not return a value.
  */
 function startGame() {
+  canvas = document.getElementById("canvas");
+  initLevel1();
+  world = new World(canvas, keyboard, isMute.valueOf());
   if (!isMute.valueOf()) {
     AUDIO.loop = true;
     AUDIO.volume = 0.4;
@@ -299,9 +335,6 @@ function startGame() {
   document.getElementById("menu_overlay").classList.add("d_none");
   document.getElementById("lost_overlay").classList.add("d_none");
   document.getElementById("won_overlay").classList.add("d_none");
-  canvas = document.getElementById("canvas");
-  initLevel1();
-  world = new World(canvas, keyboard, isMute.valueOf());
 }
 
 /**
@@ -311,17 +344,12 @@ function startGame() {
  */
 function toggleMenu() {
   const instructions = document.getElementById("menu_overlay");
-  const game = document.getElementById("game");
   if (instructions.classList.contains("d_none")) {
     document.getElementById("menu_overlay").classList.remove("d_none");
-    if (world && !world.isOver) {
-      toggleMenuAndPause();
-    }
+    if (world && !world.isOver) toggleMenuAndPause();
   } else {
     document.getElementById("menu_overlay").classList.add("d_none");
-    if (world && !world.isOver) {
-      toggleMenuAndResume();
-    }
+    if (world && !world.isOver) toggleMenuAndResume();
   }
 }
 

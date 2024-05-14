@@ -159,7 +159,7 @@ class EndBoss extends Enemy {
    * @return {boolean} Returns true if the enemy can attack, false otherwise.
    */
   canAttack() {
-    if (this.hadFirstContact && !this.isDead()) {
+    if (this.hadFirstContact && !this.isDead() && !this.isHurt()) {
       let now = new Date().getTime();
       if (now - this.lastAttack > 3000) if (!this.isAttackAnimationPlayed) return true;
     }

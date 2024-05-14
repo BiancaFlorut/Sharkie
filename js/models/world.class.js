@@ -57,14 +57,14 @@ class World {
     requestAnimationFrame(() => self.draw());
   }
 
-/**
- * Sets the first contact between the sharkie and the last enemy in the level.
- * If the sharkie's x position is greater than or equal to 1855, the last enemy's
- * `isSharkieComing` property is set to true. If the sharkie's x position is less
- * than 1855, the last enemy's `isSharkieComing` property is set to false.
- *
- * @return {void} This function does not return anything.
- */
+  /**
+   * Sets the first contact between the sharkie and the last enemy in the level.
+   * If the sharkie's x position is greater than or equal to 1855, the last enemy's
+   * `isSharkieComing` property is set to true. If the sharkie's x position is less
+   * than 1855, the last enemy's `isSharkieComing` property is set to false.
+   *
+   * @return {void} This function does not return anything.
+   */
   setFirstContact() {
     if (this.level.enemies.length > 0) {
       if (this.sharkie.x >= 1855) this.level.enemies[this.level.enemies.length - 1].isSharkieComing = true;
@@ -113,20 +113,16 @@ class World {
     if (movableObject.otherDirection) {
       movableObject.flipObjectBack(this.ctx);
     }
-    if (movableObject.lifeBar) {
-      if (movableObject.lifeBar.otherDirection) movableObject.lifeBar.flipObject(this.ctx);
-      if (movableObject.lifeBar.visibility) movableObject.lifeBar.draw(this.ctx);
-      if (movableObject.lifeBar.otherDirection) movableObject.lifeBar.flipObjectBack(this.ctx);
-    }
+    if (movableObject.lifeBar && movableObject.lifeBar.visibility) movableObject.lifeBar.draw(this.ctx);
   }
 
-/**
- * Runs the game loop, checking for collisions, creating throwable objects,
- * checking throwable object collisions, collecting coins, collecting bottles,
- * and collecting hearts.
- *
- * @return {void} This function does not return anything.
- */
+  /**
+   * Runs the game loop, checking for collisions, creating throwable objects,
+   * checking throwable object collisions, collecting coins, collecting bottles,
+   * and collecting hearts.
+   *
+   * @return {void} This function does not return anything.
+   */
   run() {
     setStoppableInterval(() => {
       if (!this.isPaused) {
@@ -261,8 +257,8 @@ class World {
   /**
    * Collects bottles that collide with the sharkie character.
    *
-   * This function iterates over each bottle in the level and checks if it collides with the sharkie character. 
-   * If a collision is detected, the bottle is collected, removed from the level, and the bubble number is increased by 4. 
+   * This function iterates over each bottle in the level and checks if it collides with the sharkie character.
+   * If a collision is detected, the bottle is collected, removed from the level, and the bubble number is increased by 4.
    * The bubble bar percentage is then updated accordingly.
    *
    * @return {void} This function does not return anything.
