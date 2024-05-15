@@ -3,50 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="./img/4. Marcadores/1. Coins/1.png" type="image/x-icon" />
-    <link rel="stylesheet" href="./styles.css" />
-    <link rel="stylesheet" href="animation.css" />
-    <script src="./js/models/drawable.class.js"></script>
-    <script src="./js/models/bars/bar.class.js"></script>
+    <link rel="shortcut icon" href="./assets/img/4. Marcadores/1. Coins/1.png" type="image/x-icon" />
+    <link rel="stylesheet" href="./assets/styles.css" />
+    <link rel="stylesheet" href="./assets/animation.css" />
+    <script src="./assets/js/models/drawable.class.js"></script>
+    <script src="./assets/js/models/bars/bar.class.js"></script>
 
-    <script src="./js/models/collectable/collectable.class.js"></script>
-    <script src="./js/models/collectable/coin.class.js"></script>
-    <script src="./js/models/collectable/poison.class.js"></script>
-    <script src="./js/models/collectable/heart.class.js"></script>
+    <script src="./assets/js/models/collectable/collectable.class.js"></script>
+    <script src="./assets/js/models/collectable/coin.class.js"></script>
+    <script src="./assets/js/models/collectable/poison.class.js"></script>
+    <script src="./assets/js/models/collectable/heart.class.js"></script>
 
-    <script src="./js/models/moveableObject.class.js"></script>
+    <script src="./assets/js/models/moveableObject.class.js"></script>
 
-    <script src="./js/models/character.class.js"></script>
-    <script src="./js/models/enemies/enemy.class.js"></script>
-    <script src="./js/models/enemies/jellyFish.class.js"></script>
-    <script src="./js/models/enemies/superJellyFish.class.js"></script>
+    <script src="./assets/js/models/character.class.js"></script>
+    <script src="./assets/js/models/enemies/enemy.class.js"></script>
+    <script src="./assets/js/models/enemies/jellyFish.class.js"></script>
+    <script src="./assets/js/models/enemies/superJellyFish.class.js"></script>
 
-    <script src="./js/models/enemies/lilaJellyFish.class.js"></script>
-    <script src="./js/models/enemies/yellowJellyFish.class.js"></script>
-    <script src="./js/models/enemies/pufferFish.class.js"></script>
+    <script src="./assets/js/models/enemies/lilaJellyFish.class.js"></script>
+    <script src="./assets/js/models/enemies/yellowJellyFish.class.js"></script>
+    <script src="./assets/js/models/enemies/pufferFish.class.js"></script>
 
-    <script src="./js/models/enemies/endboss.class.js"></script>
+    <script src="./assets/js/models/enemies/endboss.class.js"></script>
 
-    <script src="./js/models/throwable/throwable.class.js"></script>
-    <script src="./js/models/throwable/bubble.class.js"></script>
+    <script src="./assets/js/models/throwable/throwable.class.js"></script>
+    <script src="./assets/js/models/throwable/bubble.class.js"></script>
 
-    <script src="./js/models/background.class.js"></script>
-    <script src="./js/models/light.class.js"></script>
+    <script src="./assets/js/models/background.class.js"></script>
+    <script src="./assets/js/models/light.class.js"></script>
 
-    <script src="./js/models/level.class.js"></script>
-    <script src="./js/levels/level1.js"></script>
+    <script src="./assets/js/models/level.class.js"></script>
+    <script src="./assets/js/levels/level1.js"></script>
 
-    <script src="./js/models/world.class.js"></script>
-    <script src="./js/models/bars/lifeBar.class.js"></script>
-    <script src="./js/models/bars/poisonBar.class.js"></script>
-    <script src="./js/models/bars/smallLifeBar.class.js"></script>
-    <script src="./js/models/number.class.js"></script>
-    <script src="./js/models/bars/coinBar.class.js"></script>
+    <script src="./assets/js/models/world.class.js"></script>
+    <script src="./assets/js/models/bars/lifeBar.class.js"></script>
+    <script src="./assets/js/models/bars/poisonBar.class.js"></script>
+    <script src="./assets/js/models/bars/smallLifeBar.class.js"></script>
+    <script src="./assets/js/models/number.class.js"></script>
+    <script src="./assets/js/models/bars/coinBar.class.js"></script>
 
-    <script src="./js/models/keyboard.class.js"></script>
+    <script src="./assets/js/models/keyboard.class.js"></script>
 
-    <script src="./scores.js"></script>
-    <script src="./js/game.js"></script>
+    <script src="./assets/scores.js"></script>
+    <script src="./assets/js/game.js"></script>
     <title>Sharkie</title>
   </head>
   <body onload="init()">
@@ -58,9 +58,9 @@
     <section id="game" class="game_container d_none">
       <div class="mute">
         <div class="game_menu">
-          <img id="speakerIcon" src="./img/Icons/mute.png" alt="mute" onclick="toggleMute()" />
-          <img onclick="toggleMenu()" id="menu" src="./img/Icons/app.png" alt="" />
-          <img id="fullScreen" src="./img/Icons/maximize.png" onclick="toggleFullScreen()" alt="" />
+          <img id="speakerIcon" src="./assets/img/Icons/mute.png" alt="mute" onclick="toggleMute()" />
+          <img onclick="toggleMenu()" id="menu" src="./assets/img/Icons/app.png" alt="" />
+          <img id="fullScreen" src="./assets/img/Icons/maximize.png" onclick="toggleFullScreen()" alt="" />
         </div>
       </div>
       <canvas id="canvas" width="720" height="480"></canvas>
@@ -68,22 +68,22 @@
         <div class="game_menu operations jc_sb">
           <div>
             <div class="op_icons jc_c">
-              <button id="swimUpIcon"><img src="./img/Icons/back.png" alt="" /></button>
+              <button id="swimUpIcon"><img src="./assets/img/Icons/back.png" alt="" /></button>
             </div>
             <div class="op_icons jc_c">
-              <button id="swimLeftIcon"><img src="./img/Icons/back.png" alt="" /></button>
-              <button id="swimRightIcon"><img src="./img/Icons/back.png" alt="" /></button>
+              <button id="swimLeftIcon"><img src="./assets/img/Icons/back.png" alt="" /></button>
+              <button id="swimRightIcon"><img src="./assets/img/Icons/back.png" alt="" /></button>
             </div>
             <div class="op_icons jc_c">
-              <button id="swimDownIcon"><img src="./img/Icons/back.png" alt="" /></button>
+              <button id="swimDownIcon"><img src="./assets/img/Icons/back.png" alt="" /></button>
             </div>
           </div>
           <div class="attack_icons op_icons">
             <div class="key">
-              <img id="bubbleAttack" src="./img/1.Sharkie/4.Attack/Bubble trap/Bubble.png" alt="" />
+              <img id="bubbleAttack" src="./assets/img/1.Sharkie/4.Attack/Bubble trap/Bubble.png" alt="" />
             </div>
             <div class="key">
-              <img id="slapAttack" src="./img/1.Sharkie/4.Attack/Fin slap/slap.png" alt="" />
+              <img id="slapAttack" src="./assets/img/1.Sharkie/4.Attack/Fin slap/slap.png" alt="" />
             </div>
           </div>
         </div>
@@ -93,17 +93,17 @@
       <div id="start_game" class="background_start_game">
         <div class="start_game_container">
           <div class="menu">
-            <img onclick="toggleMenu()" id="menu" src="./img/Icons/app.png" alt="" />
+            <img onclick="toggleMenu()" id="menu" src="./assets/img/Icons/app.png" alt="" />
           </div>
           <div class="buttons">
-            <div class="start_button" onclick="startGame()"><img src="./img/6.Botones/Start/2.png" alt="" /></div>
+            <div class="start_button" onclick="startGame()"><img src="./assets/img/6.Botones/Start/2.png" alt="" /></div>
           </div>
         </div>
         <div id="menu_overlay" class="menu_overlay d_none">
           <div class="menu_container" id="menu_container">
             <div class="cancel" onclick="toggleMenu()">
               <div class="cancel_img">
-                <img src="./img/Icons/cancel.png" alt="" />
+                <img src="./assets/img/Icons/cancel.png" alt="" />
               </div>
             </div>
             <h1>Instructions</h1>
@@ -111,7 +111,7 @@
               <table>
                 <tr>
                   <td>
-                    <img class="arrows" src="./img/6.Botones/Key/arrow keys.png" alt="" />
+                    <img class="arrows" src="./assets/img/6.Botones/Key/arrow keys.png" alt="" />
                   </td>
                   <td>Move Sharkie</td>
                 </tr>
@@ -128,12 +128,12 @@
                   <td>Create dangerous bubbles</td>
                 </tr>
               </table>
-              <div class="start_button d_none" id="restart" onclick="startGame()" touchStart="startGame()"><img src="./img/6.Botones/Try again/Recurso 18.png" alt="try again" /></div>
+              <div class="start_button d_none" id="restart" onclick="startGame()" touchStart="startGame()"><img src="./assets/img/6.Botones/Try again/Recurso 18.png" alt="try again" /></div>
             </div>
             <div class="instruction_footer">
-              <div class="df_jc_fe"><a href="./html/credits.html">Credits</a></div>
-              <div class="df_jc_fe"><a href="./html/impressum.html">Impressum</a></div>
-              <div class="df_jc_fe"><a href="#">Highscore</a></div>
+              <div class="df_jc_fe"><a href="./assets/html/credits.html">Credits</a></div>
+              <div class="df_jc_fe"><a href="./assets/html/impressum.html">Impressum</a></div>
+              <div class="df_jc_fe"><a href="./assets/html/privacy_policy.html">Privacy Policy</a></div>
             </div>
           </div>
         </div>
@@ -142,7 +142,7 @@
             <div class="game_over won">
               <div class="cancel" onclick="backToStart()">
                 <div class="cancel_img">
-                  <img src="./img/Icons/cancel.png" alt="" />
+                  <img src="./assets/img/Icons/cancel.png" alt="" />
                 </div>
               </div>
               <div class="game_over_container jc_sb">
@@ -151,7 +151,7 @@
                     <tr>
                       <td>Rank:<span class="rank" id="rank"></span></td>
                       <td>
-                        <button onclick="saveScore()"><div id="save" class="key">Save Score</div></button>
+                        <button onclick="saveScore()"><input id="save" class="key" value="Save Score" type="text" readonly="true" /></button>
                         <button id="saveKey" onclick="setScore()" class="key d_none">Save</button>
                         <div id="saved" class="key d_none">Saved</div>
                       </td>
@@ -161,7 +161,7 @@
                     <tr>
                       <td>Points:</td>
                       <td><span id="points"></span></td>
-                      <td><img src="./img/4. Marcadores/1. Coins/3.png" alt="" /></td>
+                      <td><img src="./assets/img/4. Marcadores/1. Coins/3.png" alt="" /></td>
                       <td>X</td>
                       <td><span id="coins"></span></td>
                       <td>=</td>
@@ -170,10 +170,10 @@
                       <td><span id="totalPoints"></span></td>
                     </tr>
                   </table>
-                  <table class="statistics" id="statistics"></table>
+                  <div class="ranking" id="ranking"></div>
                 </div>
 
-                <div class="start_button" onclick="startGame()" touchStart="startGame()"><img src="./img/6.Botones/Try again/Recurso 17.png" alt="try again" /></div>
+                <div class="start_button" onclick="startGame()" touchStart="startGame()"><img src="./assets/img/6.Botones/Try again/Recurso 17.png" alt="try again" /></div>
               </div>
             </div>
           </div>
@@ -183,13 +183,13 @@
             <div class="game_over">
               <div class="cancel" onclick="backToStart()">
                 <div class="cancel_img">
-                  <img src="./img/Icons/cancel.png" alt="" />
+                  <img src="./assets/img/Icons/cancel.png" alt="" />
                 </div>
               </div>
 
               <div class="game_over_container">
-                <img class="game_over_img" src="./img/6.Botones/Tittles/Game Over/Recurso 12.png" alt="game over" />
-                <div class="start_button" onclick="startGame()"><img src="./img/6.Botones/Try again/Recurso 17.png" alt="try again" /></div>
+                <img class="game_over_img" src="./assets/img/6.Botones/Tittles/Game Over/Recurso 12.png" alt="game over" />
+                <div class="start_button" onclick="startGame()"><img src="./assets/img/6.Botones/Try again/Recurso 17.png" alt="try again" /></div>
               </div>
             </div>
           </div>
@@ -197,14 +197,15 @@
       </div>
       <div id="changeOrientation" class="dialog d_none">
         <h1>Please turn your device in landscape mode!</h1>
-        <img src="./img/Icons/turn_to_landscape.gif" alt="rotate" />
+        <img src="./assets/img/Icons/turn_to_landscape.gif" alt="rotate" />
       </div>
     </section>
 
     <footer>
       <div class="footer_container">
-        <a href="./html/credits.html">Credits</a>
-        <a href="./html/impressum.html">Impressum</a>
+        <a href="./assets/html/credits.html">Credits</a>
+        <a href="./assets/html/impressum.html">Impressum</a>
+        <a href="./assets/html/privacy_policy.html">Privacy Policy</a>
       </div>
     </footer>
   </body>

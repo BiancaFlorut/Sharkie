@@ -6,21 +6,21 @@ class PufferFish extends Enemy {
   offsetXLeft = 15;
   offsetXRight = 15;
   IMGS_IDLE = [
-    "../../img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png",
-    "../../img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim2.png",
-    "../../img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim3.png",
-    "../../img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim4.png",
-    "../../img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim5.png",
+    "./assets/img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png",
+    "./assets/img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim2.png",
+    "./assets/img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim3.png",
+    "./assets/img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim4.png",
+    "./assets/img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim5.png",
   ];
-  IMGS_DIE = ["../../img/2.Enemy/1.Puffer fish (3 color options)/4.DIE/1.Dead 1 (can animate by going up).png"];
-  IMGS_SLAP_DIE = ["../../img/2.Enemy/1.Puffer fish (3 color options)/4.DIE/1.Dead 3 (can animate by going down to the floor after the Fin Slap attack).png"];
+  IMGS_DIE = ["./assets/img/2.Enemy/1.Puffer fish (3 color options)/4.DIE/1.Dead 1 (can animate by going up).png"];
+  IMGS_SLAP_DIE = ["./assets/img/2.Enemy/1.Puffer fish (3 color options)/4.DIE/1.Dead 3 (can animate by going down to the floor after the Fin Slap attack).png"];
   speed = 0.35;
   distance;
   MAX_DISTANCE = 2200;
   slapped = false;
 
   constructor() {
-    super().loadImg("img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png");
+    super().loadImg("./assets/img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png");
     this.loadImgs(this.IMGS_IDLE);
     this.x = 400 + Math.random() * 1800;
     this.y = Math.random() * 400;

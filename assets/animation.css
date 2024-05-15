@@ -20,7 +20,29 @@
 }
 
 .rank {
-  color: #f15d28;
+  color: #f15e28e7;
+}
+
+.ranking {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.points {
+  color: #7fffe0;
+}
+
+input.key {
+  height: 30px;
 }
 
 @media (max-width: 700px) {

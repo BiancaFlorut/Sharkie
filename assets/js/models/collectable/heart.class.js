@@ -1,6 +1,6 @@
 class Heart extends Collectable {
-  IMGS = ["../../img/4. Marcadores/green/100_  copia 3.png", "../../img/4. Marcadores/green/100_  copia 3_2.png", "../../img/4. Marcadores/green/100_  copia 3_3.png"];
-  AUDIO = new Audio("../../audio/energy.mp3");
+  IMGS = ["./assets/img/4. Marcadores/green/100_  copia 3.png", "./assets/img/4. Marcadores/green/100_  copia 3_2.png", "./assets/img/4. Marcadores/green/100_  copia 3_3.png"];
+  AUDIO = new Audio("./assets/audio/energy.mp3");
     height = 40;	
     width = 40;
     audios = [this.AUDIO];

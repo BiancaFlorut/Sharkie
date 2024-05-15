@@ -1,9 +1,9 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
-const AUDIO = new Audio("./audio/game-music-loop.mp3");
-const COIN_AUDIO = new Audio("./audio/coin.mp3");
-const LOST_AUDIO = new Audio("./audio/lost.mp3");
+const AUDIO = new Audio("./assets/audio/game-music-loop.mp3");
+const COIN_AUDIO = new Audio("./assets/audio/coin.mp3");
+const LOST_AUDIO = new Audio("./assets/audio/lost.mp3");
 let intervalIds = [];
 let isMute = new Boolean(false);
 
@@ -302,7 +302,7 @@ function mute() {
   AUDIO.muted = true;
   LOST_AUDIO.muted = true;
   world.getAllAudios().forEach((audio) => (audio.muted = true));
-  document.getElementById("speakerIcon").src = "./img/Icons/speaker.png";
+  document.getElementById("speakerIcon").src = "./assets/img/Icons/speaker.png";
   world.mute();
 }
 
@@ -317,7 +317,7 @@ function unmute() {
   AUDIO.muted = false;
   LOST_AUDIO.muted = false;
   world.getAllAudios().forEach((audio) => (audio.muted = false));
-  document.getElementById("speakerIcon").src = "./img/Icons/mute.png";
+  document.getElementById("speakerIcon").src = "./assets/img/Icons/mute.png";
   world.unmute();
 }
 
@@ -405,10 +405,10 @@ function toggleFullScreen() {
   if (!document.fullscreenElement) {
     game.requestFullscreen();
     document.getElementById("canvas").style.width = "100%";
-    document.getElementById("fullScreen").src = "./img/Icons/minimize.png";
+    document.getElementById("fullScreen").src = "./assets/img/Icons/minimize.png";
   } else {
     document.getElementById("canvas").style.width = "auto";
     document.exitFullscreen();
-    document.getElementById("fullScreen").src = "./img/Icons/maximize.png";
+    document.getElementById("fullScreen").src = "./assets/img/Icons/maximize.png";
   }
 }

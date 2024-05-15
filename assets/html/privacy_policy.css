@@ -1,0 +1,12 @@
+html {
+  width: 100%;
+}
+body {
+  background-color: rgb(11, 94, 135);
+  color: white;
+  padding: 16px;
+  font-family: "Courier New", Courier, monospace;
+  background-image: none;
+  -webkit-text-stroke: 0;
+  height: auto;
+}
