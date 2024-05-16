@@ -403,12 +403,14 @@ function backToStart() {
 function toggleFullScreen() {
   let game = document.getElementById("game");
   if (!document.fullscreenElement) {
-    game.requestFullscreen();
+    
     document.getElementById("canvas").style.width = "100%";
+    document.getElementById("canvas").style.height = "100%";
     document.getElementById("fullScreen").src = "./assets/img/Icons/minimize.png";
+    game.requestFullscreen();
   } else {
     document.getElementById("canvas").style.width = "auto";
-    document.exitFullscreen();
     document.getElementById("fullScreen").src = "./assets/img/Icons/maximize.png";
+    document.exitFullscreen();
   }
 }
