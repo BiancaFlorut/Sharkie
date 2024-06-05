@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: levels/level1.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: levels/level1.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let LEVEL1;
+
+/**
+ * Initializes the Level 1 with enemies, backgrounds, bubbles, coins, bottles, and hearts.
+ *
+ * @return {void} 
+ */
+function initLevel1() {
+  LEVEL1 = new Level(
+    [
+      new PufferFish(), new PufferFish(), new PufferFish(),
+      new PufferFish(), new PufferFish(), new PufferFish(),
+      new LilaJellyFish(), new YellowJellyFish(), new LilaJellyFish() , 
+      new YellowJellyFish(), new LilaJellyFish(), new YellowJellyFish(),
+      new SuperJellyFish(), new SuperJellyFish(), new SuperJellyFish(),
+      new EndBoss()
+    ],
+    [
+      new Background("./assets/img/3. Background/Layers/5. Water/L2.png", -720, 0, 720, 480),
+      new Background("./assets/img/3. Background/Layers/4.Fondo 2/L2.png", -720, 0, 720, 480),
+      new Background("./assets/img/3. Background/Layers/3.Fondo 1/L2.png", -720, 0, 720, 480),
+      new Background("./assets/img/3. Background/Layers/2. Floor/L2.png", -720, 0, 720, 480),
+      new Light("./assets/img/3. Background/Layers/1. Light/2.png", -720, 0, 720, 480),
+  
+      new Background("./assets/img/3. Background/Layers/5. Water/L1.png", 0, 0, 720, 480),
+      new Background("./assets/img/3. Background/Layers/4.Fondo 2/L1.png", 0, 0, 720, 480),
+      new Background("./assets/img/3. Background/Layers/3.Fondo 1/L1.png", 0, 0, 720, 480),
+      new Background("./assets/img/3. Background/Layers/2. Floor/L1.png", 0, 0, 720, 480),
+      new Light("./assets/img/3. Background/Layers/1. Light/1.png", 0, 0, 720, 480),
+  
+      new Background("./assets/img/3. Background/Layers/5. Water/L2.png", 720, 0, 720, 480),
+      new Background("./assets/img/3. Background/Layers/4.Fondo 2/L2.png", 720, 0, 720, 480),
+      new Background("./assets/img/3. Background/Layers/3.Fondo 1/L2.png", 720, 0, 720, 480),
+      new Background("./assets/img/3. Background/Layers/2. Floor/L2.png", 720, 0, 720, 480),
+      new Light("./assets/img/3. Background/Layers/1. Light/2.png", 720, 0, 720, 480),
+  
+      new Background("./assets/img/3. Background/Layers/5. Water/L1.png", 2 * 720, 0, 720, 480),
+      new Background("./assets/img/3. Background/Layers/4.Fondo 2/L1.png", 2 * 720, 0, 720, 480),
+      new Background("./assets/img/3. Background/Layers/3.Fondo 1/L1.png", 2 * 720, 0, 720, 480),
+      new Background("./assets/img/3. Background/Layers/2. Floor/L1.png", 2 * 720, 0, 720, 480),
+      new Light("./assets/img/3. Background/Layers/1. Light/1.png", 2 * 720, 0, 720, 480),
+  
+      new Background("./assets/img/3. Background/Layers/5. Water/L2.png", 3 * 720, 0, 720, 480),
+      new Background("./assets/img/3. Background/Layers/4.Fondo 2/L2.png", 3 * 720, 0, 720, 480),
+      new Background("./assets/img/3. Background/Layers/3.Fondo 1/L2.png", 3 * 720, 0, 720, 480),
+      new Background("./assets/img/3. Background/Layers/2. Floor/L2.png", 3 * 720, 0, 720, 480),
+      new Light("./assets/img/3. Background/Layers/1. Light/2.png", 3 * 720, 0, 720, 480),
+    ],
+    [],
+    [ new Coin(470, 230), new Coin(760, 80),
+      new Coin(1060, 200), new Coin(1110, 180), new Coin(1160, 160),  new Coin(1210, 160), new Coin(1260, 180), new Coin(1310, 200),
+     new Coin(2210, 260), new Coin(2160, 40)],
+     [new Poison(105, 250), new Poison(527, 337), new Poison(560, 323), new Poison(1010, 360), new Poison(1323, 310), new Poison(1290, 290)],
+     [new Heart(890, 420), new Heart(1560, 420), new Heart(1940, 300), new Heart(2040, 130)]
+  );
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#backToStart">backToStart</a></li><li><a href="global.html#bindeTouchEvents">bindeTouchEvents</a></li><li><a href="global.html#changeToLandscape">changeToLandscape</a></li><li><a href="global.html#checkRightOrientation">checkRightOrientation</a></li><li><a href="global.html#fadeInCoins">fadeInCoins</a></li><li><a href="global.html#fadeOutCoins">fadeOutCoins</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initLevel1">initLevel1</a></li><li><a href="global.html#mute">mute</a></li><li><a href="global.html#pauseGame">pauseGame</a></li><li><a href="global.html#playCoinsAnimation">playCoinsAnimation</a></li><li><a href="global.html#resumeGame">resumeGame</a></li><li><a href="global.html#setStoppableInterval">setStoppableInterval</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#stopGame">stopGame</a></li><li><a href="global.html#toggleFullScreen">toggleFullScreen</a></li><li><a href="global.html#toggleMenu">toggleMenu</a></li><li><a href="global.html#toggleMenuAndPause">toggleMenuAndPause</a></li><li><a href="global.html#toggleMenuAndResume">toggleMenuAndResume</a></li><li><a href="global.html#toggleMute">toggleMute</a></li><li><a href="global.html#unmute">unmute</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu May 16 2024 14:48:14 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

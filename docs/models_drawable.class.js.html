@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: models/drawable.class.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: models/drawable.class.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>class Drawable {
+  x = 20;
+  y = 40;
+  offsetYTop = 0;
+  offsetYBottom = 0;
+  offsetXLeft = 0;
+  offsetXRight = 0;
+  height = 100;
+  width = 150;
+  img;
+  imgCache = {};
+  currentImg = 0;
+  audios = [];
+  isPlayed = false;
+  onlyOncePlayingCounter = 0;
+
+  /**
+   * Loads an image from the given source URL and assigns it to the `img` property of the current object.
+   *
+   * @param {string} src - The URL of the image to load.
+   * @return {void} This function does not return anything.
+   */
+  loadImg(src) {
+    this.img = new Image();
+    this.img.src = src;
+  }
+
+/**
+ * Sets the volume of all audio elements associated with the drawable.
+ *
+ * @param {number} volume - The volume level to set for the audio elements.
+ * @return {void} This function does not return anything.
+ */
+  setVolume(volume) {
+    this.audios.forEach((audio) => {
+      audio.volume = volume;
+    });
+  }
+
+/**
+ * Draws an image on the canvas using the provided context.
+ *
+ * @param {CanvasRenderingContext2D} ctx - The context used to draw on the canvas.
+ * @return {void} This function does not return anything.
+ */
+  draw(ctx) {
+    try {
+      if (this.img)
+      ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    else
+      console.log('The image is not existing?');
+    } catch(e) {
+      console.log('The image is not loaded: ', e);
+      console.log(typeof this, this.img);
+    }
+    
+  }
+
+  /**
+   * Loads multiple images from the given array of source URLs and stores them in the imgCache object.
+   *
+   * @param {Array} array - An array of source URLs of the images to load.
+   * @return {void} This function does not return anything.
+   */
+  loadImgs(array) {
+    array.forEach((src) => {
+      this.imgCache[src] = new Image();
+      this.imgCache[src].src = src;
+    });
+  }
+
+  /**
+   * Updates the current image to be displayed and sets it to the next image in the array of images.
+   *
+   * @param {Array} imgs - The array of images to animate through.
+   * @return {void} This function does not return anything.
+   */
+  playAnimation(imgs) {
+    this.currentImg = ++this.currentImg % imgs.length;
+    this.img = this.imgCache[imgs[this.currentImg]];
+  }
+
+  /**
+   * Sets the image to be displayed based on the provided index and array of images if the animation has not been played yet.
+   *
+   * @param {number} index - The index of the image to display.
+   * @param {Array} array - An array of image URLs.
+   * @return {void} This function does not return anything.
+   */
+  playAnimationOnlyOnce(index, array) {
+    if (!this.isPlayed &amp;&amp; index &lt; array.length - 1) {
+      this.img = this.imgCache[array[index]];
+    } else {
+      this.img = this.imgCache[array[index]];
+    }
+  }
+
+/**
+ * Draws the frame on the canvas if the object is of type Character, Enemy, Collectable, or Throwable.
+ *
+ * @param {CanvasRenderingContext2D} ctx - The 2D rendering context of the canvas.
+ * @return {void} This function does not return anything.
+ */
+drawFrame(ctx) {
+    if (this instanceof Character || this instanceof Enemy || this instanceof Collectable || this instanceof Throwable) {
+      ctx.beginPath();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "red";
+      ctx.rect(this.x + this.offsetXLeft, this.y + this.offsetYTop, this.width - this.offsetXRight - this.offsetXLeft, this.height - this.offsetYTop - this.offsetYBottom);
+      ctx.stroke();
+    }
+  }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#backToStart">backToStart</a></li><li><a href="global.html#bindeTouchEvents">bindeTouchEvents</a></li><li><a href="global.html#changeToLandscape">changeToLandscape</a></li><li><a href="global.html#checkRightOrientation">checkRightOrientation</a></li><li><a href="global.html#fadeInCoins">fadeInCoins</a></li><li><a href="global.html#fadeOutCoins">fadeOutCoins</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initLevel1">initLevel1</a></li><li><a href="global.html#mute">mute</a></li><li><a href="global.html#pauseGame">pauseGame</a></li><li><a href="global.html#playCoinsAnimation">playCoinsAnimation</a></li><li><a href="global.html#resumeGame">resumeGame</a></li><li><a href="global.html#setStoppableInterval">setStoppableInterval</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#stopGame">stopGame</a></li><li><a href="global.html#toggleFullScreen">toggleFullScreen</a></li><li><a href="global.html#toggleMenu">toggleMenu</a></li><li><a href="global.html#toggleMenuAndPause">toggleMenuAndPause</a></li><li><a href="global.html#toggleMenuAndResume">toggleMenuAndResume</a></li><li><a href="global.html#toggleMute">toggleMute</a></li><li><a href="global.html#unmute">unmute</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu May 16 2024 14:48:14 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
