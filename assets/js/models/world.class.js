@@ -13,7 +13,7 @@ class World {
   totalNumberOfCoins = this.level.coins.length;
   totalNumberOfPoisonBubbles = this.level.bottles.length * 4;
   isPaused = false;
-  BUBBLE_AUDIO = new Audio("./../../assets/audio/bubble_attack.mp3");
+  BUBBLE_AUDIO = new Audio("./assets/audio/bubble_attack.mp3");
 
   constructor(canvas, keyboard, isMuted) {
     this.keyboard = keyboard;
