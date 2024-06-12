@@ -90,11 +90,7 @@ class Character extends MovableObject {
     "./assets/img/1.Sharkie/2.Long_IDLE/I14.png",
   ];
 
-  IMGS_ELECTRIC_SHOCK = [
-    "./assets/img/1.Sharkie/5.Hurt/2.Electric shock/1.png", 
-    "./assets/img/1.Sharkie/5.Hurt/2.Electric shock/2.png", 
-    "./assets/img/1.Sharkie/5.Hurt/2.Electric shock/3.png"
-  ];
+  IMGS_ELECTRIC_SHOCK = ["./assets/img/1.Sharkie/5.Hurt/2.Electric shock/1.png", "./assets/img/1.Sharkie/5.Hurt/2.Electric shock/2.png", "./assets/img/1.Sharkie/5.Hurt/2.Electric shock/3.png"];
 
   SWIM_AUDIO = new Audio("./assets/audio/bubbles.mp3");
   SLAP_AUDIO = new Audio("./assets/audio/slap.mp3");
@@ -110,6 +106,7 @@ class Character extends MovableObject {
   isPlayed = false;
   indexImg = 0;
   lastElectricShock = 0;
+  playSound = false;
 
   constructor() {
     super().loadImg("./assets/img/1.Sharkie/1.IDLE/1.png");
@@ -119,11 +116,11 @@ class Character extends MovableObject {
     this.animate();
   }
 
-/**
- * Loads all the images required for the character's animations.
- *
- * @return {void} This function does not return anything.
- */
+  /**
+   * Loads all the images required for the character's animations.
+   *
+   * @return {void} This function does not return anything.
+   */
   loadAllImages() {
     this.loadImgs(this.IMGS_IDLE);
     this.loadImgs(this.IMGS_SWIM);
@@ -135,12 +132,12 @@ class Character extends MovableObject {
     this.loadImgs(this.IMGS_ELECTRIC_SHOCK);
   }
 
-/**
- * Sets the volume of all audio elements associated with the character.
- *
- * @param {number} volume - The volume level to set for the audio elements.
- * @return {void} This function does not return anything.
- */
+  /**
+   * Sets the volume of all audio elements associated with the character.
+   *
+   * @param {number} volume - The volume level to set for the audio elements.
+   * @return {void} This function does not return anything.
+   */
   setAudioVolume(volume) {
     this.audios.forEach((audio) => (audio.volume = volume));
   }
@@ -180,7 +177,7 @@ class Character extends MovableObject {
    * @return {void} This function does not return anything.
    */
   move() {
-    this.SWIM_AUDIO.pause();
+    if (this.playSound) this.SWIM_AUDIO.pause();
     if (this.canMoveRight()) this.moveRight();
     if (this.canMoveLeft()) this.moveLeft();
     if (this.canMoveUp()) this.moveUp();
@@ -199,11 +196,11 @@ class Character extends MovableObject {
     return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
   }
 
-/**
- * Resets the value of the offsetXRight property to 30.
- *
- * @return {void} This function does not return anything.
- */
+  /**
+   * Resets the value of the offsetXRight property to 30.
+   *
+   * @return {void} This function does not return anything.
+   */
   resetOffsetXRight() {
     this.offsetXRight = 30;
   }
@@ -215,10 +212,10 @@ class Character extends MovableObject {
    */
   makeSlapAttack() {
     this.SLAP_AUDIO.play();
-      this.offsetXRight = -15; 
-      setStoppableInterval(() => {
-        this.resetOffsetXRight();
-      }, 100);
+    this.offsetXRight = -15;
+    setStoppableInterval(() => {
+      this.resetOffsetXRight();
+    }, 100);
   }
 
   /**
@@ -230,7 +227,7 @@ class Character extends MovableObject {
   moveRight() {
     super.moveRight();
     this.otherDirection = false;
-    this.SWIM_AUDIO.play();
+    this.SWIM_AUDIO.play().then(() => (this.playSound = true));
   }
 
   canMoveLeft() {
@@ -246,7 +243,7 @@ class Character extends MovableObject {
   moveLeft() {
     super.moveLeft();
     this.otherDirection = true;
-    this.SWIM_AUDIO.play();
+    this.SWIM_AUDIO.play().then(() => (this.playSound = true));
   }
 
   canMoveUp() {
@@ -255,7 +252,7 @@ class Character extends MovableObject {
 
   moveUp() {
     this.y -= this.speed + 1;
-    this.SWIM_AUDIO.play();
+    this.SWIM_AUDIO.play().then(() => (this.playSound = true));
   }
 
   canMoveDown() {
@@ -264,7 +261,7 @@ class Character extends MovableObject {
 
   moveDown() {
     this.y += this.speed;
-    this.SWIM_AUDIO.play();
+    this.SWIM_AUDIO.play().then(() => (this.playSound = true));
   }
 
   /**
@@ -296,22 +293,22 @@ class Character extends MovableObject {
     }, 1500);
   }
 
-/**
- * Plays the electric shock animation for the character.
- *
- * @return {void} This function does not return anything.
- */
+  /**
+   * Plays the electric shock animation for the character.
+   *
+   * @return {void} This function does not return anything.
+   */
   playElectricShock() {
     this.playAnimation(this.IMGS_ELECTRIC_SHOCK);
     this.TASER_AUDIO.play();
     this.resetParameters();
   }
 
-/**
- * Checks if the character is currently electric shocked.
- *
- * @return {boolean} Returns true if the character is electric shocked, false otherwise.
- */
+  /**
+   * Checks if the character is currently electric shocked.
+   *
+   * @return {boolean} Returns true if the character is electric shocked, false otherwise.
+   */
   isElectricShocked() {
     let timePassed = new Date().getTime() - this.lastElectricShock;
     return timePassed < 1000;
@@ -329,22 +326,22 @@ class Character extends MovableObject {
     } else this.lastElectricShock = new Date().getTime();
   }
 
-/**
- * Plays the hurt animation for the character and resets the parameters.
- *
- * @param {type} this.IMGS_HURT_POISONED - the hurt animation images
- * @return {type} no return value
- */
+  /**
+   * Plays the hurt animation for the character and resets the parameters.
+   *
+   * @param {type} this.IMGS_HURT_POISONED - the hurt animation images
+   * @return {type} no return value
+   */
   playHurt() {
     this.playAnimation(this.IMGS_HURT_POISONED);
     this.resetParameters();
   }
 
-/**
- * Plays the slap animation for the character and resets its parameters.
- *
- * @return {void} This function does not return anything.
- */
+  /**
+   * Plays the slap animation for the character and resets its parameters.
+   *
+   * @return {void} This function does not return anything.
+   */
   playSlap() {
     this.playAnimation(this.IMGS_SLAP);
     this.resetParameters();
@@ -370,11 +367,11 @@ class Character extends MovableObject {
     return this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN;
   }
 
-/**
- * Plays the move animation for the character.
- *
- * @return {void} This function does not return anything.
- */
+  /**
+   * Plays the move animation for the character.
+   *
+   * @return {void} This function does not return anything.
+   */
   playMove() {
     this.playAnimation(this.IMGS_SWIM);
     if (this.world.keyboard.X) this.playAnimation(this.IMGS_BUBBLE_ATTACK);
